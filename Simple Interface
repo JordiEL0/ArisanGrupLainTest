@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arisan World Cup 2026 - Road to 50 Plats</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0f0f23;
+            color: #fff;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 60px;
+            height: auto;
+            mix-blend-mode: screen;
+        }
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .last-updated {
+            color: #666;
+            font-size: 0.75rem;
+            margin-top: 4px;
+            text-align: center;
+        }
+        .bracket-wrapper {
+            display: block;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 0;
+            width: 100%;
+        }
+        .bracket {
+            display: inline-flex;
+            align-items: stretch;
+            position: relative;
+            margin: 0 auto;
+        }
+        .round {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            padding: 0 5px;
+        }
+        .round-header {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e94560;
+        }
+        /* Round colors */
+        .round-group .round-header { color: #9b59b6; border-bottom-color: #9b59b6; }
+        .round-group .matchup { border-color: rgba(155, 89, 182, 0.4); }
+        .round-group .matchup:hover { border-color: #9b59b6; box-shadow: 0 4px 20px rgba(155, 89, 182, 0.2); }
+        .round-group .matchup-date { background: rgba(155, 89, 182, 0.1); }
+        .round-group .matchup.finished { border-color: rgba(46, 204, 113, 0.6); }
+        .round-group .matchup.finished .matchup-date { background: rgba(46, 204, 113, 0.15); color: #2ecc71; }
+        .team-score { margin-left: auto; font-weight: 700; font-size: 0.85rem; color: #fff; }
+        .team.winner .team-name { color: #2ecc71; font-weight: 600; }
+        .team.winner .team-score { color: #2ecc71; }
+
+        .round-r16 .round-header { color: #3498db; border-bottom-color: #3498db; }
+        .round-r16 .matchup { border-color: rgba(52, 152, 219, 0.4); }
+        .round-r16 .matchup:hover { border-color: #3498db; box-shadow: 0 4px 20px rgba(52, 152, 219, 0.2); }
+        .round-r16 .matchup-date { background: rgba(52, 152, 219, 0.1); }
+
+        .round-qf .round-header { color: #2ecc71; border-bottom-color: #2ecc71; }
+        .round-qf .matchup { border-color: rgba(46, 204, 113, 0.4); }
+        .round-qf .matchup:hover { border-color: #2ecc71; box-shadow: 0 4px 20px rgba(46, 204, 113, 0.2); }
+        .round-qf .matchup-date { background: rgba(46, 204, 113, 0.1); }
+
+        .round-sf .round-header { color: #f39c12; border-bottom-color: #f39c12; }
+        .round-sf .matchup { border-color: rgba(243, 156, 18, 0.4); }
+        .round-sf .matchup:hover { border-color: #f39c12; box-shadow: 0 4px 20px rgba(243, 156, 18, 0.2); }
+        .round-sf .matchup-date { background: rgba(243, 156, 18, 0.1); }
+
+        .round-final .round-header { color: #e74c3c; border-bottom-color: #e74c3c; }
+        .round-final .matchup { border-color: rgba(231, 76, 60, 0.4); }
+        .round-final .matchup:hover { border-color: #e74c3c; box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3); }
+        .round-final .matchup-date { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+        .round-matches {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            gap: 8px;
+        }
+        .matchup {
+            background: #1a1a3e;
+            border-radius: 8px;
+            border: 1px solid #2a2a5a;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .matchup:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.2);
+            border-color: #e94560;
+        }
+        .matchup-date {
+            background: #12122a;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            color: #aaa;
+            text-align: center;
+            border-bottom: 1px solid #2a2a5a;
+        }
+        .team {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            border-bottom: 1px solid #1f1f45;
+        }
+        .team:last-child {
+            border-bottom: none;
+        }
+        .team-flag {
+            margin-right: 8px;
+            width: 20px;
+            height: 15px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .team-flag img {
+            width: 20px;
+            height: 15px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .team-name {
+            font-size: 0.78rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .tbd .team-name {
+            color: #666;
+            font-style: italic;
+        }
+        .timezone-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 30px;
+        }
+        /* Standings Section */
+        .standings-section {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+        .standings-title {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+        .standings-chart {
+            margin-bottom: 40px;
+            margin-left: 0;
+            margin-right: auto;
+        }
+        .chart-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .chart-label {
+            width: 80px;
+            min-width: 80px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: left;
+            padding-right: 12px;
+            color: #ddd;
+        }
+        .chart-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #444;
+            flex-shrink: 0;
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .chart-bar-wrapper {
+            flex: 1;
+            background: #1a1a3e;
+            border-radius: 6px;
+            overflow: visible;
+            height: 32px;
+            border: 1px solid #2a2a5a;
+            position: relative;
+        }
+        .chart-bar {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 16px;
+            min-width: 40px;
+            transition: width 1s ease;
+            position: relative;
+        }
+        .chart-value {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .standings-table-wrapper {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .standings-table thead tr {
+            background: #1a1a3e;
+        }
+        .standings-table th {
+            padding: 10px 8px;
+            text-align: center;
+            color: #e94560;
+            font-weight: 600;
+            border-bottom: 2px solid #e94560;
+        }
+        .standings-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #2a2a5a;
+            color: #ccc;
+        }
+        .standings-table tbody tr:hover {
+            background: #1a1a3e;
+        }
+        .standings-table td strong {
+            color: #fff;
+        }
+        .participant-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #444;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        .standings-table td:nth-child(2) {
+            white-space: nowrap;
+            min-width: 110px;
+            text-align: left;
+        }
+        .table-section-title {
+            font-size: 1rem;
+            color: #fff;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2a2a5a;
+        }
+        .standings-table .pot1 { background: rgba(52, 152, 219, 0.25); color: #7ec8f0; }
+        .standings-table .pot2 { background: rgba(46, 204, 113, 0.25); color: #7ee8b0; }
+        .standings-table .pot3 { background: rgba(241, 196, 15, 0.25); color: #f5e06b; }
+        .standings-table .pot4 { background: rgba(231, 76, 60, 0.25); color: #f0a8a0; }
+        .standings-table th.pot1 { color: #3498db; }
+        .standings-table th.pot2 { color: #2ecc71; }
+        .standings-table th.pot3 { color: #f1c40f; }
+        .standings-table th.pot4 { color: #e74c3c; }
+        /* Qualified / Eliminated markers */
+        .standings-table td.qualified {
+            position: relative;
+            color: #2ecc71 !important;
+            font-weight: 600;
+        }
+        .standings-table td.qualified::after {
+            content: ' ✓';
+            color: #2ecc71;
+            font-weight: 700;
+        }
+        .standings-table td.eliminated {
+            position: relative;
+            color: #e74c3c !important;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        .standings-table td.eliminated::after {
+            content: ' ✗';
+            color: #e74c3c;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* Supporters Toggle */
+        .supporters-toggle {
+            display: block;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: #888;
+            font-size: 0.6rem;
+            padding: 3px 0;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+            border-top: 1px solid #2a2a5a;
+        }
+        .supporters-toggle:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .supporters-panel {
+            display: none;
+            padding: 6px 8px;
+            background: #12122a;
+            border-top: 1px solid #2a2a5a;
+        }
+        .supporters-panel.show {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .supporter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        .supporter-avatar {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #444;
+            background: #2a2a5a;
+        }
+        .supporter-name {
+            font-size: 0.55rem;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Podium Section */
+        .podium-section {
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        .podium-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .podium-place {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            max-width: 280px;
+        }
+        .podium-teams {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 8px;
+            width: 100%;
+        }
+        .podium-team-card {
+            background: #1a1a3e;
+            border-radius: 8px;
+            border: 1px solid #2a2a5a;
+            overflow: hidden;
+            min-width: 100px;
+            flex: 1;
+            max-width: 140px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .podium-team-card:hover {
+            transform: scale(1.03);
+        }
+        .podium-place-1 .podium-team-card { border-color: rgba(255, 215, 0, 0.4); }
+        .podium-place-1 .podium-team-card:hover { border-color: #ffd700; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
+        .podium-place-2 .podium-team-card { border-color: rgba(192, 192, 192, 0.4); }
+        .podium-place-2 .podium-team-card:hover { border-color: #c0c0c0; box-shadow: 0 4px 15px rgba(192, 192, 192, 0.2); }
+        .podium-place-3 .podium-team-card { border-color: rgba(205, 127, 50, 0.4); }
+        .podium-place-3 .podium-team-card:hover { border-color: #cd7f32; box-shadow: 0 4px 15px rgba(205, 127, 50, 0.2); }
+        .podium-team-info {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            gap: 8px;
+        }
+        .podium-team-info img {
+            width: 24px;
+            height: 18px;
+            object-fit: cover;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .podium-team-info span {
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .podium-supporters-toggle {
+            display: block;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: #888;
+            font-size: 0.6rem;
+            padding: 3px 0;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+            border-top: 1px solid #2a2a5a;
+        }
+        .podium-supporters-toggle:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .podium-supporters-panel {
+            display: none;
+            padding: 6px 8px;
+            background: #12122a;
+            border-top: 1px solid #2a2a5a;
+        }
+        .podium-supporters-panel.show {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .podium-block {
+            border-radius: 8px 8px 0 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        .podium-place-1 .podium-block {
+            background: linear-gradient(180deg, #ffd700 0%, #b8860b 100%);
+            height: 100px;
+            color: #1a1a3e;
+            font-size: 1rem;
+        }
+        .podium-place-2 .podium-block {
+            background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+            height: 70px;
+            color: #1a1a3e;
+        }
+        .podium-place-3 .podium-block {
+            background: linear-gradient(180deg, #cd7f32 0%, #8b4513 100%);
+            height: 50px;
+            color: #1a1a3e;
+        }
+        .podium-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            color: #888;
+            font-weight: 600;
+        }
+        .podium-place-1 .podium-label { color: #ffd700; }
+        .podium-place-2 .podium-label { color: #c0c0c0; }
+        .podium-place-3 .podium-label { color: #cd7f32; }
+
+        /* Player Podium (Golden Boot / Golden Glove) */
+        .player-podium-place {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 130px;
+            max-width: 220px;
+        }
+        .player-podium-card {
+            background: #1a1a3e;
+            border-radius: 8px;
+            border: 1px solid #2a2a5a;
+            overflow: hidden;
+            width: 100%;
+            min-height: 44px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .player-podium-card:hover {
+            transform: scale(1.03);
+            border-color: #555;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+        }
+        .player-podium-info {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            gap: 8px;
+        }
+        .player-podium-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .player-podium-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .player-podium-count {
+            margin-left: auto;
+            font-size: 0.65rem;
+            color: #888;
+            white-space: nowrap;
+        }
+        .player-podium-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #444;
+            flex-shrink: 0;
+        }
+
+        /* Total Goal Vertical Progress */
+        .total-goal-bar-container {
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .total-goal-vertical {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .total-goal-track-v {
+            width: 6px;
+            background: #2a2a5a;
+            border-radius: 3px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .total-goal-fill-v {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(180deg, #e94560 0%, #f39c12 100%);
+            border-radius: 3px;
+            transition: height 1s ease;
+        }
+        .total-goal-start-label,
+        .total-goal-end-label {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            color: #666;
+            font-weight: 600;
+        }
+        .total-goal-start-label {
+            top: -20px;
+        }
+        .total-goal-end-label {
+            bottom: -20px;
+        }
+        .total-goal-current-indicator {
+            position: absolute;
+            right: -8px;
+            left: auto;
+            width: 22px;
+            height: 22px;
+            background: #e94560;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(233, 69, 96, 0.6);
+            z-index: 3;
+        }
+        .total-goal-current-line {
+            position: absolute;
+            left: 14px;
+            width: 25px;
+            height: 2px;
+            background: #e94560;
+        }
+        .total-goal-current-label-v {
+            position: absolute;
+            left: 42px;
+            font-size: 0.6rem;
+            color: #e94560;
+            font-weight: 600;
+            white-space: nowrap;
+            transform: translateY(-50%);
+            top: 50%;
+        }
+        .total-goal-marker-v {
+            position: absolute;
+            right: 10px;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 6px;
+            transform: translateY(-50%);
+        }
+        .total-goal-marker-line-v {
+            width: 20px;
+            height: 2px;
+            background: #555;
+        }
+        .total-goal-marker-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #1a1a3e;
+            border: 1px solid #2a2a5a;
+            border-radius: 6px;
+            padding: 5px 10px;
+        }
+        .total-goal-marker-avatar-v {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #444;
+            background: #2a2a5a;
+        }
+        .total-goal-marker-name-v {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .total-goal-marker-value-v {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #f39c12;
+            margin-left: auto;
+        }
+
+        /* Golden Boot Chart */
+        .goldenboot-row {
+            margin-bottom: 12px;
+        }
+        .goldenboot-bar-area {
+            display: flex;
+            align-items: flex-start;
+        }
+        .goldenboot-card {
+            width: 160px;
+            min-width: 160px;
+            background: #1a1a3e;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            overflow: hidden;
+            margin-right: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .goldenboot-card:hover {
+            transform: scale(1.03);
+            border-color: #ffd700;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+        }
+        .goldenboot-card-info {
+            display: flex;
+            align-items: center;
+            padding: 6px 8px;
+            gap: 8px;
+        }
+        .goldenboot-card-info span {
+            font-size: 10.4px;
+            font-weight: 600;
+            color: #ddd;
+            white-space: nowrap;
+        }
+        .goldenboot-supporters-btn {
+            display: block;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            color: #888;
+            font-size: 0.6rem;
+            padding: 3px 0;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.2s, color 0.2s;
+            border-top: 1px solid #2a2a5a;
+        }
+        .goldenboot-supporters-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        .goldenboot-supporters-panel {
+            display: none;
+            padding: 6px 8px;
+            background: #12122a;
+            border-top: 1px solid #2a2a5a;
+        }
+        .goldenboot-supporters-panel.show {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .goldenboot-bar-wrapper {
+            flex: 1;
+            background: #1a1a3e;
+            border-radius: 6px;
+            overflow: visible;
+            height: 36px;
+            border: 1px solid #2a2a5a;
+            position: relative;
+            margin-top: 4px;
+        }
+        .goldenboot-bar {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 16px;
+            min-width: 40px;
+            transition: width 1s ease;
+            background: linear-gradient(90deg, #ffd700, #f39c12);
+            position: relative;
+        }
+        .goldenboot-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ffd700;
+            flex-shrink: 0;
+            position: absolute;
+            right: -18px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .goldenboot-value {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1a1a3e;
+        }
+
+        /* Total Goal Glowing Effect */
+        .total-goal-marker-info.glowing {
+            animation: glowPulse 2s ease-in-out infinite;
+            border-color: #e94560 !important;
+            box-shadow: 0 0 12px rgba(233, 69, 96, 0.6), 0 0 24px rgba(233, 69, 96, 0.3);
+        }
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 8px rgba(233, 69, 96, 0.4), 0 0 16px rgba(233, 69, 96, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 16px rgba(233, 69, 96, 0.8), 0 0 32px rgba(233, 69, 96, 0.4), 0 0 48px rgba(233, 69, 96, 0.2);
+            }
+        }
+
+        /* Responsive - Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px;
+            }
+            .header {
+                flex-direction: row;
+                gap: 10px;
+            }
+            .logo {
+                width: 40px;
+            }
+            h1 {
+                font-size: 1.1rem;
+                text-align: center;
+                white-space: nowrap;
+            }
+            .subtitle, .last-updated {
+                text-align: center;
+            }
+            .bracket-wrapper {
+                padding: 10px 0;
+            }
+            .round {
+                min-width: 160px;
+                padding: 0 3px;
+            }
+            .round-header {
+                font-size: 0.6rem;
+            }
+            .matchup-date {
+                font-size: 0.6rem;
+                padding: 3px 6px;
+            }
+            .team {
+                padding: 5px 6px;
+            }
+            .team-flag {
+                margin-right: 5px;
+                width: 16px;
+                height: 12px;
+            }
+            .team-flag img {
+                width: 16px;
+                height: 12px;
+            }
+            .team-name {
+                font-size: 0.7rem;
+            }
+            .standings-section {
+                margin-top: 40px;
+            }
+            .standings-title, .table-section-title {
+                font-size: 0.9rem;
+            }
+            .chart-label {
+                width: 70px;
+                min-width: 70px;
+                font-size: 0.75rem;
+                padding-right: 8px;
+            }
+            .chart-bar-wrapper {
+                height: 26px;
+            }
+            .chart-value {
+                font-size: 0.7rem;
+            }
+            .standings-table-wrapper {
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+            }
+            .standings-table {
+                font-size: 0.65rem;
+                min-width: 600px;
+            }
+            .standings-table th,
+            .standings-table td {
+                padding: 6px 4px;
+            }
+            .podium-container {
+                gap: 8px;
+                padding: 0 5px;
+            }
+            .podium-team-card {
+                min-width: 70px;
+                max-width: 110px;
+            }
+            .podium-team-info {
+                padding: 6px 8px;
+                gap: 5px;
+            }
+            .podium-team-info img {
+                width: 18px;
+                height: 13px;
+            }
+            .podium-team-info span {
+                font-size: 0.65rem;
+            }
+            .player-podium-place {
+                max-width: 150px;
+            }
+            .player-podium-info {
+                padding: 7px 8px;
+                gap: 5px;
+            }
+            .player-podium-icon {
+                font-size: 1rem;
+            }
+            .player-podium-name {
+                font-size: 0.65rem;
+            }
+            .player-podium-count {
+                font-size: 0.55rem;
+            }
+            .player-podium-img {
+                width: 26px;
+                height: 26px;
+            }
+            .total-goal-track-v {
+                margin-left: 180px;
+            }
+            .total-goal-marker-info {
+                padding: 4px 8px;
+                gap: 5px;
+            }
+            .total-goal-marker-avatar-v {
+                width: 20px;
+                height: 20px;
+            }
+            .total-goal-marker-name-v {
+                font-size: 0.6rem;
+            }
+            .total-goal-marker-value-v {
+                font-size: 0.6rem;
+            }
+            .goldenboot-card {
+                width: 140px;
+                min-width: 140px;
+                margin-right: 8px;
+            }
+            .goldenboot-card-info span {
+                font-size: 0.7rem;
+            }
+            .goldenboot-avatar {
+                width: 30px;
+                height: 30px;
+                right: -15px;
+            }
+            .goldenboot-bar-wrapper {
+                height: 30px;
+            }
+            .goldenboot-value {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .round {
+                min-width: 140px;
+            }
+            .podium-container {
+                gap: 6px;
+                padding: 0 5px;
+            }
+            .podium-place {
+                max-width: 160px;
+            }
+            .podium-team-card {
+                min-width: 60px;
+                max-width: 100px;
+            }
+            .podium-team-info {
+                padding: 5px 6px;
+                gap: 4px;
+            }
+            .podium-team-info img {
+                width: 16px;
+                height: 12px;
+            }
+            .podium-team-info span {
+                font-size: 0.6rem;
+            }
+            .podium-label {
+                font-size: 0.55rem;
+            }
+            .podium-block {
+                font-size: 0.7rem;
+            }
+            .podium-place-1 .podium-block { height: 80px; }
+            .podium-place-2 .podium-block { height: 55px; }
+            .podium-place-3 .podium-block { height: 40px; }
+            .player-podium-place {
+                max-width: 120px;
+            }
+            .player-podium-info {
+                padding: 6px;
+                gap: 4px;
+                flex-wrap: wrap;
+            }
+            .player-podium-icon {
+                font-size: 0.9rem;
+            }
+            .player-podium-name {
+                font-size: 0.58rem;
+            }
+            .player-podium-count {
+                font-size: 0.5rem;
+            }
+            .player-podium-img {
+                width: 22px;
+                height: 22px;
+            }
+            .total-goal-track-v {
+                margin-left: 180px;
+            }
+            .total-goal-marker-line-v {
+                width: 12px;
+            }
+            .total-goal-marker-info {
+                padding: 3px 6px;
+                gap: 4px;
+            }
+            .total-goal-marker-avatar-v {
+                width: 18px;
+                height: 18px;
+            }
+            .total-goal-marker-name-v {
+                font-size: 0.55rem;
+            }
+            .total-goal-marker-value-v {
+                font-size: 0.55rem;
+            }
+            .total-goal-current-indicator {
+                width: 18px;
+                height: 18px;
+                font-size: 0.4rem;
+                right: -6px;
+                left: auto;
+            }
+            .goldenboot-card {
+                width: 120px;
+                min-width: 120px;
+                margin-right: 8px;
+            }
+            .goldenboot-card-info span {
+                font-size: 0.6rem;
+            }
+            .goldenboot-avatar {
+                width: 28px;
+                height: 28px;
+                right: -14px;
+            }
+            .goldenboot-bar-wrapper {
+                height: 28px;
+            }
+            .goldenboot-value {
+                font-size: 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
+        <div>
+            <h1>Arisan World Cup 2026 - Road to 50 Plats</h1>
+            <p class="last-updated">Last updated: 29 Juni 2026, 13:00</p>
+        </div>
+        <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
+    </div>
+
+    <div class="bracket-wrapper">
+        <div class="bracket">
+            <!-- Babak Penyisihan Grup -->
+            <div class="round round-group">
+                <div class="round-header">Babak Penyisihan Grup</div>
+                <div class="round-matches">
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Sen, 6/29, 00:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/za.png" alt="ZAF"></span><span class="team-name">Afrika Selatan</span><span class="team-score">0</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/ca.png" alt="CAN"></span><span class="team-name">Kanada</span><span class="team-score">1</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sel, 6/30, 00:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/br.png" alt="BRA"></span><span class="team-name">Brasil</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/jp.png" alt="JPN"></span><span class="team-name">Jepang</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sel, 6/30, 03:30 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/de.png" alt="GER"></span><span class="team-name">Jerman</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/py.png" alt="PAR"></span><span class="team-name">Paraguay</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sel, 6/30, 08:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/nl.png" alt="NED"></span><span class="team-name">Belanda</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ma.png" alt="MAR"></span><span class="team-name">Maroko</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Rab, 1/7, 00:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ci.png" alt="CIV"></span><span class="team-name">Pantai Gading</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Rab, 1/7, 04:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/se.png" alt="SWE"></span><span class="team-name">Swedia</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Rab, 1/7, 08:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ec.png" alt="ECU"></span><span class="team-name">Ekuador</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Rab, 1/7, 23:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/cd.png" alt="COD"></span><span class="team-name">RD Kongo</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Kam, 2/7, 03:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/be.png" alt="BEL"></span><span class="team-name">Belgia</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/sn.png" alt="SEN"></span><span class="team-name">Senegal</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Kam, 2/7, 07:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/us.png" alt="USA"></span><span class="team-name">Amerika Serikat</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ba.png" alt="BIH"></span><span class="team-name">Bosnia & Herzegovina</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Jum, 3/7, 02:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/at.png" alt="AUT"></span><span class="team-name">Austria</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Jum, 3/7, 06:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/pt.png" alt="POR"></span><span class="team-name">Portugal</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/hr.png" alt="CRO"></span><span class="team-name">Kroasia</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Jum, 3/7, 10:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ch.png" alt="SUI"></span><span class="team-name">Swiss</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/dz.png" alt="ALG"></span><span class="team-name">Aljazair</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sab, 4/7, 01:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/au.png" alt="AUS"></span><span class="team-name">Australia</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/eg.png" alt="EGY"></span><span class="team-name">Mesir</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sab, 4/7, 05:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/cv.png" alt="CPV"></span><span class="team-name">Tanjung Verde</span></div>
+                    </div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sab, 4/7, 08:30 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/co.png" alt="COL"></span><span class="team-name">Kolombia</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gh.png" alt="GHA"></span><span class="team-name">Ghana</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 16 Besar -->
+            <div class="round round-r16">
+                <div class="round-header">16 Besar</div>
+                <div class="round-matches">
+                    <div class="matchup">
+                        <div class="matchup-date">Min, 5/7, 00.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ca.png" alt="CAN"></span><span class="team-name">Kanada</span></div>
+                        <div class="team tbd"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 5/7, 04.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sel, 7/7, 07.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sel, 7/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sen, 6/7, 03.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sen, 6/7, 07.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Rab, 8/7, 03.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sel, 7/7, 23.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Perempat Final -->
+            <div class="round round-qf">
+                <div class="round-header">Perempat Final</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Jum, 10/7, 03.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Sab, 11/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 12/7, 04.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">Min, 12/7, 08.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Semifinal -->
+            <div class="round round-sf">
+                <div class="round-header">Semifinal</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">15/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                    <div class="matchup tbd">
+                        <div class="matchup-date">16/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final -->
+            <div class="round round-final">
+                <div class="round-header">🏆 Final</div>
+                <div class="round-matches">
+                    <div class="matchup tbd">
+                        <div class="matchup-date">20/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trophy -->
+            <div class="round" style="min-width: 80px; padding: 0; margin-left: -5px; display: flex; justify-content: center; align-items: center;">
+                <img src="https://png.pngtree.com/png-vector/20250923/ourmid/pngtree-the-fifa-world-cup-trophy-png-image_17551611.webp" alt="Trophy" style="width: 80px; height: auto; align-self: center; margin-left: -40px; margin-top: 50px;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function drawBracketLines() {
+            const bracket = document.querySelector('.bracket');
+            // Select rounds that pair into next round (exclude trophy)
+            const rounds = bracket.querySelectorAll('.round-group, .round-r16, .round-qf, .round-sf, .round-final');
+
+            const existingSvg = bracket.querySelector('.bracket-lines');
+            if (existingSvg) existingSvg.remove();
+
+            bracket.style.position = 'relative';
+
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.classList.add('bracket-lines');
+            svg.style.position = 'absolute';
+            svg.style.top = '0';
+            svg.style.left = '0';
+            svg.style.width = bracket.scrollWidth + 'px';
+            svg.style.height = bracket.scrollHeight + 'px';
+            svg.style.pointerEvents = 'none';
+            svg.style.overflow = 'visible';
+            svg.setAttribute('width', bracket.scrollWidth);
+            svg.setAttribute('height', bracket.scrollHeight);
+
+            const bracketRect = bracket.getBoundingClientRect();
+
+            for (let i = 0; i < rounds.length - 1; i++) {
+                const currentMatches = rounds[i].querySelectorAll('.matchup');
+                const nextMatches = rounds[i + 1].querySelectorAll('.matchup');
+
+                for (let j = 0; j < nextMatches.length; j++) {
+                    const match1Index = j * 2;
+                    const match2Index = j * 2 + 1;
+
+                    if (currentMatches[match1Index] && currentMatches[match2Index] && nextMatches[j]) {
+                        const m1Rect = currentMatches[match1Index].getBoundingClientRect();
+                        const m2Rect = currentMatches[match2Index].getBoundingClientRect();
+                        const targetRect = nextMatches[j].getBoundingClientRect();
+
+                        const x1 = m1Rect.right - bracketRect.left;
+                        const y1 = m1Rect.top + m1Rect.height / 2 - bracketRect.top;
+                        const x2 = m2Rect.right - bracketRect.left;
+                        const y2 = m2Rect.top + m2Rect.height / 2 - bracketRect.top;
+                        const x3 = targetRect.left - bracketRect.left;
+                        const y3 = targetRect.top + targetRect.height / 2 - bracketRect.top;
+
+                        const midX = (x1 + x3) / 2;
+
+                        // Horizontal from match1, then vertical to midpoint Y, then horizontal to target
+                        const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path1.setAttribute('d', `M${x1},${y1} H${midX} V${y3} H${x3}`);
+                        path1.setAttribute('stroke', '#444');
+                        path1.setAttribute('stroke-width', '1.5');
+                        path1.setAttribute('fill', 'none');
+                        svg.appendChild(path1);
+
+                        // Horizontal from match2 to midpoint X, then vertical to midpoint Y
+                        const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path2.setAttribute('d', `M${x2},${y2} H${midX} V${y3}`);
+                        path2.setAttribute('stroke', '#444');
+                        path2.setAttribute('stroke-width', '1.5');
+                        path2.setAttribute('fill', 'none');
+                        svg.appendChild(path2);
+                    }
+                }
+            }
+
+            bracket.appendChild(svg);
+        }
+
+        window.addEventListener('load', () => setTimeout(drawBracketLines, 100));
+        window.addEventListener('resize', drawBracketLines);
+    </script>
+
+    <script>
+        // Main Quest supporter data: team name -> array of supporters
+        const teamSupporters = {
+            'Argentina': ['Ekont', 'Gaylang', 'Jopai', 'Khuang', 'KingJul', 'Tafuck'],
+            'Inggris': ['Ekont'],
+            'England': ['Ekont'],
+            'Perancis': ['Gaylang', 'Jopai'],
+            'Prancis': ['Gaylang', 'Jopai'],
+            'Spanyol': ['Khuang', 'KingJul'],
+            'Portugal': ['Tafuck'],
+            'Belgium': ['Ekont', 'Jopai', 'Khuang', 'KingJul'],
+            'Belgia': ['Ekont', 'Jopai', 'Khuang', 'KingJul'],
+            'Swiss': ['Ekont', 'Tafuck'],
+            'Kolombia': ['Gaylang', 'Jopai', 'Khuang', 'KingJul'],
+            'Jepang': ['Gaylang'],
+            'Meksiko': ['Tafuck'],
+            'Norwegia': ['Ekont', 'Gaylang', 'Jopai', 'Khuang', 'KingJul', 'Tafuck'],
+            'Mesir': ['Ekont', 'Jopai'],
+            'Swedia': ['Gaylang'],
+            'Kanada': ['Khuang', 'KingJul', 'Tafuck'],
+            'Afrika Selatan': ['Ekont', 'Jopai', 'Tafuck'],
+            'Ghana': ['Ekont', 'Gaylang'],
+            'Tanjung Verde': ['Gaylang'],
+            'Algeria': ['Jopai', 'Khuang', 'KingJul'],
+            'Aljazair': ['Jopai', 'Khuang', 'KingJul'],
+            'Bosnia-Herz': ['Khuang'],
+            'Bosnia & Herzegovina': ['Khuang'],
+            'Paraguay': ['KingJul'],
+            'Austria': ['Tafuck'],
+        };
+
+        const defaultAvatar = 'https://img.icons8.com/ios-filled/50/6b7280/shield.png';
+
+        // ============================================================
+        // MATCH RESULTS - Update this as matches happen
+        // ============================================================
+        // Format per match:
+        //   team1, team2  : team names (must match teamSupporters keys)
+        //   score90       : [t1, t2] score at end of 90min + injury time
+        //                   → determines win/draw/lose for POINT calculation
+        //   scoreET       : [t1, t2] total score at end of extra time (90+IT+ET)
+        //                   → null if match ended in 90+IT (no extra time)
+        //                   → counted toward TOTAL GOAL (penalty shootout EXCLUDED)
+        //   penaltyWinner : team name if decided by penalty shootout, else null
+        //                   → determines elimination only; does NOT affect points/goals
+        //   played        : true once match is finished
+        //
+        // Scoring rules:
+        //   Win in 90+IT  → supporters of winning team get +3
+        //   Draw in 90+IT → supporters of BOTH teams get +1 (even if ET/penalty later)
+        //   Lose in 90+IT → 0
+        // ============================================================
+        const matchResults = [
+            { team1: 'Afrika Selatan', team2: 'Kanada', score90: [0, 1], scoreET: null, penaltyWinner: null, played: true },
+            // --- Tambah hasil pertandingan berikutnya di bawah ini ---
+            // { team1: 'Brasil',  team2: 'Jepang',   score90: [0, 0], scoreET: null, penaltyWinner: null, played: false },
+            // { team1: 'Jerman',  team2: 'Paraguay', score90: [0, 0], scoreET: null, penaltyWinner: null, played: false },
+        ];
+
+        // Resolve team-name aliases used in teamSupporters
+        function getSupportersOf(teamName) {
+            return teamSupporters[teamName] || [];
+        }
+
+        function calculatePoints() {
+            const points = {};
+            Object.keys(participantAvatars).forEach(p => points[p] = 0);
+
+            matchResults.forEach(m => {
+                if (!m.played) return;
+                const [s1, s2] = m.score90;
+                const sup1 = getSupportersOf(m.team1);
+                const sup2 = getSupportersOf(m.team2);
+
+                if (s1 > s2) {
+                    sup1.forEach(p => { if (points[p] !== undefined) points[p] += 3; });
+                } else if (s2 > s1) {
+                    sup2.forEach(p => { if (points[p] !== undefined) points[p] += 3; });
+                } else {
+                    // Draw in 90+IT — both sides get +1 (regardless of ET/penalty outcome)
+                    sup1.forEach(p => { if (points[p] !== undefined) points[p] += 1; });
+                    sup2.forEach(p => { if (points[p] !== undefined) points[p] += 1; });
+                }
+            });
+            return points;
+        }
+
+        function getEliminatedTeams() {
+            const eliminated = new Set();
+            matchResults.forEach(m => {
+                if (!m.played) return;
+                const [s1_90, s2_90] = m.score90;
+                let loser = null;
+
+                if (s1_90 > s2_90) {
+                    loser = m.team2;
+                } else if (s2_90 > s1_90) {
+                    loser = m.team1;
+                } else if (m.scoreET) {
+                    const [s1_et, s2_et] = m.scoreET;
+                    if (s1_et > s2_et) loser = m.team2;
+                    else if (s2_et > s1_et) loser = m.team1;
+                    else if (m.penaltyWinner) {
+                        loser = (m.penaltyWinner === m.team1) ? m.team2 : m.team1;
+                    }
+                }
+                if (loser) eliminated.add(loser);
+            });
+            return eliminated;
+        }
+
+        function getCurrentTotalGoals() {
+            let total = 0;
+            matchResults.forEach(m => {
+                if (!m.played) return;
+                // Total goal = 90+IT+ET (penalty shootout excluded)
+                const scores = m.scoreET || m.score90;
+                total += (scores[0] || 0) + (scores[1] || 0);
+            });
+            return total;
+        }
+
+        function applyEliminationMarkers() {
+            const eliminated = getEliminatedTeams();
+            // Mark eliminated team cells in Main Quest table
+            document.querySelectorAll('.standings-table td[class*="pot"]').forEach(td => {
+                // Remove any pre-existing eliminated class so the function is idempotent
+                td.classList.remove('eliminated');
+                const team = td.textContent.trim();
+                if (eliminated.has(team)) {
+                    td.classList.add('eliminated');
+                }
+            });
+        }
+
+
+        // Isi link avatar untuk setiap peserta di sini
+        const participantAvatars = {
+            'Ekont':   'https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true',
+            'Gaylang': 'https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true',
+            'Jopai':   'https://ui-avatars.com/api/?name=Jopai&background=2ecc71&color=fff&size=128&bold=true',
+            'Khuang':  'https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true',
+            'KingJul': 'https://ui-avatars.com/api/?name=King+Jul&background=9b59b6&color=fff&size=128&bold=true',
+            'Tafuck':  'https://ui-avatars.com/api/?name=Tafuck&background=00bcd4&color=fff&size=128&bold=true'
+        };
+
+        function getInitials(name) {
+            return name.substring(0, 3).toUpperCase();
+        }
+
+        function injectSupporters() {
+            const matchups = document.querySelectorAll('.bracket .matchup');
+            matchups.forEach(matchup => {
+                const teams = matchup.querySelectorAll('.team');
+                teams.forEach(teamEl => {
+                    const nameEl = teamEl.querySelector('.team-name');
+                    if (!nameEl) return;
+                    const teamName = nameEl.textContent.trim();
+                    if (teamName === 'Ditentukan Nanti') return;
+
+                    // Find supporters
+                    const supporters = teamSupporters[teamName] || [];
+                    if (supporters.length === 0) return;
+
+                    // Create toggle button and panel at matchup level (after team rows)
+                    // Check if this team already has a panel sibling
+                    if (teamEl.dataset.supporterInjected) return;
+                    teamEl.dataset.supporterInjected = 'true';
+
+                    // Create panel
+                    const panel = document.createElement('div');
+                    panel.className = 'supporters-panel';
+                    panel.id = 'sp-' + teamName.replace(/[^a-zA-Z0-9]/g, '') + '-' + Math.random().toString(36).substr(2, 4);
+
+                    supporters.forEach(s => {
+                        const item = document.createElement('div');
+                        item.className = 'supporter-item';
+                        const img = document.createElement('img');
+                        img.className = 'supporter-avatar';
+                        img.src = participantAvatars[s] || defaultAvatar;
+                        img.alt = s;
+                        const label = document.createElement('span');
+                        label.className = 'supporter-name';
+                        label.textContent = getInitials(s);
+                        item.appendChild(img);
+                        item.appendChild(label);
+                        panel.appendChild(item);
+                    });
+
+                    // Create toggle button
+                    const btn = document.createElement('button');
+                    btn.className = 'supporters-toggle';
+                    btn.textContent = 'Show';
+                    btn.onclick = function() {
+                        const isVisible = panel.classList.toggle('show');
+                        btn.textContent = isVisible ? 'Hide' : 'Show';
+                        // Redraw bracket lines after toggle
+                        setTimeout(drawBracketLines, 50);
+                    };
+
+                    // Insert after team element
+                    teamEl.insertAdjacentElement('afterend', panel);
+                    teamEl.insertAdjacentElement('afterend', btn);
+                });
+            });
+        }
+
+        window.addEventListener('load', () => setTimeout(injectSupporters, 200));
+        // Redraw bracket lines after supporters are injected
+        window.addEventListener('load', () => setTimeout(drawBracketLines, 300));
+    </script>
+
+    <!-- Standings Section -->
+    <div class="standings-section">
+        <h2 class="table-section-title">📊 Standings Points Peserta Arisan</h2>
+        <div class="standings-chart">
+            <div class="chart-row">
+                <div class="chart-label">Ekont</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #e74c3c;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true" alt="Ekont" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Gaylang</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #3498db;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true" alt="Gaylang" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Jopai</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #2ecc71;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Jopai&background=2ecc71&color=fff&size=128&bold=true" alt="Jopai" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Khuang</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #e67e22;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true" alt="Khuang" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">KingJul</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #9b59b6;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=King+Jul&background=9b59b6&color=fff&size=128&bold=true" alt="KingJul" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Tafuck</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #00bcd4;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Tafuck&background=00bcd4&color=fff&size=128&bold=true" alt="Tafuck" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Quest Table -->
+        <h3 class="table-section-title">🎯 Main Quest</h3>
+        <div class="standings-table-wrapper">
+            <table class="standings-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Peserta</th>
+                        <th class="pot1" colspan="2">Pot 1</th>
+                        <th class="pot2" colspan="2">Pot 2</th>
+                        <th class="pot3" colspan="2">Pot 3</th>
+                        <th class="pot4" colspan="2">Pot 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true" alt="Ekont" class="participant-avatar"><strong>Ekont</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Inggris</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Swiss</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Mesir</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Ghana</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true" alt="Gaylang" class="participant-avatar"><strong>Gaylang</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot2">Jepang</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Swedia</td>
+                        <td class="pot4">Tanjung Verde</td>
+                        <td class="pot4">Ghana</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Jopai&background=2ecc71&color=fff&size=128&bold=true" alt="Jopai" class="participant-avatar"><strong>Jopai</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Mesir</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Algeria</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true" alt="Khuang" class="participant-avatar"><strong>Khuang</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Spanyol</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Algeria</td>
+                        <td class="pot4">Bosnia-Herz</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><img src="https://ui-avatars.com/api/?name=King+Jul&background=9b59b6&color=fff&size=128&bold=true" alt="KingJul" class="participant-avatar"><strong>KingJul</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Spanyol</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Algeria</td>
+                        <td class="pot4">Paraguay</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Tafuck&background=00bcd4&color=fff&size=128&bold=true" alt="Tafuck" class="participant-avatar"><strong>Tafuck</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Portugal</td>
+                        <td class="pot2">Swiss</td>
+                        <td class="pot2">Meksiko</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Austria</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Side Quest Table -->
+        <h3 class="table-section-title">⭐ Side Quest</h3>
+
+        <!-- Podium Section -->
+        <div class="podium-section">
+            <div class="podium-container">
+                <!-- Runner-Up (2nd) - Left -->
+                <div class="podium-place podium-place-2">
+                    <div class="podium-label"><img src="https://png.pngtree.com/png-clipart/20250717/original/pngtree-silver-second-place-trophy-with-number-two-png-image_21318342.png" alt="Runner-Up" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;"> Runner-Up</div>
+                    <div class="podium-teams" id="podium-runnerup"></div>
+                    <div class="podium-block">2nd</div>
+                </div>
+                <!-- Champion (1st) - Center -->
+                <div class="podium-place podium-place-1">
+                    <div class="podium-label"><img src="https://png.pngtree.com/png-vector/20250923/ourmid/pngtree-the-fifa-world-cup-trophy-png-image_17551611.webp" alt="Champion" style="width:56px;height:36px;vertical-align:middle;margin-right:0px;">Champion</div>
+                    <div class="podium-teams" id="podium-champion"></div>
+                    <div class="podium-block">1st</div>
+                </div>
+                <!-- 3rd Rank - Right -->
+                <div class="podium-place podium-place-3">
+                    <div class="podium-label"><img src="https://static.vecteezy.com/system/resources/previews/063/104/243/non_2x/bronze-medal-with-number-three-and-laurel-wreath-isolated-on-transparent-background-png.png" alt="3rd Rank" style="width:16px;height:16px;vertical-align:middle;margin-right:4px;"> 3rd Rank</div>
+                    <div class="podium-teams" id="podium-3rd"></div>
+                    <div class="podium-block">3rd</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Golden Boot Bar Chart -->
+        <div class="podium-section">
+            <h4 style="text-align:center; color:#ffd700; font-size:0.9rem; margin-bottom:10px;"><img src="https://png.pngtree.com/png-clipart/20241006/original/pngtree-golden-boot-award-isolated-on-a-white-background-png-image_16219554.png" alt="Golden Boot" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Golden Boot</h4>
+            <div class="standings-chart" id="goldenboot-chart"></div>
+        </div>
+
+        <!-- Golden Glove Podium -->
+        <div class="podium-section">
+            <h4 style="text-align:center; color:#00bcd4; font-size:0.9rem; margin-bottom:10px;"><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__1_-removebg-preview.png?raw=true" alt="Golden Glove" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Golden Glove</h4>
+            <div class="podium-container" style="align-items:stretch; overflow:visible; flex-wrap:wrap;" id="podium-goldenglove-container"></div>
+        </div>
+
+        <!-- Side Quest Remaining Table (Total Goal only) -->
+        <div class="podium-section">
+            <h4 style="text-align:center; color:#e94560; font-size:0.9rem; margin-bottom:15px;"><img src="https://png.pngtree.com/png-vector/20260610/ourmid/pngtree-vibrant-trionda-soccer-football-official-fifa-world-cup-2026-design-png-image_19512258.webp" alt="Total Goal" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Total Goal</h4>
+            <div class="total-goal-bar-container" id="total-goal-bar"></div>
+        </div>
+    </div>
+    <script>
+        // Side Quest Podium Data
+        const sideQuestPodium = {
+            champion: {
+                'Perancis': { flag: 'fr', supporters: ['Ekont', 'Gaylang', 'Jopai', 'Khuang'] },
+                'Spanyol': { flag: 'es', supporters: ['KingJul'] },
+                'Portugal': { flag: 'pt', supporters: ['Tafuck'] }
+            },
+            runnerup: {
+                'Argentina': { flag: 'ar', supporters: ['Gaylang', 'Khuang', 'KingJul', 'Tafuck'] },
+                'Inggris': { flag: 'gb-eng', supporters: ['Ekont'] },
+                'Brazil': { flag: 'br', supporters: ['Jopai'] }
+            },
+            third: {
+                'Spanyol': { flag: 'es', supporters: ['Ekont', 'Gaylang', 'Khuang'] },
+                'Argentina': { flag: 'ar', supporters: ['Jopai'] },
+                'Perancis': { flag: 'fr', supporters: ['KingJul'] },
+                'Swiss': { flag: 'ch', supporters: ['Tafuck'] }
+            }
+        };
+
+        function buildPodiumCards(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Sort by supporters count descending, then by country name ascending
+            const sorted = Object.entries(data).sort((a, b) => {
+                const diff = b[1].supporters.length - a[1].supporters.length;
+                if (diff !== 0) return diff;
+                return a[0].localeCompare(b[0]);
+            });
+
+            sorted.forEach(([team, info]) => {
+                const card = document.createElement('div');
+                card.className = 'podium-team-card';
+
+                // Team info row
+                const teamInfo = document.createElement('div');
+                teamInfo.className = 'podium-team-info';
+                const flagImg = document.createElement('img');
+                flagImg.src = `https://flagcdn.com/w40/${info.flag}.png`;
+                flagImg.alt = team;
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = team;
+                teamInfo.appendChild(flagImg);
+                teamInfo.appendChild(nameSpan);
+                card.appendChild(teamInfo);
+
+                // Toggle button
+                const btn = document.createElement('button');
+                btn.className = 'podium-supporters-toggle';
+                btn.textContent = 'Show';
+
+                // Supporters panel
+                const panel = document.createElement('div');
+                panel.className = 'podium-supporters-panel';
+
+                info.supporters.forEach(s => {
+                    const item = document.createElement('div');
+                    item.className = 'supporter-item';
+                    const img = document.createElement('img');
+                    img.className = 'supporter-avatar';
+                    img.src = participantAvatars[s] || defaultAvatar;
+                    img.alt = s;
+                    const label = document.createElement('span');
+                    label.className = 'supporter-name';
+                    label.textContent = getInitials(s);
+                    item.appendChild(img);
+                    item.appendChild(label);
+                    panel.appendChild(item);
+                });
+
+                btn.onclick = function() {
+                    const isVisible = panel.classList.toggle('show');
+                    btn.textContent = isVisible ? 'Hide' : 'Show';
+                };
+
+                card.appendChild(btn);
+                card.appendChild(panel);
+                container.appendChild(card);
+            });
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                buildPodiumCards('podium-champion', sideQuestPodium.champion);
+                buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup);
+                buildPodiumCards('podium-3rd', sideQuestPodium.third);
+                buildGoldenBootChart();
+                buildPlayerPodium('podium-goldenglove-container', goldenGloveData, '🧤');
+            }, 250);
+        });
+
+        // Golden Boot Data (sorted by most goals)
+        const goldenBootData = [
+            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 0, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
+            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 0, supporters: ['Khuang', 'KingJul'] },
+            { name: 'Cristiano Ronaldo', img: 'https://img.a.transfermarkt.technology/portrait/big/8198-1755017766.jpg?lm=1', goals: 0, supporters: ['Tafuck'] }
+        ];
+
+        // Golden Glove Data (sorted by most votes)
+        const goldenGloveData = [
+            { name: 'Mike Maignan', img: 'https://cdn.soccerwiki.org/images/player/68131.png', supporters: ['Ekont', 'Gaylang'] },
+            { name: 'Unai Simon', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/194820-removebg-preview.png?raw=true', supporters: ['Khuang', 'KingJul'] },
+            { name: 'Allison Becker', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__2_-removebg-preview.png?raw=true', supporters: ['Jopai'] },
+            { name: 'Diogo Costa', img: 'https://img.a.transfermarkt.technology/portrait/big/467214-1738163094.jpg?lm=1', supporters: ['Tafuck'] }
+        ];
+
+        // Total Goal Data
+        const totalGoalData = [
+            { name: 'Ekont', goal: 48 },
+            { name: 'Tafuck', goal: 75 },
+            { name: 'Jopai', goal: 89 },
+            { name: 'Gaylang', goal: 90 },
+            { name: 'Khuang', goal: 100 },
+            { name: 'KingJul', goal: 148 }
+        ];
+
+        function buildPlayerPodium(containerId, data, icon) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Sort by supporters count descending
+            const sorted = [...data].sort((a, b) => b.supporters.length - a.supporters.length);
+
+            sorted.forEach((player) => {
+                const place = document.createElement('div');
+                place.className = 'player-podium-place';
+
+                const card = document.createElement('div');
+                card.className = 'player-podium-card';
+
+                // Player info
+                const info = document.createElement('div');
+                info.className = 'player-podium-info';
+
+                // Player image or icon
+                if (player.img) {
+                    const playerImg = document.createElement('img');
+                    playerImg.className = 'player-podium-img';
+                    playerImg.src = player.img;
+                    playerImg.alt = player.name;
+                    playerImg.onerror = function() {
+                        this.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.className = 'player-podium-icon';
+                        fallback.textContent = icon;
+                        this.parentNode.insertBefore(fallback, this);
+                    };
+                    info.appendChild(playerImg);
+                } else {
+                    const iconSpan = document.createElement('span');
+                    iconSpan.className = 'player-podium-icon';
+                    iconSpan.textContent = icon;
+                    info.appendChild(iconSpan);
+                }
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'player-podium-name';
+                nameSpan.textContent = player.name;
+                info.appendChild(nameSpan);
+                card.appendChild(info);
+
+                // Toggle button
+                const btn = document.createElement('button');
+                btn.className = 'podium-supporters-toggle';
+                btn.textContent = 'Show';
+
+                // Supporters panel
+                const panel = document.createElement('div');
+                panel.className = 'podium-supporters-panel';
+
+                player.supporters.forEach(s => {
+                    const item = document.createElement('div');
+                    item.className = 'supporter-item';
+                    const img = document.createElement('img');
+                    img.className = 'supporter-avatar';
+                    img.src = participantAvatars[s] || defaultAvatar;
+                    img.alt = s;
+                    const label = document.createElement('span');
+                    label.className = 'supporter-name';
+                    label.textContent = getInitials(s);
+                    item.appendChild(img);
+                    item.appendChild(label);
+                    panel.appendChild(item);
+                });
+
+                btn.onclick = function() {
+                    const isVisible = panel.classList.toggle('show');
+                    btn.textContent = isVisible ? 'Hide' : 'Show';
+                };
+
+                card.appendChild(btn);
+                card.appendChild(panel);
+                place.appendChild(card);
+                container.appendChild(place);
+            });
+        }
+
+        // Build Golden Boot Bar Chart (based on goals scored)
+        function buildGoldenBootChart() {
+            const container = document.getElementById('goldenboot-chart');
+            if (!container) return;
+
+            // Sort by goals count descending
+            const sorted = [...goldenBootData].sort((a, b) => b.goals - a.goals);
+            const maxGoals = Math.max(...sorted.map(p => p.goals), 1);
+
+            sorted.forEach(player => {
+                const row = document.createElement('div');
+                row.className = 'goldenboot-row';
+
+                // Bar area (card + bar)
+                const barArea = document.createElement('div');
+                barArea.className = 'goldenboot-bar-area';
+
+                // Card (like podium-team-card): info + toggle + panel
+                const card = document.createElement('div');
+                card.className = 'goldenboot-card';
+
+                // Card info (player name)
+                const cardInfo = document.createElement('div');
+                cardInfo.className = 'goldenboot-card-info';
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = player.name;
+                cardInfo.appendChild(nameSpan);
+                card.appendChild(cardInfo);
+
+                // Supporters toggle button
+                const btn = document.createElement('button');
+                btn.className = 'goldenboot-supporters-btn';
+                btn.textContent = 'Show';
+
+                // Supporters panel
+                const panel = document.createElement('div');
+                panel.className = 'goldenboot-supporters-panel';
+
+                player.supporters.forEach(s => {
+                    const item = document.createElement('div');
+                    item.className = 'supporter-item';
+                    const img = document.createElement('img');
+                    img.className = 'supporter-avatar';
+                    img.src = participantAvatars[s] || defaultAvatar;
+                    img.alt = s;
+                    const sLabel = document.createElement('span');
+                    sLabel.className = 'supporter-name';
+                    sLabel.textContent = getInitials(s);
+                    item.appendChild(img);
+                    item.appendChild(sLabel);
+                    panel.appendChild(item);
+                });
+
+                btn.onclick = function() {
+                    const isVisible = panel.classList.toggle('show');
+                    btn.textContent = isVisible ? 'Hide' : 'Show';
+                };
+
+                card.appendChild(btn);
+                card.appendChild(panel);
+
+                // Bar wrapper + bar
+                const barWrapper = document.createElement('div');
+                barWrapper.className = 'goldenboot-bar-wrapper';
+                const bar = document.createElement('div');
+                bar.className = 'goldenboot-bar';
+                const pct = player.goals > 0 ? Math.max((player.goals / maxGoals) * 100, 15) : 15;
+                bar.style.width = pct + '%';
+                const valueSpan = document.createElement('span');
+                valueSpan.className = 'goldenboot-value';
+                valueSpan.textContent = player.goals + ' Goal';
+                bar.appendChild(valueSpan);
+                // Player avatar on the right of the bar
+                const playerImg = document.createElement('img');
+                playerImg.className = 'goldenboot-avatar';
+                playerImg.src = player.img;
+                playerImg.alt = player.name;
+                playerImg.onerror = function() { this.style.display = 'none'; };
+                bar.appendChild(playerImg);
+                barWrapper.appendChild(bar);
+
+                barArea.appendChild(card);
+                barArea.appendChild(barWrapper);
+                row.appendChild(barArea);
+                container.appendChild(row);
+            });
+        }
+
+        // Build Total Goal Vertical Progress Bar
+        function buildTotalGoalBar() {
+            const container = document.getElementById('total-goal-bar');
+            if (!container) return;
+
+            const startValue = 0;
+            const endValue = 160;
+            const currentGoal = getCurrentTotalGoals(); // 90+IT+ET, penalty shootout excluded
+            const trackHeight = 500; // Total height of the track in px
+
+            // Adjustable spacing offsets (in px from calculated position)
+            // Positive = move down, Negative = move up
+            const markerOffsets = {
+                'Ekont': 0,    // 48 goals
+                'Tafuck': 0,   // 75 goals
+                'Jopai': 0,    // 89 goals
+                'Gaylang': 0,  // 90 goals
+                'Khuang': 0,   // 100 goals
+                'KingJul': 0   // 148 goals
+            };
+
+            const participantColors = {
+                'Ekont': '#e74c3c',
+                'Gaylang': '#3498db',
+                'Jopai': '#2ecc71',
+                'Khuang': '#e67e22',
+                'KingJul': '#9b59b6',
+                'Tafuck': '#00bcd4'
+            };
+
+            // Create vertical structure
+            const vertical = document.createElement('div');
+            vertical.className = 'total-goal-vertical';
+
+            const track = document.createElement('div');
+            track.className = 'total-goal-track-v';
+            track.style.height = trackHeight + 'px';
+
+            // Fill to current goal position
+            const currentPct = ((currentGoal - startValue) / (endValue - startValue)) * 100;
+            const fill = document.createElement('div');
+            fill.className = 'total-goal-fill-v';
+            fill.style.height = currentPct + '%';
+            track.appendChild(fill);
+
+            // Start label
+            const startLabel = document.createElement('span');
+            startLabel.className = 'total-goal-start-label';
+            startLabel.textContent = startValue;
+            track.appendChild(startLabel);
+
+            // End label
+            const endLabel = document.createElement('span');
+            endLabel.className = 'total-goal-end-label';
+            endLabel.textContent = endValue;
+            track.appendChild(endLabel);
+
+            // Current goal indicator
+            const currentTop = ((currentGoal - startValue) / (endValue - startValue)) * trackHeight;
+            const currentIndicator = document.createElement('div');
+            currentIndicator.className = 'total-goal-current-indicator';
+            currentIndicator.style.top = currentTop + 'px';
+            currentIndicator.textContent = currentGoal;
+
+            const currentLine = document.createElement('div');
+            currentIndicator.appendChild(currentLine);
+
+            const currentLabel = document.createElement('span');
+            currentLabel.className = 'total-goal-current-label-v';
+            currentLabel.textContent = '';
+            currentIndicator.appendChild(currentLabel);
+
+            track.appendChild(currentIndicator);
+
+            // Sort by goal ascending
+            const sorted = [...totalGoalData].sort((a, b) => a.goal - b.goal);
+
+            // Find participant closest to currentGoal
+            let closestName = '';
+            let closestDiff = Infinity;
+            sorted.forEach(p => {
+                const diff = Math.abs(p.goal - currentGoal);
+                if (diff < closestDiff) {
+                    closestDiff = diff;
+                    closestName = p.name;
+                }
+            });
+
+            // Place markers
+            sorted.forEach((p, index) => {
+                const pct = ((p.goal - startValue) / (endValue - startValue));
+                const baseTop = pct * trackHeight;
+                const offset = markerOffsets[p.name] || 0;
+                const finalTop = baseTop + offset;
+
+                const marker = document.createElement('div');
+                marker.className = 'total-goal-marker-v';
+                marker.style.top = finalTop + 'px';
+
+                // Index ganjil di kiri, selain itu di kanan
+                if (index % 2 !== 0) {
+                    marker.style.right = 'auto';
+                    marker.style.left = '10px';
+                    marker.style.flexDirection = 'row';
+                }
+
+                const line = document.createElement('div');
+                line.className = 'total-goal-marker-line-v';
+                line.style.background = participantColors[p.name] || '#555';
+
+                const info = document.createElement('div');
+                info.className = 'total-goal-marker-info';
+                info.style.borderColor = participantColors[p.name] || '#2a2a5a';
+
+                // Add glowing effect if this participant is closest to currentGoal
+                if (p.name === closestName && currentGoal > 0) {
+                    info.classList.add('glowing');
+                }
+
+                const avatar = document.createElement('img');
+                avatar.className = 'total-goal-marker-avatar-v';
+                avatar.src = participantAvatars[p.name] || defaultAvatar;
+                avatar.alt = p.name;
+                avatar.style.borderColor = participantColors[p.name] || '#444';
+
+                const name = document.createElement('span');
+                name.className = 'total-goal-marker-name-v';
+                name.textContent = p.name;
+
+                const value = document.createElement('span');
+                value.className = 'total-goal-marker-value-v';
+                value.textContent = p.goal;
+                value.style.color = participantColors[p.name] || '#f39c12';
+
+                info.appendChild(avatar);
+                info.appendChild(name);
+                info.appendChild(value);
+                marker.appendChild(line);
+                marker.appendChild(info);
+                track.appendChild(marker);
+            });
+
+            vertical.appendChild(track);
+            container.appendChild(vertical);
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(buildTotalGoalBar, 300);
+            setTimeout(updateStandingsChart, 100);
+        });
+
+        function updateStandingsChart() {
+            const chart = document.querySelector('.standings-chart');
+            if (!chart) return;
+
+            // 1. Compute points from match results and write into chart-value cells
+            const points = calculatePoints();
+            chart.querySelectorAll('.chart-row').forEach(row => {
+                const labelEl = row.querySelector('.chart-label');
+                const valueEl = row.querySelector('.chart-value');
+                if (!labelEl || !valueEl) return;
+                const name = labelEl.textContent.trim();
+                if (points[name] !== undefined) {
+                    valueEl.textContent = points[name];
+                }
+            });
+
+            // 2. Apply elimination markers to Main Quest table
+            applyEliminationMarkers();
+
+            // 3. Read points back into rows for sorting
+            const rows = Array.from(chart.querySelectorAll('.chart-row'));
+            rows.forEach(row => {
+                const valueEl = row.querySelector('.chart-value');
+                row._points = parseInt(valueEl.textContent) || 0;
+            });
+
+            // 4. Sort by points descending
+            rows.sort((a, b) => b._points - a._points);
+            rows.forEach(row => chart.appendChild(row));
+
+            // 5. Bar width — proportional to MAX_POINTS = 50
+            const MAX_POINTS = 50;
+            const ZERO_WIDTH_PCT = 4; // slight visible bar for 0 points
+            rows.forEach(row => {
+                const bar = row.querySelector('.chart-bar');
+                let pct;
+                if (row._points <= 0) {
+                    pct = ZERO_WIDTH_PCT;
+                } else {
+                    pct = Math.min((row._points / MAX_POINTS) * 100, 100);
+                }
+                bar.style.width = pct + '%';
+            });
+        }
+    </script>
+</body>
+</html>
