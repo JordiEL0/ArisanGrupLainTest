@@ -1067,7 +1067,7 @@
             }
         }
 
-        /* ===== Top Scorer Real-Time ===== */
+  /* ===== Top Scorer Real-Time ===== */
         .topscorer-section {
             background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(231,69,96,0.05));
             border: 1px solid rgba(255,107,53,0.25);
@@ -1146,12 +1146,15 @@
             box-shadow: 0 6px 24px rgba(255,107,53,0.18);
             padding-top: 18px;
             padding-bottom: 16px;
+            order: 2;
         }
         .topscorer-card.rank-2 {
             border-color: rgba(192,192,192,0.3);
+            order: 1;
         }
         .topscorer-card.rank-3 {
             border-color: rgba(205,127,50,0.3);
+            order: 3;
         }
         .topscorer-rank-badge {
             position: absolute;
@@ -1245,6 +1248,9 @@
                 grid-template-columns: 1fr;
                 align-items: stretch;
             }
+            .topscorer-card.rank-1 { order: 1; }
+            .topscorer-card.rank-2 { order: 2; }
+            .topscorer-card.rank-3 { order: 3; }
             .topscorer-card.rank-1 .topscorer-photo-wrap {
                 width: 84px; height: 84px;
             }
