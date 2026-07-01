@@ -1343,7 +1343,17 @@
             50% { box-shadow: 0 0 25px rgba(233, 69, 96, 0.6); }
         }
     </style>
-
+<script>
+function enterSite() {
+    document.getElementById('splash-overlay').classList.add('hidden');
+    // opsional: langsung play musik saat klik Enter (autoplay policy browser butuh user gesture, ini pas)
+    var music = document.getElementById('bg-music');
+    if (music) {
+        music.play().catch(function(e){ console.log('Autoplay blocked:', e); });
+        document.getElementById('music-toggle')?.classList.add('playing');
+    }
+}
+</script>
     
     <div class="header">
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
