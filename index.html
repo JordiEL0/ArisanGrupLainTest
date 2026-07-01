@@ -1258,19 +1258,7 @@
     </style>
 </head>
 <body>
-    
-<script>
-function enterSite() {
-    document.getElementById('splash-overlay').classList.add('hidden');
-    // opsional: langsung play musik saat klik Enter (autoplay policy browser butuh user gesture, ini pas)
-    var music = document.getElementById('bg-music');
-    if (music) {
-        music.play().catch(function(e){ console.log('Autoplay blocked:', e); });
-        document.getElementById('music-toggle')?.classList.add('playing');
-    }
-}
-</script>
-    
+
     <!-- Splash Overlay - klik untuk masuk & mulai musik -->
     <div id="splash-overlay">
         <div class="splash-content">
@@ -1355,7 +1343,30 @@ function enterSite() {
             50% { box-shadow: 0 0 25px rgba(233, 69, 96, 0.6); }
         }
     </style>
-    
+
+    <script>
+        function enterSite() {
+            var overlay = document.getElementById('splash-overlay');
+            if (overlay) overlay.classList.add('hidden');
+
+            // Coba langsung play musik saat user klik Enter (user gesture ini valid untuk autoplay policy browser)
+            var music = document.getElementById('bg-music');
+            if (music) {
+                music.play().then(function() {
+                    var btn = document.getElementById('music-toggle');
+                    if (btn) {
+                        btn.textContent = '🔊';
+                        btn.classList.add('playing');
+                        btn.classList.remove('muted');
+                    }
+                    if (typeof isMuted !== 'undefined') { isMuted = false; }
+                }).catch(function(e) {
+                    console.log('Autoplay diblokir browser, user perlu klik tombol musik manual:', e);
+                });
+            }
+        }
+    </script>
+
     <div class="header">
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
