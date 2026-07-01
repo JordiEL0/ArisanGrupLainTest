@@ -1123,10 +1123,49 @@
             letter-spacing: 0.3px;
         }
         .topscorer-container {
-            display: grid;
-            grid-template-columns: 1fr 1.4fr 1fr;
-            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            align-items: stretch;
+        }
+        .topscorer-slot {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
             align-items: end;
+            flex-wrap: wrap;
+        }
+        .topscorer-slot .topscorer-card {
+            min-width: 110px;
+            flex: 1;
+        }
+        .topscorer-slot.compact {
+            gap: 6px;
+        }
+        .topscorer-slot.compact .topscorer-card {
+            min-width: 74px;
+            padding: 8px 5px 6px;
+        }
+        .topscorer-slot.compact .topscorer-photo-wrap {
+            width: 44px;
+            height: 44px;
+            margin: 2px auto 5px;
+        }
+        .topscorer-slot.compact .topscorer-name {
+            font-size: 0.62rem;
+        }
+        .topscorer-slot.compact .topscorer-team {
+            font-size: 0.55rem;
+        }
+        .topscorer-slot.compact .topscorer-team img {
+            width: 11px;
+        }
+        .topscorer-slot.compact .topscorer-goals {
+            font-size: 1rem;
+        }
+        .topscorer-slot.compact .topscorer-rank-badge {
+            font-size: 0.6rem;
+            padding: 2px 8px;
         }
         .topscorer-card {
             background: rgba(15, 15, 35, 0.7);
@@ -1244,13 +1283,6 @@
             margin-top: 2px;
         }
         @media (max-width: 600px) {
-            .topscorer-container {
-                grid-template-columns: 1fr;
-                align-items: stretch;
-            }
-            .topscorer-card.rank-1 { order: 1; }
-            .topscorer-card.rank-2 { order: 2; }
-            .topscorer-card.rank-3 { order: 3; }
             .topscorer-card.rank-1 .topscorer-photo-wrap {
                 width: 84px; height: 84px;
             }
@@ -2195,39 +2227,53 @@
         // IMPORTANT: goals below count ONLY knockout-stage matches (Round of 32 onward).
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
-const topScorerLive = {
-    lastUpdated: '1 Jul 2026 (fase knockout saja)',
-    players: [
-        { name: 'Kylian Mbappé',     team: 'Perancis',      flag: 'fr',
-          img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 2 },
-        { name: 'Erling Haaland',    team: 'Norwegia',      flag: 'no',
-          img: 'https://images.fotmob.com/image_resources/playerimages/737066.png', goals: 1 },
-        { name: 'Antonio Nusa',      team: 'Norwegia',      flag: 'no',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-        { name: 'Amad Diallo',       team: 'Pantai Gading', flag: 'ci',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-        { name: 'Stephen Eustáquio', team: 'Kanada',        flag: 'ca',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-        { name: 'Casemiro',          team: 'Brasil',        flag: 'br',
-          img: 'https://images.fotmob.com/image_resources/playerimages/149009.png', goals: 1 },
-        { name: 'Gabriel Martinelli',team: 'Brasil',        flag: 'br',
-          img: 'https://images.fotmob.com/image_resources/playerimages/1101994.png', goals: 1 },
-        { name: 'Kaishu Sano',       team: 'Jepang',        flag: 'jp',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-        { name: 'Kai Havertz',       team: 'Jerman',        flag: 'de',
-          img: 'https://images.fotmob.com/image_resources/playerimages/406625.png', goals: 1 },
-        { name: 'Julio Enciso',      team: 'Paraguay',      flag: 'py',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-        { name: 'Cody Gakpo',        team: 'Belanda',       flag: 'nl',
-          img: 'https://images.fotmob.com/image_resources/playerimages/945482.png', goals: 1 },
-        { name: 'Issa Diop',         team: 'Maroko',        flag: 'ma',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-        { name: 'Raúl Jiménez',      team: 'Meksiko',       flag: 'mx',
-          img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 1 },
-        { name: 'Julián Quiñones',   team: 'Meksiko',       flag: 'mx',
-          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
-    ]
-};
+        const topScorerLive = {
+            lastUpdated: '1 Jul 2026 (fase knockout saja)',
+            players: [
+                { name: 'Kylian Mbappé',      team: 'Perancis',      flag: 'fr',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 2 },
+                { name: 'Erling Haaland',     team: 'Norwegia',      flag: 'no',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/737066.png', goals: 1 },
+                { name: 'Antonio Nusa',       team: 'Norwegia',      flag: 'no',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+                { name: 'Amad Diallo',        team: 'Pantai Gading', flag: 'ci',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+                { name: 'Stephen Eustáquio',  team: 'Kanada',        flag: 'ca',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+                { name: 'Casemiro',           team: 'Brasil',        flag: 'br',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/149009.png', goals: 1 },
+                { name: 'Gabriel Martinelli', team: 'Brasil',        flag: 'br',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1101994.png', goals: 1 },
+                { name: 'Kaishu Sano',        team: 'Jepang',        flag: 'jp',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+                { name: 'Kai Havertz',        team: 'Jerman',        flag: 'de',
+                  img: 'https://cdn-img.staticzz.com/img/jogadores/new/16/81/511681_kai_havertz_20251127225615.png', goals: 1 },
+                { name: 'Julio Enciso',       team: 'Paraguay',      flag: 'py',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+                { name: 'Cody Gakpo',         team: 'Belanda',       flag: 'nl',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/945482.png', goals: 1 },
+                { name: 'Issa Diop',          team: 'Maroko',        flag: 'ma',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+                { name: 'Raúl Jiménez',       team: 'Meksiko',       flag: 'mx',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 1 },
+                { name: 'Julián Quiñones',    team: 'Meksiko',       flag: 'mx',
+                  img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+            ]
+        };
+
+        function computeRankTiers(players) {
+            const sorted = [...players].sort((a, b) => b.goals - a.goals);
+            const tiers = [];
+            sorted.forEach(p => {
+                const last = tiers[tiers.length - 1];
+                if (last && last.goals === p.goals) {
+                    last.players.push(p);
+                } else {
+                    tiers.push({ goals: p.goals, players: [p] });
+                }
+            });
+            return tiers.slice(0, 3); // ambil 3 tingkat peringkat teratas
+        }
 
         function buildTopScorer() {
             const container = document.getElementById('topscorer-container');
@@ -2236,69 +2282,69 @@ const topScorerLive = {
 
             if (updatedEl) updatedEl.textContent = `Update terakhir: ${topScorerLive.lastUpdated}`;
 
-            // Sort descending by goals; take top 3
-            const sorted = [...topScorerLive.players]
-                .sort((a, b) => b.goals - a.goals)
-                .slice(0, 3);
-
-            // Visual order: #2 left, #1 center, #3 right (podium-style)
-            const visualOrder = [sorted[1], sorted[0], sorted[2]].filter(Boolean);
-            // Track which slot in visualOrder corresponds to which rank
-            const rankByPosition = sorted.length === 3 ? [2, 1, 3] :
-                                   sorted.length === 2 ? [2, 1]   :
-                                   [1];
+            const tiers = computeRankTiers(topScorerLive.players);
+            // Urutan visual: rank1 paling atas, lalu rank2, lalu rank3 (top to bottom)
+            const visualOrder = [tiers[0], tiers[1], tiers[2]];
 
             container.innerHTML = '';
-            visualOrder.forEach((player, posIdx) => {
-                if (!player) return;
-                const rank = rankByPosition[posIdx];
+            visualOrder.forEach((tier, posIdx) => {
+                if (!tier) return;
+                const rank = posIdx + 1;
 
-                const card = document.createElement('div');
-                card.className = `topscorer-card rank-${rank}`;
+                const slot = document.createElement('div');
+                slot.className = 'topscorer-slot';
+                if (tier.players.length > 3) slot.classList.add('compact');
 
-                const badge = document.createElement('div');
-                badge.className = 'topscorer-rank-badge';
-                badge.textContent = rank === 1 ? '🥇 #1' : rank === 2 ? '🥈 #2' : '🥉 #3';
-                card.appendChild(badge);
+                tier.players.forEach(player => {
+                    const card = document.createElement('div');
+                    card.className = `topscorer-card rank-${rank}`;
 
-                const photoWrap = document.createElement('div');
-                photoWrap.className = 'topscorer-photo-wrap';
-                const img = document.createElement('img');
-                img.className = 'topscorer-photo';
-                img.src = player.img;
-                img.alt = player.name;
-                img.onerror = function() {
-                    this.onerror = null;
-                    this.src = 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png';
-                };
-                photoWrap.appendChild(img);
-                card.appendChild(photoWrap);
+                    const badge = document.createElement('div');
+                    badge.className = 'topscorer-rank-badge';
+                    badge.textContent = rank === 1 ? '🥇 #1' : rank === 2 ? '🥈 #2' : '🥉 #3';
+                    card.appendChild(badge);
 
-                const name = document.createElement('div');
-                name.className = 'topscorer-name';
-                name.textContent = player.name;
-                card.appendChild(name);
+                    const photoWrap = document.createElement('div');
+                    photoWrap.className = 'topscorer-photo-wrap';
+                    const img = document.createElement('img');
+                    img.className = 'topscorer-photo';
+                    img.src = player.img;
+                    img.alt = player.name;
+                    img.onerror = function() {
+                        this.onerror = null;
+                        this.src = 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png';
+                    };
+                    photoWrap.appendChild(img);
+                    card.appendChild(photoWrap);
 
-                const team = document.createElement('div');
-                team.className = 'topscorer-team';
-                const flag = document.createElement('img');
-                flag.src = `https://flagcdn.com/w40/${player.flag}.png`;
-                flag.alt = player.team;
-                team.appendChild(flag);
-                team.appendChild(document.createTextNode(player.team));
-                card.appendChild(team);
+                    const name = document.createElement('div');
+                    name.className = 'topscorer-name';
+                    name.textContent = player.name;
+                    card.appendChild(name);
 
-                const goals = document.createElement('div');
-                goals.className = 'topscorer-goals';
-                goals.textContent = player.goals;
-                card.appendChild(goals);
+                    const team = document.createElement('div');
+                    team.className = 'topscorer-team';
+                    const flag = document.createElement('img');
+                    flag.src = `https://flagcdn.com/w40/${player.flag}.png`;
+                    flag.alt = player.team;
+                    team.appendChild(flag);
+                    team.appendChild(document.createTextNode(player.team));
+                    card.appendChild(team);
 
-                const goalsLabel = document.createElement('div');
-                goalsLabel.className = 'topscorer-goals-label';
-                goalsLabel.textContent = player.goals === 1 ? 'Goal' : 'Goals';
-                card.appendChild(goalsLabel);
+                    const goals = document.createElement('div');
+                    goals.className = 'topscorer-goals';
+                    goals.textContent = player.goals;
+                    card.appendChild(goals);
 
-                container.appendChild(card);
+                    const goalsLabel = document.createElement('div');
+                    goalsLabel.className = 'topscorer-goals-label';
+                    goalsLabel.textContent = player.goals === 1 ? 'Goal' : 'Goals';
+                    card.appendChild(goalsLabel);
+
+                    slot.appendChild(card);
+                });
+
+                container.appendChild(slot);
             });
         }
 
