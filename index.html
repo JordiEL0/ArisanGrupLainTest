@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arisan World Cup 2026 HASH PKU</title>
+    <title>Arisan World Cup 2026 - Road to 50 Plats</title>
     <style>
         * {
             margin: 0;
@@ -1066,13 +1066,196 @@
                 font-size: 0.6rem;
             }
         }
+
+        /* ===== Top Scorer Real-Time ===== */
+        .topscorer-section {
+            background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(231,69,96,0.05));
+            border: 1px solid rgba(255,107,53,0.25);
+            border-radius: 12px;
+            padding: 18px 16px 22px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        .topscorer-section::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(255,215,0,0.15), transparent 70%);
+            pointer-events: none;
+        }
+        .topscorer-header {
+            text-align: center;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .topscorer-title {
+            color: #ff6b35;
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .topscorer-live-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2ecc71;
+            box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7);
+            animation: ts-pulse 1.8s infinite;
+        }
+        @keyframes ts-pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+            70%  { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+        }
+        .topscorer-updated {
+            display: block;
+            font-size: 0.65rem;
+            color: #888;
+            font-weight: 400;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+        .topscorer-container {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr 1fr;
+            gap: 10px;
+            align-items: end;
+        }
+        .topscorer-card {
+            background: rgba(15, 15, 35, 0.7);
+            border-radius: 10px;
+            padding: 14px 10px 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .topscorer-card:hover {
+            transform: translateY(-2px);
+        }
+        .topscorer-card.rank-1 {
+            background: linear-gradient(180deg, rgba(255,215,0,0.18), rgba(255,107,53,0.08) 60%, rgba(15,15,35,0.7));
+            border-color: rgba(255,215,0,0.5);
+            box-shadow: 0 6px 24px rgba(255,107,53,0.18);
+            padding-top: 18px;
+            padding-bottom: 16px;
+        }
+        .topscorer-card.rank-2 {
+            border-color: rgba(192,192,192,0.3);
+        }
+        .topscorer-card.rank-3 {
+            border-color: rgba(205,127,50,0.3);
+        }
+        .topscorer-rank-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 800;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: #1a1a3e;
+            border: 1px solid rgba(255,255,255,0.1);
+            white-space: nowrap;
+        }
+        .topscorer-card.rank-1 .topscorer-rank-badge {
+            background: linear-gradient(135deg, #ffd700, #ff6b35);
+            color: #1a1a3e;
+            border: none;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+        }
+        .topscorer-card.rank-2 .topscorer-rank-badge { color: #d0d0d0; }
+        .topscorer-card.rank-3 .topscorer-rank-badge { color: #cd7f32; }
+        .topscorer-photo-wrap {
+            width: 72px;
+            height: 72px;
+            margin: 4px auto 8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a3e, #2a2a5a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .topscorer-card.rank-1 .topscorer-photo-wrap {
+            width: 96px;
+            height: 96px;
+            border-color: #ffd700;
+            border-width: 3px;
+            box-shadow: 0 4px 16px rgba(255,215,0,0.3);
+        }
+        .topscorer-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .topscorer-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.78rem;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+        .topscorer-card.rank-1 .topscorer-name {
+            font-size: 0.92rem;
+        }
+        .topscorer-team {
+            font-size: 0.65rem;
+            color: #aaa;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .topscorer-team img {
+            width: 14px;
+            height: auto;
+            border-radius: 2px;
+        }
+        .topscorer-goals {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #ff6b35;
+            line-height: 1;
+        }
+        .topscorer-card.rank-1 .topscorer-goals {
+            font-size: 1.9rem;
+            color: #ffd700;
+        }
+        .topscorer-goals-label {
+            font-size: 0.55rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+        @media (max-width: 600px) {
+            .topscorer-container {
+                grid-template-columns: 1fr;
+                align-items: stretch;
+            }
+            .topscorer-card.rank-1 .topscorer-photo-wrap {
+                width: 84px; height: 84px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
-            <h1>Arisan World Cup 2026 HASH PKU</h1>
+            <h1>Arisan World Cup 2026 - Road to 50 Plats</h1>
             <p class="last-updated">Last updated: 29 Juni 2026, 13:00</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
@@ -1353,49 +1536,147 @@
     <script>
         // Main Quest supporter data: team name -> array of supporters
         const teamSupporters = {
-            'Portugal': ['Davin'],
-            'Argentina': ['Davin', 'Ndod', 'Khuang', 'Marten', 'Cham', 'Willy'],
-            'Amerika Serikat': ['Davin'],
-            'Kolombia': ['Davin', 'Khuang', 'Marten', 'Cham'],
-            'Norwegia': ['Davin', 'Ndod', 'Khuang', 'Marten', 'Cham', 'Willy'],
-            'Kanada': ['Davin', 'Khuang'],
-            'Algeria': ['Davin', 'Khuang'],
-            'Aljazair': ['Davin', 'Khuang'],
-            'Kongo DR': ['Davin', 'Ndod'],
-            'RD Kongo': ['Davin', 'Ndod'],
-            'Perancis': ['Ndod', 'Cham', 'Willy'],
-            'Prancis': ['Ndod', 'Cham', 'Willy'],
-            'Maroko': ['Ndod', 'Cham', 'Wesly'],
-            'Kroasia': ['Ndod'],
-            'Senegal': ['Ndod', 'Marten', 'Cham', 'Willy', 'Wesly'],
-            'Afrika Selatan': ['Ndod', 'Willy'],
-            'Spanyol': ['Khuang', 'Marten', 'Wesly'],
-            'Belgium': ['Khuang', 'Willy'],
-            'Belgia': ['Khuang', 'Willy'],
-            'Bosnia-Herz': ['Khuang', 'Wesly'],
-            'Bosnia & Herzegovina': ['Khuang', 'Wesly'],
-            'Jepang': ['Marten', 'Willy', 'Wesly'],
-            'Ghana': ['Marten', 'Cham'],
-            'Austria': ['Marten', 'Cham'],
-            'Tanjung Verde': ['Willy'],
-            'Brazil': ['Wesly'],
-            'Brasil': ['Wesly'],
-            'Swedia': ['Wesly'],
-            'Paraguay': ['Wesly'],
+            'Argentina': ['Ekont', 'Gaylang', 'Jopai', 'Khuang', 'KingJul', 'Tafuck'],
+            'Inggris': ['Ekont'],
+            'England': ['Ekont'],
+            'Perancis': ['Gaylang', 'Jopai'],
+            'Prancis': ['Gaylang', 'Jopai'],
+            'Spanyol': ['Khuang', 'KingJul'],
+            'Portugal': ['Tafuck'],
+            'Belgium': ['Ekont', 'Jopai', 'Khuang', 'KingJul'],
+            'Belgia': ['Ekont', 'Jopai', 'Khuang', 'KingJul'],
+            'Swiss': ['Ekont', 'Tafuck'],
+            'Kolombia': ['Gaylang', 'Jopai', 'Khuang', 'KingJul'],
+            'Jepang': ['Gaylang'],
+            'Meksiko': ['Tafuck'],
+            'Norwegia': ['Ekont', 'Gaylang', 'Jopai', 'Khuang', 'KingJul', 'Tafuck'],
+            'Mesir': ['Ekont', 'Jopai'],
+            'Swedia': ['Gaylang'],
+            'Kanada': ['Khuang', 'KingJul', 'Tafuck'],
+            'Afrika Selatan': ['Ekont', 'Jopai', 'Tafuck'],
+            'Ghana': ['Ekont', 'Gaylang'],
+            'Tanjung Verde': ['Gaylang'],
+            'Algeria': ['Jopai', 'Khuang', 'KingJul'],
+            'Aljazair': ['Jopai', 'Khuang', 'KingJul'],
+            'Bosnia-Herz': ['Khuang'],
+            'Bosnia & Herzegovina': ['Khuang'],
+            'Paraguay': ['KingJul'],
+            'Austria': ['Tafuck'],
         };
 
         const defaultAvatar = 'https://img.icons8.com/ios-filled/50/6b7280/shield.png';
 
+        // ============================================================
+        // MATCH RESULTS - Update this as matches happen
+        // ============================================================
+        // Format per match:
+        //   team1, team2  : team names (must match teamSupporters keys)
+        //   score90       : [t1, t2] score at end of 90min + injury time
+        //                   → determines win/draw/lose for POINT calculation
+        //   scoreET       : [t1, t2] total score at end of extra time (90+IT+ET)
+        //                   → null if match ended in 90+IT (no extra time)
+        //                   → counted toward TOTAL GOAL (penalty shootout EXCLUDED)
+        //   penaltyWinner : team name if decided by penalty shootout, else null
+        //                   → determines elimination only; does NOT affect points/goals
+        //   played        : true once match is finished
+        //
+        // Scoring rules:
+        //   Win in 90+IT  → supporters of winning team get +3
+        //   Draw in 90+IT → supporters of BOTH teams get +1 (even if ET/penalty later)
+        //   Lose in 90+IT → 0
+        // ============================================================
+        const matchResults = [
+            { team1: 'Afrika Selatan', team2: 'Kanada', score90: [0, 1], scoreET: null, penaltyWinner: null, played: true },
+            // --- Tambah hasil pertandingan berikutnya di bawah ini ---
+            // { team1: 'Brasil',  team2: 'Jepang',   score90: [0, 0], scoreET: null, penaltyWinner: null, played: false },
+            // { team1: 'Jerman',  team2: 'Paraguay', score90: [0, 0], scoreET: null, penaltyWinner: null, played: false },
+        ];
+
+        // Resolve team-name aliases used in teamSupporters
+        function getSupportersOf(teamName) {
+            return teamSupporters[teamName] || [];
+        }
+
+        function calculatePoints() {
+            const points = {};
+            Object.keys(participantAvatars).forEach(p => points[p] = 0);
+
+            matchResults.forEach(m => {
+                if (!m.played) return;
+                const [s1, s2] = m.score90;
+                const sup1 = getSupportersOf(m.team1);
+                const sup2 = getSupportersOf(m.team2);
+
+                if (s1 > s2) {
+                    sup1.forEach(p => { if (points[p] !== undefined) points[p] += 3; });
+                } else if (s2 > s1) {
+                    sup2.forEach(p => { if (points[p] !== undefined) points[p] += 3; });
+                } else {
+                    // Draw in 90+IT — both sides get +1 (regardless of ET/penalty outcome)
+                    sup1.forEach(p => { if (points[p] !== undefined) points[p] += 1; });
+                    sup2.forEach(p => { if (points[p] !== undefined) points[p] += 1; });
+                }
+            });
+            return points;
+        }
+
+        function getEliminatedTeams() {
+            const eliminated = new Set();
+            matchResults.forEach(m => {
+                if (!m.played) return;
+                const [s1_90, s2_90] = m.score90;
+                let loser = null;
+
+                if (s1_90 > s2_90) {
+                    loser = m.team2;
+                } else if (s2_90 > s1_90) {
+                    loser = m.team1;
+                } else if (m.scoreET) {
+                    const [s1_et, s2_et] = m.scoreET;
+                    if (s1_et > s2_et) loser = m.team2;
+                    else if (s2_et > s1_et) loser = m.team1;
+                    else if (m.penaltyWinner) {
+                        loser = (m.penaltyWinner === m.team1) ? m.team2 : m.team1;
+                    }
+                }
+                if (loser) eliminated.add(loser);
+            });
+            return eliminated;
+        }
+
+        function getCurrentTotalGoals() {
+            let total = 0;
+            matchResults.forEach(m => {
+                if (!m.played) return;
+                // Total goal = 90+IT+ET (penalty shootout excluded)
+                const scores = m.scoreET || m.score90;
+                total += (scores[0] || 0) + (scores[1] || 0);
+            });
+            return total;
+        }
+
+        function applyEliminationMarkers() {
+            const eliminated = getEliminatedTeams();
+            // Mark eliminated team cells in Main Quest table
+            document.querySelectorAll('.standings-table td[class*="pot"]').forEach(td => {
+                // Remove any pre-existing eliminated class so the function is idempotent
+                td.classList.remove('eliminated');
+                const team = td.textContent.trim();
+                if (eliminated.has(team)) {
+                    td.classList.add('eliminated');
+                }
+            });
+        }
+
+
         // Isi link avatar untuk setiap peserta di sini
         const participantAvatars = {
-            'Davin': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/DAV.jpg?raw=true',
-            'Ndod': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/NDO.jpeg?raw=true',
-            'Hendro': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/NDO.jpeg?raw=true',
-            'Khuang': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/KHU.png?raw=true',
-            'Marten': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/MAR.jpg?raw=true',
-            'Cham': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/CHA.jpg?raw=true',
-            'Willy': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/WIL.png?raw=true',
-            'Wesly': 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/WES.jpg?raw=true'
+            'Ekont':   'https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true',
+            'Gaylang': 'https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true',
+            'Jopai':   'https://ui-avatars.com/api/?name=Jopai&background=2ecc71&color=fff&size=128&bold=true',
+            'Khuang':  'https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true',
+            'KingJul': 'https://ui-avatars.com/api/?name=King+Jul&background=9b59b6&color=fff&size=128&bold=true',
+            'Tafuck':  'https://ui-avatars.com/api/?name=Tafuck&background=00bcd4&color=fff&size=128&bold=true'
         };
 
         function getInitials(name) {
@@ -1469,65 +1750,56 @@
         <h2 class="table-section-title">📊 Standings Points Peserta Arisan</h2>
         <div class="standings-chart">
             <div class="chart-row">
-                <div class="chart-label">Davin</div>
+                <div class="chart-label">Ekont</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #3498db;">
-                        <span class="chart-value">3</span>
-                        <img src="assets/DAV.jpg" alt="Davin" class="chart-avatar">
+                    <div class="chart-bar" style="background: #e74c3c;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true" alt="Ekont" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
-                <div class="chart-label">Ndod</div>
+                <div class="chart-label">Gaylang</div>
+                <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="background: #3498db;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true" alt="Gaylang" class="chart-avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="chart-row">
+                <div class="chart-label">Jopai</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #2ecc71;">
                         <span class="chart-value">0</span>
-                        <img src="assets/NDO.jpeg" alt="Ndod" class="chart-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Jopai&background=2ecc71&color=fff&size=128&bold=true" alt="Jopai" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
                 <div class="chart-label">Khuang</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #f1c40f;">
-                        <span class="chart-value">3</span>
-                        <img src="assets/KHU.png" alt="Khuang" class="chart-avatar">
+                    <div class="chart-bar" style="background: #e67e22;">
+                        <span class="chart-value">0</span>
+                        <img src="https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true" alt="Khuang" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
-                <div class="chart-label">Marten</div>
+                <div class="chart-label">KingJul</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #9b59b6;">
                         <span class="chart-value">0</span>
-                        <img src="assets/MAR.jpg" alt="Marten" class="chart-avatar">
+                        <img src="https://ui-avatars.com/api/?name=King+Jul&background=9b59b6&color=fff&size=128&bold=true" alt="KingJul" class="chart-avatar">
                     </div>
                 </div>
             </div>
             <div class="chart-row">
-                <div class="chart-label">Cham</div>
-                <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #e74c3c;">
-                        <span class="chart-value">0</span>
-                        <img src="assets/CHA.jpg" alt="Cham" class="chart-avatar">
-                    </div>
-                </div>
-            </div>
-            <div class="chart-row">
-                <div class="chart-label">Willy</div>
-                <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #e67e22;">
-                        <span class="chart-value">0</span>
-                        <img src="assets/WIL.png" alt="Willy" class="chart-avatar">
-                    </div>
-                </div>
-            </div>
-            <div class="chart-row">
-                <div class="chart-label">Wesly</div>
+                <div class="chart-label">Tafuck</div>
                 <div class="chart-bar-wrapper">
                     <div class="chart-bar" style="background: #00bcd4;">
                         <span class="chart-value">0</span>
-                        <img src="assets/WES.jpg" alt="Wesly" class="chart-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Tafuck&background=00bcd4&color=fff&size=128&bold=true" alt="Tafuck" class="chart-avatar">
                     </div>
                 </div>
             </div>
@@ -1550,33 +1822,45 @@
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/DAV.jpg?raw=true" alt="Davin" class="participant-avatar"><strong>Davin</strong></td>
-                        <td class="pot1">Portugal</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true" alt="Ekont" class="participant-avatar"><strong>Ekont</strong></td>
                         <td class="pot1">Argentina</td>
-                        <td class="pot2">Amerika Serikat</td>
-                        <td class="pot2">Kolombia</td>
+                        <td class="pot1">Inggris</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Swiss</td>
                         <td class="pot3">Norwegia</td>
-                        <td class="pot3">Kanada</td>
-                        <td class="pot4">Algeria</td>
-                        <td class="pot4">Kongo DR</td>
+                        <td class="pot3">Mesir</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Ghana</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/NDO.jpeg?raw=true" alt="Ndod" class="participant-avatar"><strong>Ndod</strong></td>
-                        <td class="pot1">Perancis</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true" alt="Gaylang" class="participant-avatar"><strong>Gaylang</strong></td>
                         <td class="pot1">Argentina</td>
-                        <td class="pot2">Maroko</td>
-                        <td class="pot2">Kroasia</td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot2">Jepang</td>
                         <td class="pot3">Norwegia</td>
-                        <td class="pot3">Senegal</td>
-                        <td class="pot4 eliminated">Afrika Selatan</td>
-                        <td class="pot4">Kongo DR</td>
+                        <td class="pot3">Swedia</td>
+                        <td class="pot4">Tanjung Verde</td>
+                        <td class="pot4">Ghana</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/KHU.png?raw=true" alt="Khuang" class="participant-avatar"><strong>Khuang</strong></td>
-                        <td class="pot1">Spanyol</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Jopai&background=2ecc71&color=fff&size=128&bold=true" alt="Jopai" class="participant-avatar"><strong>Jopai</strong></td>
                         <td class="pot1">Argentina</td>
+                        <td class="pot1">Perancis</td>
+                        <td class="pot2">Belgium</td>
+                        <td class="pot2">Kolombia</td>
+                        <td class="pot3">Norwegia</td>
+                        <td class="pot3">Mesir</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Algeria</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><img src="https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true" alt="Khuang" class="participant-avatar"><strong>Khuang</strong></td>
+                        <td class="pot1">Argentina</td>
+                        <td class="pot1">Spanyol</td>
                         <td class="pot2">Belgium</td>
                         <td class="pot2">Kolombia</td>
                         <td class="pot3">Norwegia</td>
@@ -1585,52 +1869,28 @@
                         <td class="pot4">Bosnia-Herz</td>
                     </tr>
                     <tr>
-                        <td>4</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/MAR.jpg?raw=true" alt="Marten" class="participant-avatar"><strong>Marten</strong></td>
-                        <td class="pot1">Spanyol</td>
-                        <td class="pot1">Argentina</td>
-                        <td class="pot2">Jepang</td>
-                        <td class="pot2">Kolombia</td>
-                        <td class="pot3">Norwegia</td>
-                        <td class="pot3">Senegal</td>
-                        <td class="pot4">Ghana</td>
-                        <td class="pot4">Austria</td>
-                    </tr>
-                    <tr>
                         <td>5</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/CHA.jpg?raw=true" alt="Cham" class="participant-avatar"><strong>Cham</strong></td>
-                        <td class="pot1">Perancis</td>
+                        <td><img src="https://ui-avatars.com/api/?name=King+Jul&background=9b59b6&color=fff&size=128&bold=true" alt="KingJul" class="participant-avatar"><strong>KingJul</strong></td>
                         <td class="pot1">Argentina</td>
+                        <td class="pot1">Spanyol</td>
+                        <td class="pot2">Belgium</td>
                         <td class="pot2">Kolombia</td>
-                        <td class="pot2">Maroko</td>
                         <td class="pot3">Norwegia</td>
-                        <td class="pot3">Senegal</td>
-                        <td class="pot4">Ghana</td>
-                        <td class="pot4">Austria</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Algeria</td>
+                        <td class="pot4">Paraguay</td>
                     </tr>
                     <tr>
                         <td>6</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/WIL.png?raw=true" alt="Willy" class="participant-avatar"><strong>Willy</strong></td>
+                        <td><img src="https://ui-avatars.com/api/?name=Tafuck&background=00bcd4&color=fff&size=128&bold=true" alt="Tafuck" class="participant-avatar"><strong>Tafuck</strong></td>
                         <td class="pot1">Argentina</td>
-                        <td class="pot1">Perancis</td>
-                        <td class="pot2">Belgium</td>
-                        <td class="pot2">Jepang</td>
+                        <td class="pot1">Portugal</td>
+                        <td class="pot2">Swiss</td>
+                        <td class="pot2">Meksiko</td>
                         <td class="pot3">Norwegia</td>
-                        <td class="pot3">Senegal</td>
-                        <td class="pot4">Tanjung Verde</td>
-                        <td class="pot4 eliminated">Afrika Selatan</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td><img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/WES.jpg?raw=true" alt="Wesly" class="participant-avatar"><strong>Wesly</strong></td>
-                        <td class="pot1">Brazil</td>
-                        <td class="pot1">Spanyol</td>
-                        <td class="pot2">Jepang</td>
-                        <td class="pot2">Maroko</td>
-                        <td class="pot3">Senegal</td>
-                        <td class="pot3">Swedia</td>
-                        <td class="pot4">Paraguay</td>
-                        <td class="pot4">Bosnia-Herz</td>
+                        <td class="pot3">Kanada</td>
+                        <td class="pot4">Afrika Selatan</td>
+                        <td class="pot4">Austria</td>
                     </tr>
                 </tbody>
             </table>
@@ -1663,6 +1923,18 @@
             </div>
         </div>
 
+        <!-- Top Scorer Real-Time -->
+        <div class="podium-section topscorer-section">
+            <div class="topscorer-header">
+                <div class="topscorer-title">
+                    <span class="topscorer-live-dot"></span>
+                    🔥 Top Scorer Real-Time
+                </div>
+                <span class="topscorer-updated" id="topscorer-updated"></span>
+            </div>
+            <div class="topscorer-container" id="topscorer-container"></div>
+        </div>
+
         <!-- Golden Boot Bar Chart -->
         <div class="podium-section">
             <h4 style="text-align:center; color:#ffd700; font-size:0.9rem; margin-bottom:10px;"><img src="https://png.pngtree.com/png-clipart/20241006/original/pngtree-golden-boot-award-isolated-on-a-white-background-png-image_16219554.png" alt="Golden Boot" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Golden Boot</h4>
@@ -1685,22 +1957,20 @@
         // Side Quest Podium Data
         const sideQuestPodium = {
             champion: {
-                'Argentina': { flag: 'ar', supporters: ['Khuang', 'Cham', 'Willy'] },
-                'Portugal': { flag: 'pt', supporters: ['Davin'] },
-                'Perancis': { flag: 'fr', supporters: ['Ndod'] },
-                'Spanyol': { flag: 'es', supporters: ['Marten'] },
-                'Brazil': { flag: 'br', supporters: ['Wesly'] }
+                'Perancis': { flag: 'fr', supporters: ['Ekont', 'Gaylang', 'Jopai', 'Khuang'] },
+                'Spanyol': { flag: 'es', supporters: ['KingJul'] },
+                'Portugal': { flag: 'pt', supporters: ['Tafuck'] }
             },
             runnerup: {
-                'Argentina': { flag: 'ar', supporters: ['Davin', 'Ndod', 'Marten'] },
-                'Spanyol': { flag: 'es', supporters: ['Khuang', 'Wesly'] },
-                'Perancis': { flag: 'fr', supporters: ['Cham', 'Willy'] }
+                'Argentina': { flag: 'ar', supporters: ['Gaylang', 'Khuang', 'KingJul', 'Tafuck'] },
+                'Inggris': { flag: 'gb-eng', supporters: ['Ekont'] },
+                'Brazil': { flag: 'br', supporters: ['Jopai'] }
             },
             third: {
-                'Brazil': { flag: 'br', supporters: ['Davin', 'Marten'] },
-                'Spanyol': { flag: 'es', supporters: ['Ndod'] },
-                'Perancis': { flag: 'fr', supporters: ['Khuang', 'Wesly'] },
-                'Portugal': { flag: 'pt', supporters: ['Cham', 'Willy'] }
+                'Spanyol': { flag: 'es', supporters: ['Ekont', 'Gaylang', 'Khuang'] },
+                'Argentina': { flag: 'ar', supporters: ['Jopai'] },
+                'Perancis': { flag: 'fr', supporters: ['KingJul'] },
+                'Swiss': { flag: 'ch', supporters: ['Tafuck'] }
             }
         };
 
@@ -1771,6 +2041,7 @@
                 buildPodiumCards('podium-champion', sideQuestPodium.champion);
                 buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup);
                 buildPodiumCards('podium-3rd', sideQuestPodium.third);
+                buildTopScorer();
                 buildGoldenBootChart();
                 buildPlayerPodium('podium-goldenglove-container', goldenGloveData, '🧤');
             }, 250);
@@ -1778,29 +2049,121 @@
 
         // Golden Boot Data (sorted by most goals)
         const goldenBootData = [
-            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 0, supporters: ['Hendro', 'Khuang', 'Cham', 'Wesly'] },
-            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 0, supporters: ['Davin', 'Willy'] },
-            { name: 'Lamine Yamal', img: 'https://img.a.transfermarkt.technology/portrait/big/937958-1773173768.jpg?lm=1', goals: 0, supporters: ['Marten'] }
+            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 0, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
+            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 0, supporters: ['Khuang', 'KingJul'] },
+            { name: 'Cristiano Ronaldo', img: 'https://images.fotmob.com/image_resources/playerimages/30893.png', goals: 0, supporters: ['Tafuck'] }
         ];
 
         // Golden Glove Data (sorted by most votes)
         const goldenGloveData = [
-            { name: 'Emiliano Martinez', img: 'https://img.a.transfermarkt.technology/portrait/big/111873-1668180824.jpg?lm=1', supporters: ['Ndod', 'Khuang', 'Willy'] },
-            { name: 'Mike Maignan', img: 'https://cdn.soccerwiki.org/images/player/68131.png', supporters: ['Cham'] },
-            { name: 'Vozinha', img: 'https://img.a.transfermarkt.technology/portrait/big/242277-1713587632.png?lm=1', supporters: ['Davin'] },
-            { name: 'Unai Simon', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/194820-removebg-preview.png?raw=true', supporters: ['Marten'] },
-            { name: 'Alison Becker', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__2_-removebg-preview.png?raw=true', supporters: ['Wesly'] }
+            { name: 'Mike Maignan', img: 'https://cdn.soccerwiki.org/images/player/68131.png', supporters: ['Ekont', 'Gaylang'] },
+            { name: 'Unai Simon', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/194820-removebg-preview.png?raw=true', supporters: ['Khuang', 'KingJul'] },
+            { name: 'Allison Becker', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/images__2_-removebg-preview.png?raw=true', supporters: ['Jopai'] },
+            { name: 'Diogo Costa', img: 'https://img.a.transfermarkt.technology/portrait/big/467214-1738163094.jpg?lm=1', supporters: ['Tafuck'] }
         ];
 
-        // Total Goal Data
+        // ============================================================
+        // TOP SCORER REAL-TIME — update manually as matches happen
+        // ============================================================
+        // Photo URLs:
+        //   - github.com/ndodhendro/... → transparent PNGs (original repo)
+        //   - images.fotmob.com/image_resources/playerimages/{id}.png → transparent PNGs
+        //   - img.a.transfermarkt.technology/portrait/big/{id}-{ts}.jpg?lm=1 → portrait
+        // If a URL stops working, swap it here.
+        // ============================================================
+        const topScorerLive = {
+            lastUpdated: '29 Jun 2026',
+            players: [
+                { name: 'Lionel Messi',     team: 'Argentina', flag: 'ar', goals: 6,
+                  img: 'https://images.fotmob.com/image_resources/playerimages/30981.png' },
+                { name: 'Kylian Mbappé',    team: 'Perancis',  flag: 'fr', goals: 4,
+                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png' },
+                { name: 'Erling Haaland',   team: 'Norwegia',  flag: 'no', goals: 4,
+                  img: 'https://images.fotmob.com/image_resources/playerimages/737066.png' },
+            ]
+        };
+
+        function buildTopScorer() {
+            const container = document.getElementById('topscorer-container');
+            const updatedEl = document.getElementById('topscorer-updated');
+            if (!container) return;
+
+            if (updatedEl) updatedEl.textContent = `Update terakhir: ${topScorerLive.lastUpdated}`;
+
+            // Sort descending by goals; take top 3
+            const sorted = [...topScorerLive.players]
+                .sort((a, b) => b.goals - a.goals)
+                .slice(0, 3);
+
+            // Visual order: #2 left, #1 center, #3 right (podium-style)
+            const visualOrder = [sorted[1], sorted[0], sorted[2]].filter(Boolean);
+            // Track which slot in visualOrder corresponds to which rank
+            const rankByPosition = sorted.length === 3 ? [2, 1, 3] :
+                                   sorted.length === 2 ? [2, 1]   :
+                                   [1];
+
+            container.innerHTML = '';
+            visualOrder.forEach((player, posIdx) => {
+                if (!player) return;
+                const rank = rankByPosition[posIdx];
+
+                const card = document.createElement('div');
+                card.className = `topscorer-card rank-${rank}`;
+
+                const badge = document.createElement('div');
+                badge.className = 'topscorer-rank-badge';
+                badge.textContent = rank === 1 ? '🥇 #1' : rank === 2 ? '🥈 #2' : '🥉 #3';
+                card.appendChild(badge);
+
+                const photoWrap = document.createElement('div');
+                photoWrap.className = 'topscorer-photo-wrap';
+                const img = document.createElement('img');
+                img.className = 'topscorer-photo';
+                img.src = player.img;
+                img.alt = player.name;
+                img.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png';
+                };
+                photoWrap.appendChild(img);
+                card.appendChild(photoWrap);
+
+                const name = document.createElement('div');
+                name.className = 'topscorer-name';
+                name.textContent = player.name;
+                card.appendChild(name);
+
+                const team = document.createElement('div');
+                team.className = 'topscorer-team';
+                const flag = document.createElement('img');
+                flag.src = `https://flagcdn.com/w40/${player.flag}.png`;
+                flag.alt = player.team;
+                team.appendChild(flag);
+                team.appendChild(document.createTextNode(player.team));
+                card.appendChild(team);
+
+                const goals = document.createElement('div');
+                goals.className = 'topscorer-goals';
+                goals.textContent = player.goals;
+                card.appendChild(goals);
+
+                const goalsLabel = document.createElement('div');
+                goalsLabel.className = 'topscorer-goals-label';
+                goalsLabel.textContent = player.goals === 1 ? 'Goal' : 'Goals';
+                card.appendChild(goalsLabel);
+
+                container.appendChild(card);
+            });
+        }
+
+
         const totalGoalData = [
-            { name: 'Marten', goal: 57 },
-            { name: 'Davin', goal: 71 },
-            { name: 'Willy', goal: 81 },
-            { name: 'Ndod', goal: 82 },
-            { name: 'Khuang', goal: 88 },
-            { name: 'Wesly', goal: 93 },
-            { name: 'Cham', goal: 117 }
+            { name: 'Ekont', goal: 48 },
+            { name: 'Tafuck', goal: 75 },
+            { name: 'Jopai', goal: 89 },
+            { name: 'Gaylang', goal: 90 },
+            { name: 'Khuang', goal: 100 },
+            { name: 'KingJul', goal: 148 }
         ];
 
         function buildPlayerPodium(containerId, data, icon) {
@@ -1978,30 +2341,28 @@
             if (!container) return;
 
             const startValue = 0;
-            const endValue = 120;
-            const currentGoal = 1; // <-- Update with actual current tournament total goals
+            const endValue = 160;
+            const currentGoal = getCurrentTotalGoals(); // 90+IT+ET, penalty shootout excluded
             const trackHeight = 500; // Total height of the track in px
 
             // Adjustable spacing offsets (in px from calculated position)
             // Positive = move down, Negative = move up
             const markerOffsets = {
-                'Marten': 0,    // 57 goals
-                'Davin': 0,     // 71 goals
-                'Willy': 0,     // 81 goals
-                'Ndod': 0,      // 82 goals
-                'Khuang': 0,    // 88 goals
-                'Wesly': 0,     // 93 goals
-                'Cham': 0       // 117 goals
+                'Ekont': 0,    // 48 goals
+                'Tafuck': 0,   // 75 goals
+                'Jopai': 0,    // 89 goals
+                'Gaylang': 0,  // 90 goals
+                'Khuang': 0,   // 100 goals
+                'KingJul': 0   // 148 goals
             };
 
             const participantColors = {
-                'Davin': '#3498db',
-                'Ndod': '#e67e22',
-                'Khuang': '#f1c40f',
-                'Marten': '#9b59b6',
-                'Cham': '#e74c3c',
-                'Willy': '#2ecc71',
-                'Wesly': '#00bcd4'
+                'Ekont': '#e74c3c',
+                'Gaylang': '#3498db',
+                'Jopai': '#2ecc71',
+                'Khuang': '#e67e22',
+                'KingJul': '#9b59b6',
+                'Tafuck': '#00bcd4'
             };
 
             // Create vertical structure
@@ -2128,27 +2489,44 @@
         function updateStandingsChart() {
             const chart = document.querySelector('.standings-chart');
             if (!chart) return;
+
+            // 1. Compute points from match results and write into chart-value cells
+            const points = calculatePoints();
+            chart.querySelectorAll('.chart-row').forEach(row => {
+                const labelEl = row.querySelector('.chart-label');
+                const valueEl = row.querySelector('.chart-value');
+                if (!labelEl || !valueEl) return;
+                const name = labelEl.textContent.trim();
+                if (points[name] !== undefined) {
+                    valueEl.textContent = points[name];
+                }
+            });
+
+            // 2. Apply elimination markers to Main Quest table
+            applyEliminationMarkers();
+
+            // 3. Read points back into rows for sorting
             const rows = Array.from(chart.querySelectorAll('.chart-row'));
-            
-            // Get points from each row
             rows.forEach(row => {
                 const valueEl = row.querySelector('.chart-value');
                 row._points = parseInt(valueEl.textContent) || 0;
             });
 
-            // Sort by points descending
+            // 4. Sort by points descending
             rows.sort((a, b) => b._points - a._points);
-
-            // Re-append in sorted order
             rows.forEach(row => chart.appendChild(row));
 
-            // Calculate max points for width scaling
-            const maxPoints = Math.max(...rows.map(r => r._points), 1);
-
-            // Update widths
+            // 5. Bar width — proportional to MAX_POINTS = 50
+            const MAX_POINTS = 50;
+            const ZERO_WIDTH_PCT = 4; // slight visible bar for 0 points
             rows.forEach(row => {
                 const bar = row.querySelector('.chart-bar');
-                const pct = Math.max((row._points / maxPoints) * 100, 8);
+                let pct;
+                if (row._points <= 0) {
+                    pct = ZERO_WIDTH_PCT;
+                } else {
+                    pct = Math.min((row._points / MAX_POINTS) * 100, 100);
+                }
                 bar.style.width = pct + '%';
             });
         }
