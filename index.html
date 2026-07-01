@@ -2195,17 +2195,39 @@
         // IMPORTANT: goals below count ONLY knockout-stage matches (Round of 32 onward).
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
-        const topScorerLive = {
-            lastUpdated: '1 Jul 2026 (gol fase knockout saja)',
-            players: [
-                { name: 'Kylian Mbappé',    team: 'Perancis',  flag: 'fr', goals: 2,
-                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png' },
-                { name: 'Erling Haaland',   team: 'Norwegia',  flag: 'no', goals: 1,
-                  img: 'https://images.fotmob.com/image_resources/playerimages/737066.png' },
-                { name: 'Kai Havertz',      team: 'Jerman',    flag: 'de', goals: 1,
-                  img: 'https://cdn-img.staticzz.com/img/jogadores/new/16/81/511681_kai_havertz_20251127225615.png' },
-            ]
-        };
+const topScorerLive = {
+    lastUpdated: '1 Jul 2026 (fase knockout saja)',
+    players: [
+        { name: 'Kylian Mbappé',     team: 'Perancis',      flag: 'fr',
+          img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 2 },
+        { name: 'Erling Haaland',    team: 'Norwegia',      flag: 'no',
+          img: 'https://images.fotmob.com/image_resources/playerimages/737066.png', goals: 1 },
+        { name: 'Antonio Nusa',      team: 'Norwegia',      flag: 'no',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+        { name: 'Amad Diallo',       team: 'Pantai Gading', flag: 'ci',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+        { name: 'Stephen Eustáquio', team: 'Kanada',        flag: 'ca',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+        { name: 'Casemiro',          team: 'Brasil',        flag: 'br',
+          img: 'https://images.fotmob.com/image_resources/playerimages/149009.png', goals: 1 },
+        { name: 'Gabriel Martinelli',team: 'Brasil',        flag: 'br',
+          img: 'https://images.fotmob.com/image_resources/playerimages/1101994.png', goals: 1 },
+        { name: 'Kaishu Sano',       team: 'Jepang',        flag: 'jp',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+        { name: 'Kai Havertz',       team: 'Jerman',        flag: 'de',
+          img: 'https://images.fotmob.com/image_resources/playerimages/406625.png', goals: 1 },
+        { name: 'Julio Enciso',      team: 'Paraguay',      flag: 'py',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+        { name: 'Cody Gakpo',        team: 'Belanda',       flag: 'nl',
+          img: 'https://images.fotmob.com/image_resources/playerimages/945482.png', goals: 1 },
+        { name: 'Issa Diop',         team: 'Maroko',        flag: 'ma',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+        { name: 'Raúl Jiménez',      team: 'Meksiko',       flag: 'mx',
+          img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 1 },
+        { name: 'Julián Quiñones',   team: 'Meksiko',       flag: 'mx',
+          img: 'https://img.icons8.com/ios-filled/100/ff6b35/football-player.png', goals: 1 },
+    ]
+};
 
         function buildTopScorer() {
             const container = document.getElementById('topscorer-container');
