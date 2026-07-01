@@ -2540,5 +2540,96 @@
             });
         }
     </script>
+
+    <!-- Background Music (lokal MP3) -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="assets/music2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Mute/Unmute Button -->
+    <button id="music-toggle" onclick="toggleMusic()" title="Klik untuk Play/Mute" aria-label="Toggle background music">
+        🔊
+    </button>
+
+    <style>
+        #music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #e94560;
+            background: rgba(15, 15, 35, 0.9);
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            backdrop-filter: blur(8px);
+            animation: pulseHint 1.5s ease-in-out infinite;
+        }
+        @keyframes pulseHint {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3); }
+            50% { transform: scale(1.1); box-shadow: 0 6px 25px rgba(233, 69, 96, 0.6); }
+        }
+        #music-toggle.playing {
+            animation: none;
+        }
+        #music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(233, 69, 96, 0.5);
+            background: rgba(233, 69, 96, 0.2);
+        }
+        #music-toggle.muted {
+            border-color: #666;
+            box-shadow: 0 4px 15px rgba(100, 100, 100, 0.3);
+            animation: none;
+        }
+        #music-toggle.muted:hover {
+            box-shadow: 0 6px 25px rgba(100, 100, 100, 0.5);
+            background: rgba(100, 100, 100, 0.2);
+        }
+    </style>
+
+    <script>
+        var isMuted = false;
+        var audio = document.getElementById('bg-music');
+        audio.volume = 0.5;
+
+        function enterSite() {
+            // Hilangkan splash overlay
+            document.getElementById('splash-overlay').classList.add('hidden');
+            // Mulai musik
+            audio.play();
+            var btn = document.getElementById('music-toggle');
+            btn.classList.add('playing');
+        }
+
+        function toggleMusic() {
+            var btn = document.getElementById('music-toggle');
+
+            if (isMuted) {
+                audio.play();
+                btn.textContent = '🔊';
+                btn.classList.remove('muted');
+                btn.classList.add('playing');
+                isMuted = false;
+            } else {
+                audio.pause();
+                btn.textContent = '🔇';
+                btn.classList.add('muted');
+                btn.classList.remove('playing');
+                isMuted = true;
+            }
+        }
+    </script>
+</body>
+</html>
+    
 </body>
 </html>
