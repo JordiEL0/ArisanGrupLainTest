@@ -2541,16 +2541,14 @@
         }
     </script>
 
-    <!-- Background Music (lokal MP3) -->
+<!-- Background Music (lokal MP3) -->
     <audio id="bg-music" loop preload="auto">
         <source src="assets/dai-dai-shakira.mp3" type="audio/mpeg">
     </audio>
-
     <!-- Mute/Unmute Button -->
     <button id="music-toggle" onclick="toggleMusic()" title="Klik untuk Play/Mute" aria-label="Toggle background music">
         🔊
     </button>
-
     <style>
         #music-toggle {
             position: fixed;
@@ -2595,32 +2593,20 @@
             background: rgba(100, 100, 100, 0.2);
         }
     </style>
-
     <script>
         var isMuted = false;
-        var audio = document.getElementById('bg-music');
-        audio.volume = 0.5;
-
-        function enterSite() {
-            // Hilangkan splash overlay
-            document.getElementById('splash-overlay').classList.add('hidden');
-            // Mulai musik
-            audio.play();
-            var btn = document.getElementById('music-toggle');
-            btn.classList.add('playing');
-        }
-
+        var bgMusicEl = document.getElementById('bg-music');
+        bgMusicEl.volume = 0.5;
         function toggleMusic() {
             var btn = document.getElementById('music-toggle');
-
             if (isMuted) {
-                audio.play();
+                bgMusicEl.play();
                 btn.textContent = '🔊';
                 btn.classList.remove('muted');
                 btn.classList.add('playing');
                 isMuted = false;
             } else {
-                audio.pause();
+                bgMusicEl.pause();
                 btn.textContent = '🔇';
                 btn.classList.add('muted');
                 btn.classList.remove('playing');
@@ -2628,8 +2614,5 @@
             }
         }
     </script>
-</body>
-</html>
-    
 </body>
 </html>
