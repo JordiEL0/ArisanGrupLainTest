@@ -1519,7 +1519,7 @@
                     <div class="matchup">
                         <div class="matchup-date">Sen, 6/7, 07.00</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/us.png" alt="USA"></span><span class="team-name">Amerika Serikat</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/be.png" alt="BEL"></span><span class="team-name">Belgia</span></div
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/be.png" alt="BEL"></span><span class="team-name">Belgia</span></div>
                     </div>
                     <div class="matchup">
                         <div class="matchup-date">Min, 5/7, 04.00 WIB</div>
@@ -1735,8 +1735,8 @@
         const matchResults = [
             { team1: 'Afrika Selatan', team2: 'Kanada', score90: [0, 1], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Brasil', team2: 'Jepang', score90: [2, 1], scoreET: null, penaltyWinner: null, played: true },
-            { team1: 'Jerman', team2: 'Paraguay', score90: [1, 1], scoreET: null, penaltyWinner: 'Paraguay', played: true },
-            { team1: 'Belanda', team2: 'Maroko', score90: [1, 1], scoreET: null, penaltyWinner: 'Maroko', played: true },
+            { team1: 'Jerman', team2: 'Paraguay', score90: [1, 1], scoreET: [1, 1], penaltyWinner: 'Paraguay', played: true },
+            { team1: 'Belanda', team2: 'Maroko', score90: [1, 1], scoreET: [1, 1], penaltyWinner: 'Maroko', played: true },
             { team1: 'Pantai Gading', team2: 'Norwegia', score90: [1, 2], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Prancis', team2: 'Swedia', score90: [3, 0], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Meksiko', team2: 'Ekuador', score90: [2, 0], scoreET: null, penaltyWinner: null, played: true },
@@ -1820,6 +1820,48 @@
             'England': 'Inggris',
             'Perancis': 'Prancis',
         };
+
+        // Score display format: "A (B)"
+        //   A = goals scored in FT + injury time (score90)
+        //   B = goals scored in extra time ONLY (scoreET total minus score90)
+        //   If scoreET is null (no extra time played), only "A" is shown.
+        function formatScoreDisplay(main, etTotal) {
+            if (etTotal === null || etTotal === undefined) return `${main}`;
+            return `${main} (${etTotal - main})`;
+        }
+
+        function renderBracketScores() {
+            document.querySelectorAll('.round-group .matchup.finished').forEach(matchup => {
+                const teamDivs = matchup.querySelectorAll('.team');
+                if (teamDivs.length !== 2) return;
+                const nameEl1 = teamDivs[0].querySelector('.team-name');
+                const nameEl2 = teamDivs[1].querySelector('.team-name');
+                if (!nameEl1 || !nameEl2) return;
+                const resolve = n => teamDisplayAliases[n] || n;
+                const rn1 = resolve(nameEl1.textContent.trim());
+                const rn2 = resolve(nameEl2.textContent.trim());
+
+                const m = matchResults.find(r => r.played &&
+                    ((r.team1 === rn1 && r.team2 === rn2) || (r.team1 === rn2 && r.team2 === rn1)));
+                if (!m) return;
+
+                const sameOrder = (m.team1 === rn1);
+                const [m1, m2] = m.score90;
+                const s1 = sameOrder ? m1 : m2;
+                const s2 = sameOrder ? m2 : m1;
+                let et1 = null, et2 = null;
+                if (m.scoreET) {
+                    const [e1, e2] = m.scoreET;
+                    et1 = sameOrder ? e1 : e2;
+                    et2 = sameOrder ? e2 : e1;
+                }
+
+                const scoreEl1 = teamDivs[0].querySelector('.team-score');
+                const scoreEl2 = teamDivs[1].querySelector('.team-score');
+                if (scoreEl1) scoreEl1.textContent = formatScoreDisplay(s1, et1);
+                if (scoreEl2) scoreEl2.textContent = formatScoreDisplay(s2, et2);
+            });
+        }
 
         function applyEliminationMarkers() {
             const eliminated = getEliminatedTeams();
@@ -2726,6 +2768,9 @@
 
             // 2. Apply elimination markers to Main Quest table
             applyEliminationMarkers();
+
+            // 2b. Render bracket scores in "A (B)" format from matchResults (single source of truth)
+            renderBracketScores();
 
             // 3. Read points back into rows for sorting
             const rows = Array.from(chart.querySelectorAll('.chart-row'));
