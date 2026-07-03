@@ -110,6 +110,25 @@
             flex: 1;
             gap: 8px;
         }
+        /* Ronde selain Babak Grup diposisikan secara eksplisit via JS (layoutBracketPositions)
+           agar setiap matchup benar-benar center terhadap titik tengah 2 matchup induknya.
+           justify-content: space-around tidak presisi ketika jumlah item antar-ronde berbeda. */
+        .round-r16 .round-matches,
+        .round-qf .round-matches,
+        .round-sf .round-matches,
+        .round-final .round-matches {
+            position: relative;
+            justify-content: flex-start;
+            gap: 0;
+        }
+        .round-r16 .round-matches > .matchup,
+        .round-qf .round-matches > .matchup,
+        .round-sf .round-matches > .matchup,
+        .round-final .round-matches > .matchup {
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
         .matchup {
             background: #1a1a3e;
             border-radius: 8px;
@@ -1608,6 +1627,37 @@
     </div>
 
     <script>
+        // Posisikan setiap matchup di ronde 16 Besar dst tepat di titik tengah
+        // (midpoint Y) dari 2 matchup induknya pada ronde sebelumnya.
+        // Dijalankan berurutan kiri->kanan sehingga posisi ronde sebelumnya
+        // sudah final sebelum dipakai sebagai acuan ronde berikutnya.
+        function layoutBracketPositions() {
+            const bracket = document.querySelector('.bracket');
+            const rounds = Array.from(bracket.querySelectorAll('.round-group, .round-r16, .round-qf, .round-sf, .round-final'));
+
+            for (let i = 1; i < rounds.length; i++) {
+                const prevMatches = Array.from(rounds[i - 1].querySelectorAll('.matchup'));
+                const matches = Array.from(rounds[i].querySelectorAll('.matchup'));
+                const containerEl = rounds[i].querySelector('.round-matches');
+                const containerTop = containerEl.getBoundingClientRect().top;
+
+                matches.forEach((el, j) => {
+                    const m1 = prevMatches[j * 2];
+                    const m2 = prevMatches[j * 2 + 1];
+                    if (!m1 || !m2) return;
+
+                    const r1 = m1.getBoundingClientRect();
+                    const r2 = m2.getBoundingClientRect();
+                    const midY = ((r1.top + r1.bottom) / 2 + (r2.top + r2.bottom) / 2) / 2;
+
+                    const elHeight = el.getBoundingClientRect().height;
+                    const topPx = midY - elHeight / 2 - containerTop;
+
+                    el.style.top = topPx + 'px';
+                });
+            }
+        }
+
         function drawBracketLines() {
             const bracket = document.querySelector('.bracket');
             // Select rounds that pair into next round (exclude trophy)
@@ -1676,8 +1726,8 @@
             bracket.appendChild(svg);
         }
 
-        window.addEventListener('load', () => setTimeout(drawBracketLines, 100));
-        window.addEventListener('resize', drawBracketLines);
+        window.addEventListener('load', () => setTimeout(() => { layoutBracketPositions(); drawBracketLines(); }, 100));
+        window.addEventListener('resize', () => { layoutBracketPositions(); drawBracketLines(); });
     </script>
 
     <script>
@@ -1953,7 +2003,7 @@
 
         window.addEventListener('load', () => setTimeout(injectSupporters, 200));
         // Redraw bracket lines after supporters are injected
-        window.addEventListener('load', () => setTimeout(drawBracketLines, 300));
+        window.addEventListener('load', () => setTimeout(() => { layoutBracketPositions(); drawBracketLines(); }, 300));
     </script>
 
     <!-- Standings Section -->
