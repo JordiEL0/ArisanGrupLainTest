@@ -1422,7 +1422,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 - CheeBye Khang</h1>
-            <p class="last-updated">Last updated: 6 Juli 2026, 10:00 WIB</p>
+            <p class="last-updated">Last updated: 7 Juli 2026, 09:00 WIB</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1545,10 +1545,10 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/br.png" alt="BRA"></span><span class="team-name">Brasil</span><span class="team-score">1</span></div>
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span><span class="team-score">2</span></div>
                     </div>
-                        <div class="matchup">
-                            <div class="matchup-date">Sel, 7/7, 02.00 WIB</div>
-                            <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span></div>
-                            <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
+                        <div class="matchup finished">
+                            <div class="matchup-date">✅ Sel, 7/7, 02.00 WIB</div>
+                            <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span><span class="team-score">2</span></div>
+                            <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span><span class="team-score">3</span></div>
                         </div>
                     <div class="matchup">
                         <div class="matchup-date">Rab, 8/7, 03.00 WIB</div>
@@ -1572,10 +1572,10 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ma.png" alt="MAR"></span><span class="team-name">Maroko</span></div>
                     </div>
-                    <div class="matchup tbd">
+                    <div class="matchup">
                         <div class="matchup-date">Sab, 11/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
                     </div>
                     <div class="matchup tbd">
                         <div class="matchup-date">Min, 12/7, 04.00</div>
@@ -1803,6 +1803,7 @@
             { team1: 'Paraguay', team2: 'Prancis', score90: [0, 1], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Kanada', team2: 'Maroko', score90: [0, 3], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Brasil', team2: 'Norwegia', score90: [1, 2], scoreET: null, penaltyWinner: null, played: true },
+            { team1: 'Meksiko', team2: 'Inggris', score90: [2, 3], scoreET: null, penaltyWinner: null, played: true },
         ];
 
         // Resolve team-name aliases used in teamSupporters
@@ -2343,10 +2344,12 @@
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
         const topScorerLive = {
-            lastUpdated: '6 Jul 2026',
+            lastUpdated: '7 Jul 2026',
             players: [
                 { name: 'Harry Kane',         team: 'Inggris',       flag: 'gb-eng',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/194165.png', goals: 2 },
+                  img: 'https://images.fotmob.com/image_resources/playerimages/194165.png', goals: 3 },
+                { name: 'Jude Bellingham',    team: 'Inggris',       flag: 'gb-eng',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1077894.png', goals: 2 },
                 { name: 'Youri Tielemans',    team: 'Belgia',        flag: 'be',
                   img: 'https://images.fotmob.com/image_resources/playerimages/465960.png', goals: 2 },
                 { name: 'Brian Cipenga',      team: 'RD Kongo',      flag: 'cd',
@@ -2392,9 +2395,9 @@
                 { name: 'Issa Diop',          team: 'Maroko',        flag: 'ma',
                   img: 'https://images.fotmob.com/image_resources/playerimages/696443.png', goals: 1 },
                 { name: 'Raúl Jiménez',       team: 'Meksiko',       flag: 'mx',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 1 },
+                  img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 2 },
                 { name: 'Julián Quiñones',    team: 'Meksiko',       flag: 'mx',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/720560.png', goals: 1 },
+                  img: 'https://images.fotmob.com/image_resources/playerimages/720560.png', goals: 2 },
                 { name: 'Mikel Oyarzabal',    team: 'Spanyol',       flag: 'es',
                   img: 'https://images.fotmob.com/image_resources/playerimages/678234.png', goals: 2 },
                 { name: 'Gonçalo Ramos',      team: 'Portugal',      flag: 'pt',
