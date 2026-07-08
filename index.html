@@ -1422,7 +1422,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 - CheeBye Khang</h1>
-            <p class="last-updated">Last updated: 7 Juli 2026, 09:00 WIB</p>
+            <p class="last-updated">Last updated: 8 Juli 2026, 12:00 WIB</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1550,15 +1550,15 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/mx.png" alt="MEX"></span><span class="team-name">Meksiko</span><span class="team-score">2</span></div>
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span><span class="team-score">3</span></div>
                     </div>
-                    <div class="matchup">
-                        <div class="matchup-date">Sel, 7/7, 23.00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/eg.png" alt="EGY"></span><span class="team-name">Mesir</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Sel, 7/7, 23.00 WIB</div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span><span class="team-score">3</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/eg.png" alt="EGY"></span><span class="team-name">Mesir</span><span class="team-score">2</span></div>
                     </div>
-                    <div class="matchup">
-                        <div class="matchup-date">Rab, 8/7, 03.00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ch.png" alt="SUI"></span><span class="team-name">Swiss</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/co.png" alt="COL"></span><span class="team-name">Kolombia</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Sel, 7/7, 21.00 WIB (Swiss menang adu penalti 4-3)</div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/ch.png" alt="SUI"></span><span class="team-name">Swiss</span><span class="team-score">0</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/co.png" alt="COL"></span><span class="team-name">Kolombia</span><span class="team-score">0</span></div>
                     </div> 
                 </div>
             </div>
@@ -1582,10 +1582,10 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
                     </div>
-                    <div class="matchup tbd">
-                        <div class="matchup-date">Min, 12/7, 08.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    <div class="matchup">
+                        <div class="matchup-date">Min, 12/7, 08.00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ch.png" alt="SUI"></span><span class="team-name">Swiss</span></div>
                     </div>
                 </div>
             </div>
@@ -1806,7 +1806,8 @@
             { team1: 'Meksiko', team2: 'Inggris', score90: [2, 3], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Portugal', team2: 'Spanyol', score90: [0, 1], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Amerika Serikat', team2: 'Belgia', score90: [1, 4], scoreET: null, penaltyWinner: null, played: true },
-            { team1: 'Argentina', team2: 'Mesir', score90: [3, 1], scoreET: null, penaltyWinner: null, played: false },
+            { team1: 'Argentina', team2: 'Mesir', score90: [3, 2], scoreET: null, penaltyWinner: null, played: true },
+            { team1: 'Swiss', team2: 'Kolombia', score90: [0, 0], scoreET: [0, 0], penaltyWinner: 'Swiss', played: true },
         ];
 
         // Resolve team-name aliases used in teamSupporters
@@ -2323,7 +2324,7 @@
         // Goals below count ONLY knockout-stage (Round of 32 onward) goals — group stage excluded, per user's request.
         const goldenBootData = [
             { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 3, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
-            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 1, supporters: ['Khuang', 'KingJul'] },
+            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 2, supporters: ['Khuang', 'KingJul'] },
             { name: 'Cristiano Ronaldo', img: 'https://images.fotmob.com/image_resources/playerimages/30893.png', goals: 1, supporters: ['Tafuck'] }
         ];
 
@@ -2347,7 +2348,7 @@
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
         const topScorerLive = {
-            lastUpdated: '7 Jul 2026',
+            lastUpdated: '8 Jul 2026',
             players: [
                 { name: 'Harry Kane',         team: 'Inggris',       flag: 'gb-eng',
                   img: 'https://images.fotmob.com/image_resources/playerimages/194165.png', goals: 3 },
@@ -2414,7 +2415,9 @@
                 { name: 'Dan Ndoye',          team: 'Swiss',         flag: 'ch',
                   img: 'https://images.fotmob.com/image_resources/playerimages/1022649.png', goals: 1 },
                 { name: 'Lionel Messi',       team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/30981.png', goals: 1 },
+                  img: 'https://images.fotmob.com/image_resources/playerimages/30981.png', goals: 2 },
+                { name: 'Enzo Fernández',     team: 'Argentina',     flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1000420.png', goals: 1 },
                 { name: 'Lisandro Martínez',  team: 'Argentina',     flag: 'ar',
                   img: 'https://images.fotmob.com/image_resources/playerimages/847983.png', goals: 1 },
                 { name: 'Deroy Duarte',       team: 'Tanjung Verde', flag: 'cv',
