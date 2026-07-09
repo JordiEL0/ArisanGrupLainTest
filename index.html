@@ -826,6 +826,20 @@
             }
         }
 
+        /* Side Quest box glowing (podium cards / golden boot / golden glove) - top entry only */
+        .podium-team-card.glowing,
+        .goldenboot-card.glowing,
+        .player-podium-card.glowing {
+            animation: glowPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(233, 69, 96, 0.6), 0 0 24px rgba(233, 69, 96, 0.3);
+        }
+
+        /* Standings chart bar glowing - highest point only */
+        .chart-bar-wrapper.glowing {
+            animation: glowPulse 2s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(233, 69, 96, 0.6), 0 0 24px rgba(233, 69, 96, 0.3);
+        }
+
         /* Responsive - Mobile */
         @media (max-width: 768px) {
             body {
@@ -1883,6 +1897,7 @@
             'Algeria': 'Aljazair',
             'England': 'Inggris',
             'Perancis': 'Prancis',
+            'Brazil': 'Brasil',
         };
 
         // Score display format: "A (B)"
@@ -2258,9 +2273,15 @@
                 return a[0].localeCompare(b[0]);
             });
 
+            const eliminatedTeams = getEliminatedTeams();
+
             sorted.forEach(([team, info]) => {
                 const card = document.createElement('div');
                 card.className = 'podium-team-card';
+                const canonicalTeam = teamDisplayAliases[team] || team;
+                if (!eliminatedTeams.has(canonicalTeam)) {
+                    card.classList.add('glowing');
+                }
 
                 // Team info row
                 const teamInfo = document.createElement('div');
@@ -2538,6 +2559,7 @@
 
             // Sort by supporters count descending
             const sorted = [...data].sort((a, b) => b.supporters.length - a.supporters.length);
+            const maxSupporters = sorted.length ? sorted[0].supporters.length : 0;
 
             sorted.forEach((player) => {
                 const place = document.createElement('div');
@@ -2545,6 +2567,9 @@
 
                 const card = document.createElement('div');
                 card.className = 'player-podium-card';
+                if (player.supporters.length === maxSupporters && maxSupporters > 0) {
+                    card.classList.add('glowing');
+                }
 
                 // Player info
                 const info = document.createElement('div');
@@ -2621,6 +2646,7 @@
             // Sort by goals count descending
             const sorted = [...goldenBootData].sort((a, b) => b.goals - a.goals);
             const maxGoals = Math.max(...sorted.map(p => p.goals), 1);
+            const topGoals = sorted.length ? sorted[0].goals : 0;
 
             sorted.forEach(player => {
                 const row = document.createElement('div');
@@ -2633,6 +2659,9 @@
                 // Card (like podium-team-card): info + toggle + panel
                 const card = document.createElement('div');
                 card.className = 'goldenboot-card';
+                if (player.goals === topGoals && topGoals > 0) {
+                    card.classList.add('glowing');
+                }
 
                 // Card info (player name)
                 const cardInfo = document.createElement('div');
@@ -2888,8 +2917,10 @@
             // 5. Bar width — proportional to MAX_POINTS = 50
             const MAX_POINTS = 50;
             const ZERO_WIDTH_PCT = 4; // slight visible bar for 0 points
+            const topPoints = rows.length ? rows[0]._points : 0;
             rows.forEach(row => {
                 const bar = row.querySelector('.chart-bar');
+                const wrapper = row.querySelector('.chart-bar-wrapper');
                 let pct;
                 if (row._points <= 0) {
                     pct = ZERO_WIDTH_PCT;
@@ -2897,6 +2928,11 @@
                     pct = Math.min((row._points / MAX_POINTS) * 100, 100);
                 }
                 bar.style.width = pct + '%';
+
+                // Glow the highest-point bar (only when someone actually has points)
+                if (wrapper) {
+                    wrapper.classList.toggle('glowing', row._points === topPoints && topPoints > 0);
+                }
             });
         }
     </script>
