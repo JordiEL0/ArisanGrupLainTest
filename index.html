@@ -2559,7 +2559,6 @@
 
             // Sort by supporters count descending
             const sorted = [...data].sort((a, b) => b.supporters.length - a.supporters.length);
-            const maxSupporters = sorted.length ? sorted[0].supporters.length : 0;
 
             sorted.forEach((player) => {
                 const place = document.createElement('div');
@@ -2567,9 +2566,8 @@
 
                 const card = document.createElement('div');
                 card.className = 'player-podium-card';
-                if (player.supporters.length === maxSupporters && maxSupporters > 0) {
-                    card.classList.add('glowing');
-                }
+                // Glow paused: no official FIFA Golden Glove nomination list exists yet.
+                // Re-enable once FIFA announces nominees or the criteria is decided.
 
                 // Player info
                 const info = document.createElement('div');
