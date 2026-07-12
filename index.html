@@ -1320,7 +1320,221 @@
                 width: 84px; height: 84px;
             }
         }
-    </style>
+    
+        /* ===== Prediksi Skor Table ===== */
+        .prediksi-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+        }
+        .prediksi-table thead tr {
+            background: #1a1a3e;
+        }
+        .prediksi-table th {
+            padding: 9px 7px;
+            text-align: center;
+            color: #e94560;
+            font-weight: 600;
+            border-bottom: 2px solid #e94560;
+            white-space: nowrap;
+        }
+        .prediksi-table td {
+            padding: 9px 7px;
+            text-align: center;
+            border-bottom: 1px solid #2a2a5a;
+            color: #ccc;
+            white-space: nowrap;
+        }
+        .prediksi-table tbody tr:hover { background: #1a1a3e; }
+        .prediksi-table .match-cell {
+            text-align: left;
+            font-weight: 600;
+            color: #fff;
+            min-width: 130px;
+        }
+        .prediksi-table .round-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .badge-qf { background: rgba(46,204,113,0.2); color: #2ecc71; border: 1px solid rgba(46,204,113,0.4); }
+        .badge-sf { background: rgba(243,156,18,0.2); color: #f39c12; border: 1px solid rgba(243,156,18,0.4); }
+        .badge-f  { background: rgba(231,76,60,0.2);  color: #e74c3c; border: 1px solid rgba(231,76,60,0.4); }
+        .prediksi-table .actual-cell {
+            font-weight: 700;
+            color: #aaa;
+        }
+        .prediksi-table .actual-cell.done {
+            color: #fff;
+        }
+        .pred-hit  { color: #2ecc71 !important; font-weight: 700; }
+        .pred-miss { color: #e74c3c !important; opacity: 0.7; }
+        .pred-pending { color: #666; font-style: italic; }
+        .prediksi-bonus-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .prediksi-bonus-label {
+            width: 80px;
+            min-width: 80px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ddd;
+            padding-right: 12px;
+        }
+        .prediksi-bonus-bar-wrapper {
+            flex: 1;
+            background: #1a1a3e;
+            border-radius: 6px;
+            height: 30px;
+            border: 1px solid #2a2a5a;
+            position: relative;
+            overflow: visible;
+        }
+        .prediksi-bonus-bar {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 16px;
+            min-width: 36px;
+            position: relative;
+            background: linear-gradient(90deg, #9b59b6, #e94560);
+        }
+        .prediksi-bonus-value {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .prediksi-bonus-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e94560;
+            flex-shrink: 0;
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        @media (max-width: 768px) {
+            .prediksi-table { font-size: 0.65rem; min-width: 500px; }
+            .prediksi-table th, .prediksi-table td { padding: 6px 4px; }
+        }
+
+        /* ===== Stacked Bar Chart ===== */
+        .chart-bar-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .chart-bar-stacked {
+            display: flex;
+            align-items: stretch;
+            height: 32px;
+            border-radius: 6px;
+            overflow: visible;
+            flex: 1;
+            position: relative;
+            min-width: 0;
+        }
+        .chart-seg {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 6px;
+            overflow: hidden;
+            transition: width 0.8s ease;
+            width: 0%;
+            min-width: 0;
+            position: relative;
+        }
+        .chart-seg:first-child { border-radius: 6px 0 0 6px; }
+        .chart-seg-pred:last-of-type { border-radius: 0 6px 6px 0; }
+        /* Subtle stripe for side quest segment */
+        .chart-seg-side {
+            background-image: repeating-linear-gradient(
+                135deg,
+                transparent,
+                transparent 4px,
+                rgba(255,255,255,0.08) 4px,
+                rgba(255,255,255,0.08) 8px
+            ) !important;
+        }
+        /* Dot pattern for prediksi segment */
+        .chart-seg-pred {
+            background-image: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 6px,
+                rgba(255,255,255,0.1) 6px,
+                rgba(255,255,255,0.1) 7px
+            ) !important;
+        }
+        .chart-seg-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            opacity: 0.9;
+        }
+        .chart-value-total {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #fff;
+            pointer-events: none;
+            z-index: 3;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+        }
+        /* Legend row */
+        .chart-legend {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            color: #aaa;
+        }
+        .chart-legend-swatch {
+            width: 18px;
+            height: 10px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .swatch-main { background: #888; }
+        .swatch-side {
+            background: #888cc;
+            background-image: repeating-linear-gradient(135deg,transparent,transparent 3px,rgba(255,255,255,0.25) 3px,rgba(255,255,255,0.25) 6px);
+            background-color: #888;
+        }
+        .swatch-pred {
+            background-image: repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(255,255,255,0.35) 5px,rgba(255,255,255,0.35) 6px);
+            background-color: #666;
+        }
+        @media (max-width: 768px) {
+            .chart-seg-label { font-size: 0.5rem; }
+            .chart-value-total { font-size: 0.7rem; }
+        }
+</style>
 </head>
 <body>
 
@@ -2041,59 +2255,127 @@
     <!-- Standings Section -->
     <div class="standings-section">
         <h2 class="table-section-title">📊 Standings Points</h2>
+        <div class="chart-legend">
+            <div class="chart-legend-item">
+                <div class="chart-legend-swatch swatch-main"></div>
+                <span>Main Quest</span>
+            </div>
+            <div class="chart-legend-item">
+                <div class="chart-legend-swatch swatch-side"></div>
+                <span>Side Quest</span>
+            </div>
+            <div class="chart-legend-item">
+                <div class="chart-legend-swatch swatch-pred"></div>
+                <span>Prediksi Skor</span>
+            </div>
+        </div>
         <div class="standings-chart">
-            <div class="chart-row">
+            <div class="chart-row" data-name="Ekont">
                 <div class="chart-label">Ekont</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #e74c3c;">
-                        <span class="chart-value">0</span>
+                    <div class="chart-bar-stacked">
+                        <div class="chart-seg chart-seg-main" style="background:#e74c3c;" data-seg="main">
+                            <span class="chart-seg-label" data-label="main"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-side" style="background:#e74c3ccc;" data-seg="side">
+                            <span class="chart-seg-label" data-label="side"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-pred" style="background:#e74c3c77;" data-seg="pred">
+                            <span class="chart-seg-label" data-label="pred"></span>
+                        </div>
                         <img src="https://ui-avatars.com/api/?name=Ekont&background=e74c3c&color=fff&size=128&bold=true" alt="Ekont" class="chart-avatar">
                     </div>
+                    <span class="chart-value-total">0</span>
                 </div>
             </div>
-            <div class="chart-row">
+            <div class="chart-row" data-name="Gaylang">
                 <div class="chart-label">Gaylang</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #3498db;">
-                        <span class="chart-value">0</span>
+                    <div class="chart-bar-stacked">
+                        <div class="chart-seg chart-seg-main" style="background:#3498db;" data-seg="main">
+                            <span class="chart-seg-label" data-label="main"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-side" style="background:#3498dbcc;" data-seg="side">
+                            <span class="chart-seg-label" data-label="side"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-pred" style="background:#3498db77;" data-seg="pred">
+                            <span class="chart-seg-label" data-label="pred"></span>
+                        </div>
                         <img src="https://ui-avatars.com/api/?name=Gaylang&background=3498db&color=fff&size=128&bold=true" alt="Gaylang" class="chart-avatar">
                     </div>
+                    <span class="chart-value-total">0</span>
                 </div>
             </div>
-            <div class="chart-row">
+            <div class="chart-row" data-name="Jopai">
                 <div class="chart-label">Jopai</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #2ecc71;">
-                        <span class="chart-value">0</span>
+                    <div class="chart-bar-stacked">
+                        <div class="chart-seg chart-seg-main" style="background:#2ecc71;" data-seg="main">
+                            <span class="chart-seg-label" data-label="main"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-side" style="background:#2ecc71cc;" data-seg="side">
+                            <span class="chart-seg-label" data-label="side"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-pred" style="background:#2ecc7177;" data-seg="pred">
+                            <span class="chart-seg-label" data-label="pred"></span>
+                        </div>
                         <img src="https://raw.githubusercontent.com/JordiEL0/ArisanGrupLainTest/main/assets/JOP.jpeg" alt="Jopai" class="chart-avatar">
                     </div>
+                    <span class="chart-value-total">0</span>
                 </div>
             </div>
-            <div class="chart-row">
+            <div class="chart-row" data-name="Khuang">
                 <div class="chart-label">Khuang</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #e67e22;">
-                        <span class="chart-value">0</span>
+                    <div class="chart-bar-stacked">
+                        <div class="chart-seg chart-seg-main" style="background:#e67e22;" data-seg="main">
+                            <span class="chart-seg-label" data-label="main"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-side" style="background:#e67e22cc;" data-seg="side">
+                            <span class="chart-seg-label" data-label="side"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-pred" style="background:#e67e2277;" data-seg="pred">
+                            <span class="chart-seg-label" data-label="pred"></span>
+                        </div>
                         <img src="https://ui-avatars.com/api/?name=Khuang&background=e67e22&color=fff&size=128&bold=true" alt="Khuang" class="chart-avatar">
                     </div>
+                    <span class="chart-value-total">0</span>
                 </div>
             </div>
-            <div class="chart-row">
+            <div class="chart-row" data-name="KingJul">
                 <div class="chart-label">KingJul</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #9b59b6;">
-                        <span class="chart-value">0</span>
+                    <div class="chart-bar-stacked">
+                        <div class="chart-seg chart-seg-main" style="background:#9b59b6;" data-seg="main">
+                            <span class="chart-seg-label" data-label="main"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-side" style="background:#9b59b6cc;" data-seg="side">
+                            <span class="chart-seg-label" data-label="side"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-pred" style="background:#9b59b677;" data-seg="pred">
+                            <span class="chart-seg-label" data-label="pred"></span>
+                        </div>
                         <img src="https://raw.githubusercontent.com/JordiEL0/ArisanGrupLainTest/main/assets/KJUL.jpeg" alt="KingJul" class="chart-avatar">
                     </div>
+                    <span class="chart-value-total">0</span>
                 </div>
             </div>
-            <div class="chart-row">
+            <div class="chart-row" data-name="Tafuck">
                 <div class="chart-label">Tafuck</div>
                 <div class="chart-bar-wrapper">
-                    <div class="chart-bar" style="background: #00bcd4;">
-                        <span class="chart-value">0</span>
+                    <div class="chart-bar-stacked">
+                        <div class="chart-seg chart-seg-main" style="background:#00bcd4;" data-seg="main">
+                            <span class="chart-seg-label" data-label="main"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-side" style="background:#00bcd4cc;" data-seg="side">
+                            <span class="chart-seg-label" data-label="side"></span>
+                        </div>
+                        <div class="chart-seg chart-seg-pred" style="background:#00bcd477;" data-seg="pred">
+                            <span class="chart-seg-label" data-label="pred"></span>
+                        </div>
                         <img src="https://raw.githubusercontent.com/JordiEL0/ArisanGrupLainTest/main/assets/TAF.jpeg" alt="Tafuck" class="chart-avatar">
                     </div>
+                    <span class="chart-value-total">0</span>
                 </div>
             </div>
         </div>
@@ -2192,6 +2474,15 @@
         <!-- Side Quest Table -->
         <h3 class="table-section-title">⭐ Side Quest</h3>
 
+        <!-- Prediksi Skor Section -->
+        <div class="podium-section" id="prediksi-section">
+            <h3 class="table-section-title">&#127919; Prediksi Skor</h3>
+            <p style="text-align:center; color:#888; font-size:0.72rem; margin-bottom:16px;">
+                Poin prediksi tepat: <span style="color:#2ecc71; font-weight:700;">QF +2</span> &nbsp;|&nbsp; <span style="color:#f39c12; font-weight:700;">SF +3</span> &nbsp;|&nbsp; <span style="color:#e74c3c; font-weight:700;">Final +5</span>
+            </p>
+            <div id="prediksi-table-wrapper" class="standings-table-wrapper"></div>
+        </div>
+
         <!-- Podium Section -->
         <div class="podium-section">
             <div class="podium-container">
@@ -2245,6 +2536,7 @@
             <h4 style="text-align:center; color:#e94560; font-size:0.9rem; margin-bottom:15px;"><img src="https://png.pngtree.com/png-vector/20260610/ourmid/pngtree-vibrant-trionda-soccer-football-official-fifa-world-cup-2026-design-png-image_19512258.webp" alt="Total Goal" style="width:20px;height:20px;vertical-align:middle;margin-right:4px;"> Total Goal</h4>
             <div class="total-goal-bar-container" id="total-goal-bar"></div>
         </div>
+
     </div>
     <script>
         // Side Quest Podium Data
@@ -2400,7 +2692,7 @@
                   // R32 vs DR Congo: 2 | R16 vs Mexico: 1 | QF vs Norway: 0
 
                 { name: 'Ousmane Dembélé',    team: 'Perancis',      flag: 'fr',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/507660.png', goals: 3 },
+                  img: 'https://images.fotmob.com/image_resources/playerimages/692984.png', goals: 3 },
                   // R32 vs Sweden: 2 | R16 vs Paraguay: 0 | QF vs Morocco: 1
 
                 { name: 'Mikel Oyarzabal',    team: 'Spanyol',       flag: 'es',
@@ -2918,56 +3210,491 @@
             const chart = document.querySelector('.standings-chart');
             if (!chart) return;
 
-            // 1. Compute points from match results and write into chart-value cells
-            const points = calculatePoints();
-            chart.querySelectorAll('.chart-row').forEach(row => {
-                const labelEl = row.querySelector('.chart-label');
-                const valueEl = row.querySelector('.chart-value');
-                if (!labelEl || !valueEl) return;
-                const name = labelEl.textContent.trim();
-                if (points[name] !== undefined) {
-                    valueEl.textContent = points[name];
-                }
-            });
+            // 1. Compute breakdown: main quest + side quest + prediksi
+            const { total: points, mainQ, sideQ, predBonus } = calcTotalPoints();
 
             // 2. Apply elimination markers to Main Quest table
             applyEliminationMarkers();
 
-            // 2b. Render bracket scores in "A (B)" format from matchResults (single source of truth)
+            // 3. Render bracket scores
             renderBracketScores();
 
-            // 3. Read points back into rows for sorting
+            // 4. Update each row's stacked bar
+            const MAX_POINTS = 75; // max total poin yang mungkin
+            const MIN_PCT   = 2;   // min width agar bar tetap terlihat
+
             const rows = Array.from(chart.querySelectorAll('.chart-row'));
             rows.forEach(row => {
-                const valueEl = row.querySelector('.chart-value');
-                row._points = parseInt(valueEl.textContent) || 0;
+                const name = (row.dataset.name || row.querySelector('.chart-label')?.textContent || '').trim();
+                if (!name || points[name] === undefined) return;
+
+                const mq = mainQ[name]    || 0;
+                const sq = sideQ[name]    || 0;
+                const pb = predBonus[name] || 0;
+                const total = mq + sq + pb;
+
+                // Update total label
+                const totalEl = row.querySelector('.chart-value-total');
+                if (totalEl) totalEl.textContent = total;
+
+                // Store for sorting
+                row._points = total;
+
+                // Breakdown tooltip
+                row.title = name + ' | Main: ' + mq + ' + Side: ' + sq + ' + Prediksi: ' + pb + ' = ' + total + ' pts';
+
+                // Stacked widths — each segment as % of MAX_POINTS
+                const toW = v => v > 0 ? Math.max((v / MAX_POINTS) * 100, MIN_PCT) : 0;
+                const wMain = toW(mq);
+                const wSide = toW(sq);
+                const wPred = toW(pb);
+
+                const segMain = row.querySelector('[data-seg="main"]');
+                const segSide = row.querySelector('[data-seg="side"]');
+                const segPred = row.querySelector('[data-seg="pred"]');
+
+                if (segMain) {
+                    segMain.style.width = wMain + '%';
+                    const lbl = segMain.querySelector('[data-label="main"]');
+                    if (lbl) lbl.textContent = mq > 0 ? mq : '';
+                }
+                if (segSide) {
+                    segSide.style.width = wSide + '%';
+                    const lbl = segSide.querySelector('[data-label="side"]');
+                    if (lbl) lbl.textContent = sq > 0 ? sq : '';
+                }
+                if (segPred) {
+                    segPred.style.width = wPred + '%';
+                    const lbl = segPred.querySelector('[data-label="pred"]');
+                    if (lbl) lbl.textContent = pb > 0 ? pb : '';
+                }
+
+                // Glow wrapper if no side/pred yet (only main quest active)
+                const stacked = row.querySelector('.chart-bar-stacked');
+                const wrapper = row.querySelector('.chart-bar-wrapper');
+                if (stacked) {
+                    // Round corners: first seg left-rounded, last non-zero seg right-rounded
+                    [segMain, segSide, segPred].forEach(s => {
+                        if (s) s.style.borderRadius = '';
+                    });
+                    const segs = [segMain, segSide, segPred].filter(s => s && parseFloat(s.style.width) > 0);
+                    if (segs.length > 0) {
+                        segs[0].style.borderRadius = '6px 0 0 6px';
+                        if (segs.length === 1) segs[0].style.borderRadius = '6px';
+                        else segs[segs.length - 1].style.borderRadius = '0 6px 6px 0';
+                    }
+                }
             });
 
-            // 4. Sort by points descending
+            // 5. Sort rows descending by total
             rows.sort((a, b) => b._points - a._points);
             rows.forEach(row => chart.appendChild(row));
 
-            // 5. Bar width — proportional to MAX_POINTS = 50
-            const MAX_POINTS = 50;
-            const ZERO_WIDTH_PCT = 4; // slight visible bar for 0 points
+            // 6. Glow top scorer
             const topPoints = rows.length ? rows[0]._points : 0;
             rows.forEach(row => {
-                const bar = row.querySelector('.chart-bar');
                 const wrapper = row.querySelector('.chart-bar-wrapper');
-                let pct;
-                if (row._points <= 0) {
-                    pct = ZERO_WIDTH_PCT;
-                } else {
-                    pct = Math.min((row._points / MAX_POINTS) * 100, 100);
-                }
-                bar.style.width = pct + '%';
-
-                // Glow the highest-point bar (only when someone actually has points)
-                if (wrapper) {
-                    wrapper.classList.toggle('glowing', row._points === topPoints && topPoints > 0);
-                }
+                if (wrapper) wrapper.classList.toggle('glowing', row._points === topPoints && topPoints > 0);
             });
         }
+
+        // ============================================================
+        // PREDIKSI SKOR — data prediksi per peserta per pertandingan
+        // score: [t1, t2] prediksi FT 90 menit
+        // actual: [t1, t2] hasil FT aktual (null jika belum main)
+        // points: poin jika prediksi benar (QF=2, SF=3, Final=5)
+        // ============================================================
+        const prediksiData = [
+            // --- Perempat Final (QF) ---
+            {
+                round: 'QF', roundPoints: 2,
+                team1: 'Prancis', flag1: 'fr',
+                team2: 'Maroko', flag2: 'ma',
+                actual: [2, 0],  // FT 90 menit
+                predictions: {
+                    'Ekont':   [2, 0],
+                    'Gaylang': [3, 1],
+                    'Jopai':   [3, 1],
+                    'Khuang':  [2, 1],
+                    'KingJul': [2, 0],
+                    'Tafuck':  [2, 1],
+                }
+            },
+            {
+                round: 'QF', roundPoints: 2,
+                team1: 'Spanyol', flag1: 'es',
+                team2: 'Belgia', flag2: 'be',
+                actual: [2, 1],  // FT 90 menit
+                predictions: {
+                    'Ekont':   [2, 1],
+                    'Gaylang': [3, 2],
+                    'Jopai':   [1, 1],
+                    'Khuang':  [1, 0],
+                    'KingJul': [2, 0],
+                    'Tafuck':  [2, 1],
+                }
+            },
+            {
+                round: 'QF', roundPoints: 2,
+                team1: 'Norwegia', flag1: 'no',
+                team2: 'Inggris', flag2: 'gb-eng',
+                actual: [1, 1],  // FT 90 menit (lanjut ET, Inggris menang)
+                predictions: {
+                    'Ekont':   [1, 2],
+                    'Gaylang': [2, 2],
+                    'Jopai':   [2, 2],
+                    'Khuang':  [2, 2],
+                    'KingJul': [1, 3],
+                    'Tafuck':  [3, 1],
+                }
+            },
+            {
+                round: 'QF', roundPoints: 2,
+                team1: 'Argentina', flag1: 'ar',
+                team2: 'Swiss', flag2: 'ch',
+                actual: [1, 1],  // FT 90 menit (lanjut ET, Argentina menang)
+                predictions: {
+                    'Ekont':   [1, 1],
+                    'Gaylang': [2, 1],
+                    'Jopai':   [2, 1],
+                    'Khuang':  [2, 0],
+                    'KingJul': [1, 0],
+                    'Tafuck':  [4, 2],
+                }
+            },
+            // --- Semifinal (SF) — isi saat ada prediksi ---
+            {
+                round: 'SF', roundPoints: 3,
+                team1: 'Prancis', flag1: 'fr',
+                team2: 'Spanyol', flag2: 'es',
+                actual: null,
+                predictions: {}
+            },
+            {
+                round: 'SF', roundPoints: 3,
+                team1: 'Inggris', flag1: 'gb-eng',
+                team2: 'Argentina', flag2: 'ar',
+                actual: null,
+                predictions: {}
+            },
+            // --- Final ---
+            {
+                round: 'Final', roundPoints: 5,
+                team1: 'TBD', flag1: null,
+                team2: 'TBD', flag2: null,
+                actual: null,
+                predictions: {}
+            },
+        ];
+
+        const participants = ['Ekont', 'Gaylang', 'Jopai', 'Khuang', 'KingJul', 'Tafuck'];
+
+        function isPredHit(pred, actual) {
+            if (!pred || !actual) return false;
+            return pred[0] === actual[0] && pred[1] === actual[1];
+        }
+
+        function calcPrediksiBonus() {
+            const bonus = {};
+            participants.forEach(p => bonus[p] = 0);
+            prediksiData.forEach(m => {
+                if (!m.actual) return;
+                participants.forEach(p => {
+                    const pred = m.predictions[p];
+                    if (pred && isPredHit(pred, m.actual)) {
+                        bonus[p] += m.roundPoints;
+                    }
+                });
+            });
+            return bonus;
+        }
+
+        // ============================================================
+        // SIDE QUEST BONUS POIN
+        // Aturan:
+        //   Champion benar      = +5
+        //   Runner-up benar     = +3
+        //   3rd rank benar      = +2
+        //   Golden Boot benar   = +5 (berdasarkan top scorer KO terbanyak)
+        //   Golden Glove benar  = +5 (berdasarkan pengumuman FIFA)
+        //   Total Goal benar    = +5 (total gol fase KO, prediksi tepat)
+        // ============================================================
+
+        // Hasil aktual side quest — update saat final selesai
+        const sideQuestActual = {
+            champion:    null,   // e.g. 'Prancis' — isi setelah Final
+            runnerup:    null,   // e.g. 'Argentina'
+            third:       null,   // e.g. 'Spanyol'
+            goldenGlove: null,   // e.g. 'Mike Maignan' — isi setelah FIFA announce
+            // goldenBoot dihitung otomatis dari topScorerLive (gol KO terbanyak, tim masih aktif)
+            // totalGoal  dihitung otomatis dari getCurrentTotalGoals()
+        };
+
+        function getGoldenBootWinner() {
+            // Ambil pemain dengan gol KO terbanyak dari topScorerLive
+            // Filter: hanya pemain dari tim yang TIDAK tereliminasi
+            const eliminated = getEliminatedTeams();
+            const active = topScorerLive.players.filter(p => !eliminated.has(p.team));
+            if (active.length === 0) return null;
+            const maxGoals = Math.max(...active.map(p => p.goals));
+            const leaders = active.filter(p => p.goals === maxGoals);
+            // Jika masih bertanding, belum bisa ditentukan pemenang tunggal
+            // Return null jika masih ada >1 kandidat dari tim berbeda yang masih aktif
+            // (bisa dioverride dengan sideQuestActual.goldenBoot manual jika perlu)
+            return leaders.length === 1 ? leaders[0].name : null;
+        }
+
+        function calcSideQuestBonus() {
+            const bonus = {};
+            participants.forEach(p => bonus[p] = 0);
+
+            // 1. Champion (+5)
+            if (sideQuestActual.champion) {
+                const data = sideQuestPodium.champion[sideQuestActual.champion];
+                if (data) data.supporters.forEach(p => { if (bonus[p] !== undefined) bonus[p] += 5; });
+            }
+            // 2. Runner-up (+3)
+            if (sideQuestActual.runnerup) {
+                const data = sideQuestPodium.runnerup[sideQuestActual.runnerup];
+                if (data) data.supporters.forEach(p => { if (bonus[p] !== undefined) bonus[p] += 3; });
+            }
+            // 3. 3rd Rank (+2)
+            if (sideQuestActual.third) {
+                const data = sideQuestPodium.third[sideQuestActual.third];
+                if (data) data.supporters.forEach(p => { if (bonus[p] !== undefined) bonus[p] += 2; });
+            }
+            // 4. Golden Boot (+5) — otomatis dari topScorerLive
+            const goldenBootWinner = getGoldenBootWinner();
+            if (goldenBootWinner) {
+                goldenBootData.forEach(player => {
+                    if (player.name === goldenBootWinner) {
+                        player.supporters.forEach(p => { if (bonus[p] !== undefined) bonus[p] += 5; });
+                    }
+                });
+            }
+            // 5. Golden Glove (+5)
+            if (sideQuestActual.goldenGlove) {
+                const player = goldenGloveData.find(g => g.name === sideQuestActual.goldenGlove);
+                if (player) player.supporters.forEach(p => { if (bonus[p] !== undefined) bonus[p] += 5; });
+            }
+            // 6. Total Goal (+5) — tepat sama persis
+            const actualGoal = getCurrentTotalGoals();
+            if (actualGoal > 0) {
+                totalGoalData.forEach(d => {
+                    if (d.goal === actualGoal && bonus[d.name] !== undefined) {
+                        bonus[d.name] += 5;
+                    }
+                });
+            }
+
+            return bonus;
+        }
+
+        // Side Quest status rows — ditampilkan di section ringkasan
+        function getSideQuestStatus() {
+            const eliminated = getEliminatedTeams();
+            const goldenBootWinner = getGoldenBootWinner();
+            const actualGoal = getCurrentTotalGoals();
+
+            return [
+                {
+                    label: '🏆 Champion',
+                    points: 5,
+                    actual: sideQuestActual.champion || null,
+                    pending: !sideQuestActual.champion,
+                    getSupporters: (winner) => {
+                        const d = sideQuestPodium.champion[winner];
+                        return d ? d.supporters : [];
+                    },
+                    allCandidates: Object.entries(sideQuestPodium.champion).map(([team, d]) => ({
+                        team, flag: d.flag, supporters: d.supporters,
+                        alive: !eliminated.has(teamDisplayAliases[team] || team)
+                    }))
+                },
+                {
+                    label: '🥈 Runner-Up',
+                    points: 3,
+                    actual: sideQuestActual.runnerup || null,
+                    pending: !sideQuestActual.runnerup,
+                    getSupporters: (winner) => {
+                        const d = sideQuestPodium.runnerup[winner];
+                        return d ? d.supporters : [];
+                    },
+                    allCandidates: Object.entries(sideQuestPodium.runnerup).map(([team, d]) => ({
+                        team, flag: d.flag, supporters: d.supporters,
+                        alive: !eliminated.has(teamDisplayAliases[team] || team)
+                    }))
+                },
+                {
+                    label: '🥉 3rd Rank',
+                    points: 2,
+                    actual: sideQuestActual.third || null,
+                    pending: !sideQuestActual.third,
+                    getSupporters: (winner) => {
+                        const d = sideQuestPodium.third[winner];
+                        return d ? d.supporters : [];
+                    },
+                    allCandidates: Object.entries(sideQuestPodium.third).map(([team, d]) => ({
+                        team, flag: d.flag, supporters: d.supporters,
+                        alive: !eliminated.has(teamDisplayAliases[team] || team)
+                    }))
+                },
+                {
+                    label: '⚽ Golden Boot',
+                    points: 5,
+                    actual: goldenBootWinner,
+                    pending: !goldenBootWinner,
+                    pendingLabel: goldenBootWinner ? null : 'Masih berlangsung',
+                    getSupporters: (winner) => {
+                        const p = goldenBootData.find(g => g.name === winner);
+                        return p ? p.supporters : [];
+                    },
+                    allCandidates: goldenBootData.map(p => ({
+                        team: p.name, flag: null, supporters: p.supporters,
+                        goals: p.goals, alive: true, isPlayer: true
+                    }))
+                },
+                {
+                    label: '🧤 Golden Glove',
+                    points: 5,
+                    actual: sideQuestActual.goldenGlove,
+                    pending: !sideQuestActual.goldenGlove,
+                    pendingLabel: 'Menunggu FIFA',
+                    getSupporters: (winner) => {
+                        const p = goldenGloveData.find(g => g.name === winner);
+                        return p ? p.supporters : [];
+                    },
+                    allCandidates: goldenGloveData.map(p => ({
+                        team: p.name, flag: null, supporters: p.supporters, alive: true, isPlayer: true
+                    }))
+                },
+                {
+                    label: '🎯 Total Goal',
+                    points: 5,
+                    actual: actualGoal > 0 ? String(actualGoal) : null,
+                    pending: false,
+                    pendingLabel: null,
+                    getSupporters: (winner) => {
+                        const d = totalGoalData.find(x => String(x.goal) === String(winner));
+                        return d ? [d.name] : [];
+                    },
+                    allCandidates: totalGoalData.map(d => ({
+                        team: String(d.goal) + ' gol', flag: null,
+                        supporters: [d.name], alive: true, isGoalTarget: true,
+                        exact: String(d.goal) === String(actualGoal)
+                    }))
+                },
+            ];
+        }
+
+        // Inject side quest bonus into main standings chart total
+        function calcTotalPoints() {
+            const mainQ = calculatePoints();
+            const sideQ = calcSideQuestBonus();
+            const predBonus = calcPrediksiBonus();
+            const total = {};
+            participants.forEach(p => {
+                total[p] = (mainQ[p] || 0) + (sideQ[p] || 0) + (predBonus[p] || 0);
+            });
+            return { total, mainQ, sideQ, predBonus };
+        }
+
+        function buildPrediksiTable() {
+            const wrapper = document.getElementById('prediksi-table-wrapper');
+            if (!wrapper) return;
+
+            const table = document.createElement('table');
+            table.className = 'prediksi-table';
+
+            // Header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            ['Pertandingan', 'Hasil FT', ...participants].forEach((h, i) => {
+                const th = document.createElement('th');
+                if (i >= 2) {
+                    // participant avatar + name
+                    const img = document.createElement('img');
+                    img.src = participantAvatars[h] || '';
+                    img.alt = h;
+                    img.className = 'participant-avatar';
+                    th.appendChild(img);
+                    th.appendChild(document.createTextNode(h));
+                } else {
+                    th.textContent = h;
+                    if (i === 0) th.style.textAlign = 'left';
+                }
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Body
+            const tbody = document.createElement('tbody');
+            prediksiData.forEach(m => {
+                const tr = document.createElement('tr');
+
+                // Match cell
+                const matchTd = document.createElement('td');
+                matchTd.className = 'match-cell';
+                const badge = document.createElement('span');
+                badge.className = 'round-badge badge-' + m.round.toLowerCase();
+                badge.textContent = m.round;
+                matchTd.appendChild(badge);
+
+                if (m.flag1) {
+                    const f1 = document.createElement('img');
+                    f1.src = 'https://flagcdn.com/w40/' + m.flag1 + '.png';
+                    f1.style.cssText = 'width:14px;height:10px;vertical-align:middle;margin-right:3px;border-radius:1px;';
+                    matchTd.appendChild(f1);
+                }
+                matchTd.appendChild(document.createTextNode(m.team1 + ' vs '));
+                if (m.flag2) {
+                    const f2 = document.createElement('img');
+                    f2.src = 'https://flagcdn.com/w40/' + m.flag2 + '.png';
+                    f2.style.cssText = 'width:14px;height:10px;vertical-align:middle;margin-right:3px;border-radius:1px;';
+                    matchTd.appendChild(f2);
+                }
+                matchTd.appendChild(document.createTextNode(m.team2));
+                tr.appendChild(matchTd);
+
+                // Actual result cell
+                const actualTd = document.createElement('td');
+                actualTd.className = 'actual-cell' + (m.actual ? ' done' : '');
+                actualTd.textContent = m.actual ? m.actual[0] + ' - ' + m.actual[1] : '—';
+                tr.appendChild(actualTd);
+
+                // Per-participant prediction cells
+                participants.forEach(p => {
+                    const td = document.createElement('td');
+                    const pred = m.predictions[p];
+                    if (!pred) {
+                        td.textContent = '—';
+                        td.className = 'pred-pending';
+                    } else if (!m.actual) {
+                        td.textContent = pred[0] + ' - ' + pred[1];
+                        td.className = 'pred-pending';
+                    } else if (isPredHit(pred, m.actual)) {
+                        td.textContent = pred[0] + ' - ' + pred[1] + ' ✓';
+                        td.className = 'pred-hit';
+                    } else {
+                        td.textContent = pred[0] + ' - ' + pred[1];
+                        td.className = 'pred-miss';
+                    }
+                    tr.appendChild(td);
+                });
+
+                tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            wrapper.appendChild(table);
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                buildPrediksiTable();
+            }, 400);
+        });
+
     </script>
 
 <!-- Background Music (lokal MP3) -->
