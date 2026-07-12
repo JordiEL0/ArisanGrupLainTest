@@ -1436,7 +1436,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 - CheeBye Khang</h1>
-            <p class="last-updated">Last updated: 8 Juli 2026, 12:00 WIB</p>
+            <p class="last-updated">Last updated: 12 Juli 2026, 12:00 WIB</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1608,15 +1608,15 @@
             <div class="round round-sf">
                 <div class="round-header">Semifinal</div>
                 <div class="round-matches">
-                    <div class="matchup tbd">
-                        <div class="matchup-date">15/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sel, 15/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
                     </div>
-                    <div class="matchup tbd">
-                        <div class="matchup-date">16/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    <div class="matchup">
+                        <div class="matchup-date">Rab, 16/7, 02.00</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
                     </div>
                 </div>
             </div>
@@ -1822,6 +1822,11 @@
             { team1: 'Amerika Serikat', team2: 'Belgia', score90: [1, 4], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Argentina', team2: 'Mesir', score90: [3, 2], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Swiss', team2: 'Kolombia', score90: [0, 0], scoreET: [0, 0], penaltyWinner: 'Swiss', played: true },
+            // --- Perempat Final (Quarterfinal) ---
+            { team1: 'Prancis', team2: 'Maroko', score90: [2, 0], scoreET: null, penaltyWinner: null, played: true },
+            { team1: 'Spanyol', team2: 'Belgia', score90: [2, 1], scoreET: null, penaltyWinner: null, played: true },
+            { team1: 'Norwegia', team2: 'Inggris', score90: [1, 1], scoreET: [1, 2], penaltyWinner: null, played: true },
+            { team1: 'Argentina', team2: 'Swiss', score90: [1, 1], scoreET: [3, 1], penaltyWinner: null, played: true },
         ];
 
         // Resolve team-name aliases used in teamSupporters
@@ -2343,10 +2348,11 @@
 
         // Golden Boot Data (sorted by most goals)
         // Goals below count ONLY knockout-stage (Round of 32 onward) goals — group stage excluded, per user's request.
+        // Golden Boot: gol dihitung HANYA dari fase knockout (R32 ke atas), sama seperti Top Scorer Real-Time
         const goldenBootData = [
-            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 3, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
+            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 4, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
             { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 2, supporters: ['Khuang', 'KingJul'] },
-            { name: 'Cristiano Ronaldo', img: 'https://images.fotmob.com/image_resources/playerimages/30893.png', goals: 1, supporters: ['Tafuck'] }
+            { name: 'Cristiano Ronaldo', img: 'https://images.fotmob.com/image_resources/playerimages/30893.png', goals: 0, supporters: ['Tafuck'] }
         ];
 
         // Golden Glove Data (sorted by most votes)
@@ -2369,86 +2375,115 @@
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
         const topScorerLive = {
-            lastUpdated: '8 Jul 2026',
+            lastUpdated: '12 Jul 2026 — fase knockout saja (R32+R16+QF)',
             players: [
+                // ============================================================
+                // CATATAN: Semua angka goals di bawah ini adalah KHUSUS FASE
+                // KNOCKOUT (Round of 32 ke atas). Gol grup stage tidak dihitung.
+                // ============================================================
+
+                // === Masih aktif (SF) ===
+                { name: 'Jude Bellingham',    team: 'Inggris',       flag: 'gb-eng',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1077894.png', goals: 5 },
+                  // R32 vs DR Congo: 1 | R16 vs Mexico: 2 | QF vs Norway: 2
+
+                { name: 'Kylian Mbappé',      team: 'Perancis',      flag: 'fr',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 4 },
+                  // R32 vs Sweden: 2 | R16 vs Paraguay: 1 | QF vs Morocco: 1
+
+                { name: 'Erling Haaland',     team: 'Norwegia',      flag: 'no',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/737066.png', goals: 4 },
+                  // R32 vs Ivory Coast: 1 | R16 vs Brazil: 2 | QF vs England: 1
+
                 { name: 'Harry Kane',         team: 'Inggris',       flag: 'gb-eng',
                   img: 'https://images.fotmob.com/image_resources/playerimages/194165.png', goals: 3 },
-                { name: 'Jude Bellingham',    team: 'Inggris',       flag: 'gb-eng',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1077894.png', goals: 2 },
-                { name: 'Youri Tielemans',    team: 'Belgia',        flag: 'be',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/465960.png', goals: 2 },
-                { name: 'C. De Ketelaere',    team: 'Belgia',        flag: 'be',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1095432.png', goals: 2 },
-                { name: 'Brian Cipenga',      team: 'RD Kongo',      flag: 'cd',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1302121.png', goals: 1 },
-                { name: 'Habib Diarra',       team: 'Senegal',       flag: 'sn',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1285866.png', goals: 1 },
-                { name: 'Ismaïla Sarr',       team: 'Senegal',       flag: 'sn',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/771294.png', goals: 1 },
-                { name: 'Romelu Lukaku',      team: 'Belgia',        flag: 'be',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/181276.png', goals: 1 },
-                { name: 'Folarin Balogun',    team: 'Amerika Serikat', flag: 'us',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/982677.png', goals: 1 },
-                { name: 'Malik Tillman',      team: 'Amerika Serikat', flag: 'us',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1126058.png', goals: 1 },
-                { name: 'Kylian Mbappé',      team: 'Perancis',      flag: 'fr',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 3 },
-                { name: 'Azzedine Ounahi',    team: 'Maroko',        flag: 'ma',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1073143.png', goals: 2 },
-                { name: 'Soufiane Rahimi',    team: 'Maroko',        flag: 'ma',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/988749.png', goals: 1 },
-                { name: 'Erling Haaland',     team: 'Norwegia',      flag: 'no',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/737066.png', goals: 3 },
-                { name: 'Neymar',             team: 'Brasil',        flag: 'br',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/19533.png', goals: 1 },
-                { name: 'Antonio Nusa',       team: 'Norwegia',      flag: 'no',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1248482.png', goals: 1 },
-                { name: 'Amad Diallo',        team: 'Pantai Gading', flag: 'ci',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1070052.png', goals: 1 },
-                { name: 'Stephen Eustáquio',  team: 'Kanada',        flag: 'ca',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/816223.png', goals: 1 },
-                { name: 'Casemiro',           team: 'Brasil',        flag: 'br',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/208494.png', goals: 1 },
-                { name: 'Gabriel Martinelli', team: 'Brasil',        flag: 'br',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1021586.png', goals: 1 },
-                { name: 'Kaishu Sano',        team: 'Jepang',        flag: 'jp',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1033111.png', goals: 1 },
-                { name: 'Kai Havertz',        team: 'Jerman',        flag: 'de',
-                  img: 'https://cdn-img.staticzz.com/img/jogadores/new/16/81/511681_kai_havertz_20251127225615.png', goals: 1 },
-                { name: 'Julio Enciso',       team: 'Paraguay',      flag: 'py',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1073742.png', goals: 1 },
-                { name: 'Cody Gakpo',         team: 'Belanda',       flag: 'nl',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/806552.png', goals: 1 },
-                { name: 'Issa Diop',          team: 'Maroko',        flag: 'ma',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/696443.png', goals: 1 },
-                { name: 'Raúl Jiménez',       team: 'Meksiko',       flag: 'mx',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 2 },
-                { name: 'Julián Quiñones',    team: 'Meksiko',       flag: 'mx',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/720560.png', goals: 2 },
+                  // R32 vs DR Congo: 2 | R16 vs Mexico: 1 | QF vs Norway: 0
+
+                { name: 'Ousmane Dembélé',    team: 'Perancis',      flag: 'fr',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/507660.png', goals: 3 },
+                  // R32 vs Sweden: 2 | R16 vs Paraguay: 0 | QF vs Morocco: 1
+
                 { name: 'Mikel Oyarzabal',    team: 'Spanyol',       flag: 'es',
                   img: 'https://images.fotmob.com/image_resources/playerimages/678234.png', goals: 2 },
-                { name: 'Gonçalo Ramos',      team: 'Portugal',      flag: 'pt',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/940087.png', goals: 1 },
-                { name: 'Cristiano Ronaldo',  team: 'Portugal',      flag: 'pt',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/30893.png', goals: 1 },
-                { name: 'Breel Embolo',       team: 'Swiss',         flag: 'ch',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/527103.png', goals: 1 },
-                { name: 'Dan Ndoye',          team: 'Swiss',         flag: 'ch',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1022649.png', goals: 1 },
+                  // R32 vs Austria: 2 | R16 vs Portugal: 0 | QF vs Belgium: 0
+
                 { name: 'Lionel Messi',       team: 'Argentina',     flag: 'ar',
                   img: 'https://images.fotmob.com/image_resources/playerimages/30981.png', goals: 2 },
+                  // R32 vs Cape Verde: 1 | R16 vs Egypt: 1 | QF vs Swiss: 0
+
+                { name: 'Mikel Merino',       team: 'Spanyol',       flag: 'es',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/792049.png', goals: 2 },
+                  // R32 vs Austria: 0 | R16 vs Portugal: 1 | QF vs Belgium: 1
+
+                // === 1 gol di knockout (masih aktif / baru QF) ===
+                { name: 'Alexis Mac Allister', team: 'Argentina',    flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/865547.png', goals: 1 },
+                  // QF vs Swiss: 1 (mnt 10)
+                { name: 'Julián Álvarez',     team: 'Argentina',     flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1047374.png', goals: 1 },
+                  // QF vs Swiss ET: 1 (mnt 112)
+                { name: 'Lautaro Martínez',   team: 'Argentina',     flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/841231.png', goals: 1 },
+                  // QF vs Swiss ET: 1 (mnt 120+1)
+                { name: 'Fabian Ruiz',        team: 'Spanyol',       flag: 'es',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/747986.png', goals: 1 },
+                  // QF vs Belgium: 1 (mnt 30)
+
+                // === Sudah tersingkir — punya gol knockout ===
+                { name: 'Azzedine Ounahi',    team: 'Maroko',        flag: 'ma',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1073143.png', goals: 3 },
+                  // R16 vs Canada: 2 | QF vs France: 0 | (+1 R32 vs Brazil? confirm)
+                { name: 'Raúl Jiménez',       team: 'Meksiko',       flag: 'mx',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 2 },
+                  // R32 vs Ecuador: 1 | R16 vs England: 1
+                { name: 'Julián Quiñones',    team: 'Meksiko',       flag: 'mx',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/720560.png', goals: 2 },
+                  // R32 vs Ecuador: 1 | R16 vs England: 1
+                { name: 'Antonio Nusa',       team: 'Norwegia',      flag: 'no',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1248482.png', goals: 2 },
+                  // R32 vs Ivory Coast: 1 | R16 vs Brazil: 1
+                { name: 'Gonçalo Ramos',      team: 'Portugal',      flag: 'pt',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/940087.png', goals: 2 },
+                  // R32 vs Croatia: 1 | R16 vs Spain: 1 (? — perlu verifikasi)
+                { name: 'Dan Ndoye',          team: 'Swiss',         flag: 'ch',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1022649.png', goals: 1 },
+                  // QF vs Argentina: 1
+                { name: 'Breel Embolo',       team: 'Swiss',         flag: 'ch',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/527103.png', goals: 1 },
+                  // R16 vs Colombia: 1
+                { name: 'Neymar',             team: 'Brasil',        flag: 'br',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/19533.png', goals: 1 },
+                  // R16 vs Norway: 1 (penalty 90+10)
+                { name: 'Amad Diallo',        team: 'Pantai Gading', flag: 'ci',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1070052.png', goals: 1 },
+                  // R32 vs Norway: 1
+                { name: 'Brian Cipenga',      team: 'RD Kongo',      flag: 'cd',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1302121.png', goals: 1 },
+                  // R32 vs England: 1
+                { name: 'Romelu Lukaku',      team: 'Belgia',        flag: 'be',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/181276.png', goals: 1 },
+                  // R16 vs USA: 1
                 { name: 'Enzo Fernández',     team: 'Argentina',     flag: 'ar',
                   img: 'https://images.fotmob.com/image_resources/playerimages/1000420.png', goals: 1 },
-                { name: 'Lisandro Martínez',  team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/847983.png', goals: 1 },
-                { name: 'Deroy Duarte',       team: 'Tanjung Verde', flag: 'cv',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/798069.png', goals: 1 },
-                { name: 'Sidny Lopes Cabral', team: 'Tanjung Verde', flag: 'cv',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1441786.png', goals: 1 },
-                { name: 'Jhon Arias',         team: 'Kolombia',      flag: 'co',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1023030.png', goals: 1 },
+                  // R16 vs Egypt: 1 (winner 90+3)
                 { name: 'Emam Ashour',        team: 'Mesir',         flag: 'eg',
                   img: 'https://images.fotmob.com/image_resources/playerimages/979376.png', goals: 1 },
+                  // R32 vs Australia (pen) or R16 vs Argentina
+                { name: 'Issa Diop',          team: 'Maroko',        flag: 'ma',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/696443.png', goals: 1 },
+                  // R16 vs Canada: 1
+                { name: 'Soufiane Rahimi',    team: 'Maroko',        flag: 'ma',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/988749.png', goals: 1 },
+                  // R16 vs Canada: 1
+                { name: 'Sidny Lopes Cabral', team: 'Tanjung Verde', flag: 'cv',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1441786.png', goals: 1 },
+                  // R32 vs Argentina: 1
+                { name: 'Deroy Duarte',       team: 'Tanjung Verde', flag: 'cv',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/798069.png', goals: 1 },
+                  // R32 vs Argentina: 1
+                { name: 'Jhon Arias',         team: 'Kolombia',      flag: 'co',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1023030.png', goals: 1 },
+                  // R32 vs Ghana: 1
             ]
         };
 
