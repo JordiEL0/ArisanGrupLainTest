@@ -103,6 +103,13 @@
         .round-final .matchup { border-color: rgba(231, 76, 60, 0.4); }
         .round-final .matchup:hover { border-color: #e74c3c; box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3); }
         .round-final .matchup-date { background: rgba(231, 76, 60, 0.15); color: #e74c3c; }
+
+        .round-3rd .round-header { color: #cd7f32; border-bottom-color: #cd7f32; }
+        .round-3rd .matchup { border-color: rgba(205, 127, 50, 0.4); }
+        .round-3rd .matchup:hover { border-color: #cd7f32; box-shadow: 0 4px 20px rgba(205, 127, 50, 0.2); }
+        .round-3rd .matchup-date { background: rgba(205, 127, 50, 0.1); }
+        .round-3rd .round-matches { position: relative; justify-content: flex-start; gap: 0; flex: 1; }
+        .round-3rd .round-matches > .matchup { position: absolute; left: 0; right: 0; }
         .round-matches {
             display: flex;
             flex-direction: column;
@@ -832,6 +839,12 @@
         .player-podium-card.glowing {
             animation: glowPulse 2s ease-in-out infinite;
             box-shadow: 0 0 12px rgba(233, 69, 96, 0.6), 0 0 24px rgba(233, 69, 96, 0.3);
+        }
+
+        /* Dimmed - teams that can no longer achieve this position */
+        .podium-team-card.impossible {
+            opacity: 0.35;
+            filter: grayscale(60%);
         }
 
         /* Standings chart bar glowing - highest point only */
@@ -1795,25 +1808,25 @@
             <div class="round round-qf">
                 <div class="round-header">Perempat Final</div>
                 <div class="round-matches">
-                    <div class="matchup">
-                        <div class="matchup-date">Jum, 10/7, 03:00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ma.png" alt="MAR"></span><span class="team-name">Maroko</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Jum, 10/7, 03:00 WIB</div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span><span class="team-score">2</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ma.png" alt="MAR"></span><span class="team-name">Maroko</span><span class="team-score">0</span></div>
                     </div>
-                    <div class="matchup">
-                        <div class="matchup-date">Sab, 11/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/be.png" alt="BEL"></span><span class="team-name">Belgia</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Sab, 11/7, 02:00 WIB</div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span><span class="team-score">2</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/be.png" alt="BEL"></span><span class="team-name">Belgia</span><span class="team-score">1</span></div>
                     </div>
-                    <div class="matchup">
-                        <div class="matchup-date">Min, 12/7, 04.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Min, 12/7, 04:00 WIB (AET)</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/no.png" alt="NOR"></span><span class="team-name">Norwegia</span><span class="team-score">1</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span><span class="team-score">1 (1)</span></div>
                     </div>
-                    <div class="matchup">
-                        <div class="matchup-date">Min, 12/7, 08.00 WIB</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ch.png" alt="SUI"></span><span class="team-name">Swiss</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Min, 12/7, 08:00 WIB (AET)</div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span><span class="team-score">1 (2)</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ch.png" alt="SUI"></span><span class="team-name">Swiss</span><span class="team-score">1</span></div>
                     </div>
                 </div>
             </div>
@@ -1822,10 +1835,10 @@
             <div class="round round-sf">
                 <div class="round-header">Semifinal</div>
                 <div class="round-matches">
-                    <div class="matchup">
-                        <div class="matchup-date">Sel, 15/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Sel, 15/7, 02:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span><span class="team-score">0</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span><span class="team-score">2</span></div>
                     </div>
                     <div class="matchup">
                         <div class="matchup-date">Rab, 16/7, 02.00</div>
@@ -1835,13 +1848,25 @@
                 </div>
             </div>
 
+            <!-- Perebutan Juara 3 -->
+            <div class="round round-3rd" id="round-3rd">
+                <div class="round-header">🥉 Juara 3</div>
+                <div class="round-matches">
+                    <div class="matchup">
+                        <div class="matchup-date">Min, 19/7, 02:00</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Final -->
-            <div class="round round-final">
+            <div class="round round-final" id="round-final">
                 <div class="round-header">🏆 Final</div>
                 <div class="round-matches">
-                    <div class="matchup tbd">
-                        <div class="matchup-date">20/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                    <div class="matchup">
+                        <div class="matchup-date">Sen, 20/7, 02:00</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
                         <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
                     </div>
                 </div>
@@ -1854,14 +1879,12 @@
         </div>
     </div>
 
+
     <script>
-        // Posisikan setiap matchup di ronde 16 Besar dst tepat di titik tengah
-        // (midpoint Y) dari 2 matchup induknya pada ronde sebelumnya.
-        // Dijalankan berurutan kiri->kanan sehingga posisi ronde sebelumnya
-        // sudah final sebelum dipakai sebagai acuan ronde berikutnya.
         function layoutBracketPositions() {
             const bracket = document.querySelector('.bracket');
-            const rounds = Array.from(bracket.querySelectorAll('.round-group, .round-r16, .round-qf, .round-sf, .round-final'));
+            // Auto-position rounds up to SF only
+            const rounds = Array.from(bracket.querySelectorAll('.round-group, .round-r16, .round-qf, .round-sf'));
 
             for (let i = 1; i < rounds.length; i++) {
                 const prevMatches = Array.from(rounds[i - 1].querySelectorAll('.matchup'));
@@ -1879,17 +1902,35 @@
                     const midY = ((r1.top + r1.bottom) / 2 + (r2.top + r2.bottom) / 2) / 2;
 
                     const elHeight = el.getBoundingClientRect().height;
-                    const topPx = midY - elHeight / 2 - containerTop;
-
-                    el.style.top = topPx + 'px';
+                    el.style.top = (midY - elHeight / 2 - containerTop) + 'px';
                 });
+            }
+
+            // round-3rd centers on SF1, round-final centers on SF2
+            const sfMatches = Array.from(bracket.querySelectorAll('.round-sf .matchup'));
+            if (sfMatches.length >= 2) {
+                const sf1Mid = (sfMatches[0].getBoundingClientRect().top + sfMatches[0].getBoundingClientRect().bottom) / 2;
+                const sf2Mid = (sfMatches[1].getBoundingClientRect().top + sfMatches[1].getBoundingClientRect().bottom) / 2;
+
+                function placeAt(sel, targetY) {
+                    const round = bracket.querySelector(sel);
+                    if (!round) return;
+                    const container = round.querySelector('.round-matches');
+                    const matchup = round.querySelector('.matchup');
+                    if (!container || !matchup) return;
+                    const h = matchup.getBoundingClientRect().height;
+                    matchup.style.top = (targetY - h / 2 - container.getBoundingClientRect().top) + 'px';
+                }
+
+                const sfMidY = (sf1Mid + sf2Mid) / 2;
+                placeAt('.round-3rd', sfMidY);
+                placeAt('.round-final', sfMidY);
             }
         }
 
         function drawBracketLines() {
             const bracket = document.querySelector('.bracket');
-            // Select rounds that pair into next round (exclude trophy)
-            const rounds = bracket.querySelectorAll('.round-group, .round-r16, .round-qf, .round-sf, .round-final');
+            const rounds = bracket.querySelectorAll('.round-group, .round-r16, .round-qf, .round-sf');
 
             const existingSvg = bracket.querySelector('.bracket-lines');
             if (existingSvg) existingSvg.remove();
@@ -1898,57 +1939,90 @@
 
             const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             svg.classList.add('bracket-lines');
-            svg.style.position = 'absolute';
-            svg.style.top = '0';
-            svg.style.left = '0';
+            svg.style.cssText = 'position:absolute;top:0;left:0;pointer-events:none;overflow:visible;';
             svg.style.width = bracket.scrollWidth + 'px';
             svg.style.height = bracket.scrollHeight + 'px';
-            svg.style.pointerEvents = 'none';
-            svg.style.overflow = 'visible';
             svg.setAttribute('width', bracket.scrollWidth);
             svg.setAttribute('height', bracket.scrollHeight);
 
-            const bracketRect = bracket.getBoundingClientRect();
+            const br = bracket.getBoundingClientRect();
 
+            function line(x1, y1, x2, y2, color) {
+                color = color || '#444';
+                const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                p.setAttribute('d', 'M' + x1 + ',' + y1 + ' ' + x2 + ',' + y2);
+                p.setAttribute('stroke', color);
+                p.setAttribute('stroke-width', '1.5');
+                p.setAttribute('fill', 'none');
+                svg.appendChild(p);
+            }
+
+            function hvcLine(x1, y1, midX, y3, x3, color) {
+                color = color || '#444';
+                const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                p.setAttribute('d', 'M' + x1 + ',' + y1 + ' H' + midX + ' V' + y3 + ' H' + x3);
+                p.setAttribute('stroke', color);
+                p.setAttribute('stroke-width', '1.5');
+                p.setAttribute('fill', 'none');
+                svg.appendChild(p);
+            }
+
+            // Auto lines: group -> r16 -> qf -> sf
             for (let i = 0; i < rounds.length - 1; i++) {
-                const currentMatches = rounds[i].querySelectorAll('.matchup');
-                const nextMatches = rounds[i + 1].querySelectorAll('.matchup');
-
-                for (let j = 0; j < nextMatches.length; j++) {
-                    const match1Index = j * 2;
-                    const match2Index = j * 2 + 1;
-
-                    if (currentMatches[match1Index] && currentMatches[match2Index] && nextMatches[j]) {
-                        const m1Rect = currentMatches[match1Index].getBoundingClientRect();
-                        const m2Rect = currentMatches[match2Index].getBoundingClientRect();
-                        const targetRect = nextMatches[j].getBoundingClientRect();
-
-                        const x1 = m1Rect.right - bracketRect.left;
-                        const y1 = m1Rect.top + m1Rect.height / 2 - bracketRect.top;
-                        const x2 = m2Rect.right - bracketRect.left;
-                        const y2 = m2Rect.top + m2Rect.height / 2 - bracketRect.top;
-                        const x3 = targetRect.left - bracketRect.left;
-                        const y3 = targetRect.top + targetRect.height / 2 - bracketRect.top;
-
-                        const midX = (x1 + x3) / 2;
-
-                        // Horizontal from match1, then vertical to midpoint Y, then horizontal to target
-                        const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        path1.setAttribute('d', `M${x1},${y1} H${midX} V${y3} H${x3}`);
-                        path1.setAttribute('stroke', '#444');
-                        path1.setAttribute('stroke-width', '1.5');
-                        path1.setAttribute('fill', 'none');
-                        svg.appendChild(path1);
-
-                        // Horizontal from match2 to midpoint X, then vertical to midpoint Y
-                        const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                        path2.setAttribute('d', `M${x2},${y2} H${midX} V${y3}`);
-                        path2.setAttribute('stroke', '#444');
-                        path2.setAttribute('stroke-width', '1.5');
-                        path2.setAttribute('fill', 'none');
-                        svg.appendChild(path2);
-                    }
+                const cur = rounds[i].querySelectorAll('.matchup');
+                const nxt = rounds[i + 1].querySelectorAll('.matchup');
+                for (let j = 0; j < nxt.length; j++) {
+                    const m1 = cur[j * 2], m2 = cur[j * 2 + 1], t = nxt[j];
+                    if (!m1 || !m2 || !t) continue;
+                    const r1 = m1.getBoundingClientRect(), r2 = m2.getBoundingClientRect(), tr = t.getBoundingClientRect();
+                    const x1 = r1.right - br.left, y1 = (r1.top + r1.bottom) / 2 - br.top;
+                    const x2 = r2.right - br.left, y2 = (r2.top + r2.bottom) / 2 - br.top;
+                    const x3 = tr.left - br.left,  y3 = (tr.top + tr.bottom) / 2 - br.top;
+                    const midX = (x1 + x3) / 2;
+                    hvcLine(x1, y1, midX, y3, x3);
+                    // second arm: m2 -> midX -> y3
+                    const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    p2.setAttribute('d', 'M' + x2 + ',' + y2 + ' H' + midX + ' V' + y3);
+                    p2.setAttribute('stroke', '#444'); p2.setAttribute('stroke-width', '1.5'); p2.setAttribute('fill', 'none');
+                    svg.appendChild(p2);
                 }
+            }
+
+            // SF -> Juara3 bracket connector (SF1+SF2 converge to 3rd)
+            // Then Juara3 -> Final single line
+            const sfM = bracket.querySelectorAll('.round-sf .matchup');
+            const m3rd = bracket.querySelector('.round-3rd .matchup');
+            const mFin = bracket.querySelector('.round-final .matchup');
+
+            if (sfM.length >= 2 && m3rd) {
+                const sf1r = sfM[0].getBoundingClientRect();
+                const sf2r = sfM[1].getBoundingClientRect();
+                const r3   = m3rd.getBoundingClientRect();
+                const x1 = sf1r.right - br.left, y1 = (sf1r.top + sf1r.bottom) / 2 - br.top;
+                const x2 = sf2r.right - br.left, y2 = (sf2r.top + sf2r.bottom) / 2 - br.top;
+                const x3 = r3.left - br.left,    y3 = (r3.top + r3.bottom) / 2 - br.top;
+                const midX = (x1 + x3) / 2;
+                hvcLine(x1, y1, midX, y3, x3, '#cd7f32');
+                const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                p2.setAttribute('d', 'M' + x2 + ',' + y2 + ' H' + midX + ' V' + y3);
+                p2.setAttribute('stroke', '#cd7f32'); p2.setAttribute('stroke-width', '1.5'); p2.setAttribute('fill', 'none');
+                svg.appendChild(p2);
+            }
+
+            // SF1 + SF2 -> Final (bracket connector, vertical line just before Final)
+            if (sfM.length >= 2 && mFin) {
+                const sf1r = sfM[0].getBoundingClientRect();
+                const sf2r = sfM[1].getBoundingClientRect();
+                const fr   = mFin.getBoundingClientRect();
+                const x1 = sf1r.right - br.left, y1 = (sf1r.top + sf1r.bottom) / 2 - br.top;
+                const x2 = sf2r.right - br.left, y2 = (sf2r.top + sf2r.bottom) / 2 - br.top;
+                const x3 = fr.left - br.left,    y3 = (fr.top + fr.bottom) / 2 - br.top;
+                const midX = x3 - 10; // vertical line just left of Final, not through Juara3
+                hvcLine(x1, y1, midX, y3, x3, '#e74c3c');
+                const p2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                p2.setAttribute('d', 'M' + x2 + ',' + y2 + ' H' + midX + ' V' + y3);
+                p2.setAttribute('stroke', '#e74c3c'); p2.setAttribute('stroke-width', '1.5'); p2.setAttribute('fill', 'none');
+                svg.appendChild(p2);
             }
 
             bracket.appendChild(svg);
@@ -2041,6 +2115,8 @@
             { team1: 'Spanyol', team2: 'Belgia', score90: [2, 1], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Norwegia', team2: 'Inggris', score90: [1, 1], scoreET: [1, 2], penaltyWinner: null, played: true },
             { team1: 'Argentina', team2: 'Swiss', score90: [1, 1], scoreET: [3, 1], penaltyWinner: null, played: true },
+            // --- Semifinal (SF) ---
+            { team1: 'Prancis', team2: 'Spanyol', score90: [0, 2], scoreET: null, penaltyWinner: null, played: true },
         ];
 
         // Resolve team-name aliases used in teamSupporters
@@ -2561,9 +2637,10 @@
             }
         };
 
-        function buildPodiumCards(containerId, data) {
+        function buildPodiumCards(containerId, data, impossibleTeams) {
             const container = document.getElementById(containerId);
             if (!container) return;
+            impossibleTeams = impossibleTeams || new Set();
 
             // Sort by supporters count descending, then by country name ascending
             const sorted = Object.entries(data).sort((a, b) => {
@@ -2578,7 +2655,15 @@
                 const card = document.createElement('div');
                 card.className = 'podium-team-card';
                 const canonicalTeam = teamDisplayAliases[team] || team;
-                if (!eliminatedTeams.has(canonicalTeam)) {
+                if (impossibleTeams.has(team) || impossibleTeams.has(canonicalTeam)) {
+                    card.classList.add('impossible');
+                } else if (impossibleTeams.size > 0) {
+                    // If caller explicitly provided impossibleTeams, trust that list —
+                    // teams NOT in it are still alive for this slot (e.g. Prancis in 3rd)
+                    card.classList.add('glowing');
+                } else if (eliminatedTeams.has(canonicalTeam)) {
+                    card.classList.add('impossible');
+                } else {
                     card.classList.add('glowing');
                 }
 
@@ -2631,9 +2716,9 @@
 
         window.addEventListener('load', () => {
             setTimeout(() => {
-                buildPodiumCards('podium-champion', sideQuestPodium.champion);
-                buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup);
-                buildPodiumCards('podium-3rd', sideQuestPodium.third);
+                buildPodiumCards('podium-champion', sideQuestPodium.champion, new Set(['Perancis', 'Portugal']));
+                buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup, new Set());
+                buildPodiumCards('podium-3rd', sideQuestPodium.third, new Set(['Spanyol', 'Swiss']));
                 buildTopScorer();
                 buildGoldenBootChart();
                 buildPlayerPodium('podium-goldenglove-container', goldenGloveData, '🧤');
@@ -2669,7 +2754,7 @@
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
         const topScorerLive = {
-            lastUpdated: '12 Jul 2026 — fase knockout saja (R32+R16+QF)',
+            lastUpdated: '15 Jul 2026 — fase knockout saja (R32+R16+QF+SF)',
             players: [
                 // ============================================================
                 // CATATAN: Semua angka goals di bawah ini adalah KHUSUS FASE
@@ -2698,8 +2783,8 @@
                   // R32 vs Sweden: 2 | R16 vs Paraguay: 0 | QF vs Morocco: 1
 
                 { name: 'Mikel Oyarzabal',    team: 'Spanyol',       flag: 'es',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/678234.png', goals: 2 },
-                  // R32 vs Austria: 2 | R16 vs Portugal: 0 | QF vs Belgium: 0
+                  img: 'https://images.fotmob.com/image_resources/playerimages/678234.png', goals: 3 },
+                  // R32 vs Austria: 2 | R16 vs Portugal: 0 | QF vs Belgium: 0 | SF vs France: 1
 
                 { name: 'Lionel Messi',       team: 'Argentina',     flag: 'ar',
                   img: 'https://images.fotmob.com/image_resources/playerimages/30981.png', goals: 2 },
@@ -2722,6 +2807,9 @@
                 { name: 'Fabian Ruiz',        team: 'Spanyol',       flag: 'es',
                   img: 'https://images.fotmob.com/image_resources/playerimages/747986.png', goals: 1 },
                   // QF vs Belgium: 1 (mnt 30)
+                { name: 'Pedro Porro',        team: 'Spanyol',       flag: 'es',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/920748.png', goals: 1 },
+                  // SF vs France: 1
 
                 // === Sudah tersingkir — punya gol knockout ===
                 { name: 'Azzedine Ounahi',    team: 'Maroko',        flag: 'ma',
@@ -3369,15 +3457,29 @@
                 round: 'SF', roundPoints: 3,
                 team1: 'Prancis', flag1: 'fr',
                 team2: 'Spanyol', flag2: 'es',
-                actual: null,
-                predictions: {}
+                actual: [0, 2],  // FT 90 menit, Spanyol menang
+                predictions: {
+                    'Ekont':   [3, 2],
+                    'Gaylang': [2, 1],
+                    'Jopai':   [2, 1],
+                    'Khuang':  [2, 1],
+                    'KingJul': [1, 1],
+                    'Tafuck':  null,
+                }
             },
             {
                 round: 'SF', roundPoints: 3,
                 team1: 'Inggris', flag1: 'gb-eng',
                 team2: 'Argentina', flag2: 'ar',
                 actual: null,
-                predictions: {}
+                predictions: {
+                    'Ekont':   [2, 2],
+                    'Gaylang': [1, 1],
+                    'Jopai':   [2, 2],
+                    'Khuang':  [2, 1],
+                    'KingJul': [2, 2],
+                    'Tafuck':  null,
+                }
             },
             // --- Final ---
             {
