@@ -2240,13 +2240,15 @@
 
         function applyEliminationMarkers() {
             const eliminated = getEliminatedTeams();
+            // Tim yang masih punya laga tersisa (3rd place / Final) — jangan dicoret dulu
+            const stillPlaying = new Set(['Spanyol', 'Argentina', 'Inggris', 'Perancis', 'Prancis']);
             // Mark eliminated team cells in Main Quest table
             document.querySelectorAll('.standings-table td[class*="pot"]').forEach(td => {
                 // Remove any pre-existing eliminated class so the function is idempotent
                 td.classList.remove('eliminated');
                 const raw = td.textContent.trim();
                 const team = teamDisplayAliases[raw] || raw;
-                if (eliminated.has(team)) {
+                if (eliminated.has(team) && !stillPlaying.has(team)) {
                     td.classList.add('eliminated');
                 }
             });
@@ -3491,13 +3493,35 @@
                     'Tafuck':  null,
                 }
             },
+            // --- Perebutan Juara 3 ---
+            {
+                round: '3rd', roundPoints: 4,
+                team1: 'Prancis', flag1: 'fr',
+                team2: 'Inggris', flag2: 'gb-eng',
+                actual: null,
+                predictions: {
+                    'Ekont':   null,
+                    'Gaylang': null,
+                    'Jopai':   null,
+                    'Khuang':  null,
+                    'KingJul': null,
+                    'Tafuck':  null,
+                }
+            },
             // --- Final ---
             {
                 round: 'Final', roundPoints: 5,
-                team1: 'TBD', flag1: null,
-                team2: 'TBD', flag2: null,
+                team1: 'Spanyol', flag1: 'es',
+                team2: 'Argentina', flag2: 'ar',
                 actual: null,
-                predictions: {}
+                predictions: {
+                    'Ekont':   null,
+                    'Gaylang': null,
+                    'Jopai':   null,
+                    'Khuang':  null,
+                    'KingJul': null,
+                    'Tafuck':  null,
+                }
             },
         ];
 
