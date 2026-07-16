@@ -1663,7 +1663,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 - CheeBye Khang</h1>
-            <p class="last-updated">Last updated: 12 Juli 2026, 12:00 WIB</p>
+            <p class="last-updated">Last updated: 16 Juli 2026, 09:00 WIB</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1840,10 +1840,10 @@
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span><span class="team-score">0</span></div>
                         <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span><span class="team-score">2</span></div>
                     </div>
-                    <div class="matchup">
-                        <div class="matchup-date">Rab, 16/7, 02.00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Rab, 16/7, 02:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span><span class="team-score">1</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span><span class="team-score">2</span></div>
                     </div>
                 </div>
             </div>
@@ -1855,7 +1855,7 @@
                     <div class="matchup">
                         <div class="matchup-date">Min, 19/7, 02:00</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
                     </div>
                 </div>
             </div>
@@ -1867,7 +1867,7 @@
                     <div class="matchup">
                         <div class="matchup-date">Sen, 20/7, 02:00</div>
                         <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://img.icons8.com/ios-filled/50/6b7280/shield.png" alt="TBD" style="opacity:0.4"></span><span class="team-name">Ditentukan Nanti</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
                     </div>
                 </div>
             </div>
@@ -2117,6 +2117,7 @@
             { team1: 'Argentina', team2: 'Swiss', score90: [1, 1], scoreET: [3, 1], penaltyWinner: null, played: true },
             // --- Semifinal (SF) ---
             { team1: 'Prancis', team2: 'Spanyol', score90: [0, 2], scoreET: null, penaltyWinner: null, played: true },
+            { team1: 'Inggris', team2: 'Argentina', score90: [1, 2], scoreET: null, penaltyWinner: null, played: true },
         ];
 
         // Resolve team-name aliases used in teamSupporters
@@ -2718,7 +2719,7 @@
             setTimeout(() => {
                 buildPodiumCards('podium-champion', sideQuestPodium.champion, new Set(['Perancis', 'Portugal']));
                 buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup, new Set());
-                buildPodiumCards('podium-3rd', sideQuestPodium.third, new Set(['Spanyol', 'Swiss']));
+                buildPodiumCards('podium-3rd', sideQuestPodium.third, new Set(['Spanyol', 'Swiss', 'Argentina']));
                 buildTopScorer();
                 buildGoldenBootChart();
                 buildPlayerPodium('podium-goldenglove-container', goldenGloveData, '🧤');
@@ -2754,7 +2755,7 @@
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
         const topScorerLive = {
-            lastUpdated: '15 Jul 2026 — fase knockout saja (R32+R16+QF+SF)',
+            lastUpdated: '16 Jul 2026 — fase knockout saja (R32+R16+QF+SF)',
             players: [
                 // ============================================================
                 // CATATAN: Semua angka goals di bawah ini adalah KHUSUS FASE
@@ -2802,7 +2803,7 @@
                   img: 'https://images.fotmob.com/image_resources/playerimages/1047374.png', goals: 1 },
                   // QF vs Swiss ET: 1 (mnt 112)
                 { name: 'Lautaro Martínez',   team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/841231.png', goals: 1 },
+                  img: 'https://images.fotmob.com/image_resources/playerimages/841231.png', goals: 2 },
                   // QF vs Swiss ET: 1 (mnt 120+1)
                 { name: 'Fabian Ruiz',        team: 'Spanyol',       flag: 'es',
                   img: 'https://images.fotmob.com/image_resources/playerimages/747986.png', goals: 1 },
@@ -2812,6 +2813,9 @@
                   // SF vs France: 1
 
                 // === Sudah tersingkir — punya gol knockout ===
+                { name: 'Anthony Gordon',     team: 'Inggris',       flag: 'gb-eng',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/965065.png', goals: 1 },
+                  // SF vs Argentina: 1 (mnt 55)
                 { name: 'Azzedine Ounahi',    team: 'Maroko',        flag: 'ma',
                   img: 'https://images.fotmob.com/image_resources/playerimages/1073143.png', goals: 3 },
                   // R16 vs Canada: 2 | QF vs France: 0 | (+1 R32 vs Brazil? confirm)
@@ -2846,8 +2850,8 @@
                   img: 'https://images.fotmob.com/image_resources/playerimages/181276.png', goals: 1 },
                   // R16 vs USA: 1
                 { name: 'Enzo Fernández',     team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1000420.png', goals: 1 },
-                  // R16 vs Egypt: 1 (winner 90+3)
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1000420.png', goals: 2 },
+                  // R16 vs Egypt: 1 (winner 90+3) | SF vs Inggris: 1 (header 85')
                 { name: 'Emam Ashour',        team: 'Mesir',         flag: 'eg',
                   img: 'https://images.fotmob.com/image_resources/playerimages/979376.png', goals: 1 },
                   // R32 vs Australia (pen) or R16 vs Argentina
@@ -2890,9 +2894,15 @@
 
             if (updatedEl) updatedEl.textContent = `Update terakhir: ${topScorerLive.lastUpdated}`;
 
-            // Filter: hanya tampilkan pencetak gol dari tim yang belum tereliminasi
+            // Filter top scorer: keluarkan tim yang benar-benar sudah tidak punya laga lagi.
+            // Tim yang kalah di SF (Inggris, Prancis) masih bisa cetak gol di perebutan juara 3,
+            // sehingga TIDAK dimasukkan ke doneTeams.
             const eliminatedTeams = getEliminatedTeams();
-            const activePlayers = topScorerLive.players.filter(p => !eliminatedTeams.has(p.team));
+            const stillPlayingTeams = new Set(['Spanyol', 'Argentina', 'Inggris', 'Perancis', 'Prancis']);
+            const activePlayers = topScorerLive.players.filter(p => {
+                if (stillPlayingTeams.has(p.team)) return true;  // pasti masih ada laga
+                return !eliminatedTeams.has(p.team);             // lainnya cek eliminated
+            });
 
             const tiers = computeRankTiers(activePlayers);
             // Urutan visual: rank1 paling atas, lalu rank2, lalu rank3 (top to bottom)
@@ -3471,7 +3481,7 @@
                 round: 'SF', roundPoints: 3,
                 team1: 'Inggris', flag1: 'gb-eng',
                 team2: 'Argentina', flag2: 'ar',
-                actual: null,
+                actual: [1, 2],  // FT 90 menit, Argentina menang (Gordon 55', Enzo Fernandez 85', Lautaro 90+2')
                 predictions: {
                     'Ekont':   [2, 2],
                     'Gaylang': [1, 1],
