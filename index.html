@@ -1663,7 +1663,7 @@
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
         <div>
             <h1>Arisan World Cup 2026 - CheeBye Khang</h1>
-            <p class="last-updated">Last updated: 16 Juli 2026, 09:00 WIB</p>
+            <p class="last-updated">Last updated: 20 Juli 2026 — 🏆 FINAL: Spanyol 1–0 Argentina (AET) | 3rd Place: Inggris 6–4 Prancis</p>
         </div>
         <img src="https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/fifa-world-cup-2026-logo.png?raw=true" alt="FIFA World Cup 2026" class="logo">
     </div>
@@ -1852,10 +1852,10 @@
             <div class="round round-3rd" id="round-3rd">
                 <div class="round-header">🥉 Juara 3</div>
                 <div class="round-matches">
-                    <div class="matchup">
-                        <div class="matchup-date">Min, 19/7, 02:00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Sab, 19/7, 02:00 WIB</div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/fr.png" alt="FRA"></span><span class="team-name">Prancis</span><span class="team-score">4</span></div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/gb-eng.png" alt="ENG"></span><span class="team-name">Inggris</span><span class="team-score">6</span></div>
                     </div>
                 </div>
             </div>
@@ -1864,10 +1864,10 @@
             <div class="round round-final" id="round-final">
                 <div class="round-header">🏆 Final</div>
                 <div class="round-matches">
-                    <div class="matchup">
-                        <div class="matchup-date">Sen, 20/7, 02:00</div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span></div>
-                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span></div>
+                    <div class="matchup finished">
+                        <div class="matchup-date">✅ Min, 20/7, 02:00 WIB (AET)</div>
+                        <div class="team winner"><span class="team-flag"><img src="https://flagcdn.com/w40/es.png" alt="ESP"></span><span class="team-name">Spanyol</span><span class="team-score">1</span></div>
+                        <div class="team"><span class="team-flag"><img src="https://flagcdn.com/w40/ar.png" alt="ARG"></span><span class="team-name">Argentina</span><span class="team-score">0</span></div>
                     </div>
                 </div>
             </div>
@@ -2118,6 +2118,10 @@
             // --- Semifinal (SF) ---
             { team1: 'Prancis', team2: 'Spanyol', score90: [0, 2], scoreET: null, penaltyWinner: null, played: true },
             { team1: 'Inggris', team2: 'Argentina', score90: [1, 2], scoreET: null, penaltyWinner: null, played: true },
+            // --- Juara 3 (Bronze Final) - 18 Juli 2026 ---
+            { team1: 'Prancis', team2: 'Inggris', score90: [4, 6], scoreET: null, penaltyWinner: null, played: true },
+            // --- FINAL - 19 Juli 2026 ---
+            { team1: 'Spanyol', team2: 'Argentina', score90: [0, 0], scoreET: [1, 0], penaltyWinner: null, played: true },
         ];
 
         // Resolve team-name aliases used in teamSupporters
@@ -2633,6 +2637,7 @@
                 'Brazil': { flag: 'br', supporters: ['Jopai'] }
             },
             third: {
+                'Inggris': { flag: 'gb-eng', supporters: [] },
                 'Spanyol': { flag: 'es', supporters: ['Ekont', 'Gaylang', 'Khuang'] },
                 'Argentina': { flag: 'ar', supporters: ['Jopai'] },
                 'Perancis': { flag: 'fr', supporters: ['KingJul'] },
@@ -2640,7 +2645,7 @@
             }
         };
 
-        function buildPodiumCards(containerId, data, impossibleTeams) {
+        function buildPodiumCards(containerId, data, impossibleTeams, winnerTeam) {
             const container = document.getElementById(containerId);
             if (!container) return;
             impossibleTeams = impossibleTeams || new Set();
@@ -2658,12 +2663,12 @@
                 const card = document.createElement('div');
                 card.className = 'podium-team-card';
                 const canonicalTeam = teamDisplayAliases[team] || team;
-                if (impossibleTeams.has(team) || impossibleTeams.has(canonicalTeam)) {
+                if (winnerTeam && team === winnerTeam) {
+                    card.classList.add('glowing');  // winner — highlight
+                } else if (impossibleTeams.has(team) || impossibleTeams.has(canonicalTeam)) {
                     card.classList.add('impossible');
-                } else if (impossibleTeams.size > 0) {
-                    // If caller explicitly provided impossibleTeams, trust that list —
-                    // teams NOT in it are still alive for this slot (e.g. Prancis in 3rd)
-                    card.classList.add('glowing');
+                } else if (winnerTeam) {
+                    card.classList.add('impossible');  // tournament done, non-winners are impossible
                 } else if (eliminatedTeams.has(canonicalTeam)) {
                     card.classList.add('impossible');
                 } else {
@@ -2719,9 +2724,9 @@
 
         window.addEventListener('load', () => {
             setTimeout(() => {
-                buildPodiumCards('podium-champion', sideQuestPodium.champion, new Set(['Perancis', 'Portugal']));
-                buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup, new Set());
-                buildPodiumCards('podium-3rd', sideQuestPodium.third, new Set(['Spanyol', 'Swiss', 'Argentina']));
+                buildPodiumCards('podium-champion', sideQuestPodium.champion, new Set(['Perancis', 'Portugal']), 'Spanyol');
+                buildPodiumCards('podium-runnerup', sideQuestPodium.runnerup, new Set(['Brazil', 'Inggris']), 'Argentina');
+                buildPodiumCards('podium-3rd', sideQuestPodium.third, new Set(['Spanyol', 'Swiss', 'Argentina', 'Prancis']), 'Inggris');
                 buildTopScorer();
                 buildGoldenBootChart();
                 buildPlayerPodium('podium-goldenglove-container', goldenGloveData, '🧤');
@@ -2732,9 +2737,12 @@
         // Goals below count ONLY knockout-stage (Round of 32 onward) goals — group stage excluded, per user's request.
         // Golden Boot: gol dihitung HANYA dari fase knockout (R32 ke atas), sama seperti Top Scorer Real-Time
         const goldenBootData = [
-            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 4, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
-            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 2, supporters: ['Khuang', 'KingJul'] },
+            { name: 'Kylian Mbappe', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/kylian%20mbappe.png?raw=true', goals: 6, supporters: ['Ekont', 'Gaylang', 'Jopai'] },
+            // R32 vs Sweden: 2 | R16 vs Paraguay: 1 | QF vs Maroko: 1 | SF: 0 | Bronze vs ENG: 2
+            { name: 'Lionel Messi', img: 'https://github.com/ndodhendro/arisan-wc-2026-knockout-hash-pku/blob/main/assets/lionel_messi-removebg-preview.png?raw=true', goals: 3, supporters: ['Khuang', 'KingJul'] },
+            // R32 vs Cape Verde: 1 | R16 vs Mesir: 1 | QF vs Swiss: 0 | SF vs ENG: 1 | Final: 0
             { name: 'Cristiano Ronaldo', img: 'https://images.fotmob.com/image_resources/playerimages/30893.png', goals: 0, supporters: ['Tafuck'] }
+            // Portugal eliminated R16 (vs Spain 0-1) — Ronaldo 0 gol knockout
         ];
 
         // Golden Glove Data (sorted by most votes)
@@ -2757,125 +2765,129 @@
         // Group-stage goals are intentionally excluded per user's request.
         // ============================================================
         const topScorerLive = {
-            lastUpdated: '16 Jul 2026 — fase knockout saja (R32+R16+QF+SF)',
+            lastUpdated: '20 Jul 2026 — TOURNAMENT SELESAI (gol knockout only)',
             players: [
                 // ============================================================
-                // CATATAN: Semua angka goals di bawah ini adalah KHUSUS FASE
-                // KNOCKOUT (Round of 32 ke atas). Gol grup stage tidak dihitung.
+                // SEMUA ANGKA DI BAWAH = GOL FASE KNOCKOUT ONLY (R32 ke atas)
+                // Gol grup stage TIDAK dihitung
                 // ============================================================
 
-                // === Masih aktif (SF) ===
-                { name: 'Jude Bellingham',    team: 'Inggris',       flag: 'gb-eng',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1077894.png', goals: 4 },
-                  // R32 vs DR Congo: 0 | R16 vs Mexico: 2 | QF vs Norway: 2
-
                 { name: 'Kylian Mbappé',      team: 'Perancis',      flag: 'fr',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 4 },
-                  // R32 vs Sweden: 2 | R16 vs Paraguay: 1 | QF vs Morocco: 1
+                  img: 'https://images.fotmob.com/image_resources/playerimages/701154.png', goals: 6 },
+                  // R32 vs Sweden: 2 | R16 vs Paraguay: 1 | QF vs Maroko: 1 | SF vs Spanyol: 0 | Bronze vs ENG: 2
+
+                { name: 'Jude Bellingham',    team: 'Inggris',       flag: 'gb-eng',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1077894.png', goals: 5 },
+                  // R32 vs DR Congo: 0 | R16 vs Mexico: 2 | QF vs Norwegia: 2 | SF: 0 | Bronze vs FRA: 1
+
+                { name: 'Ousmane Dembélé',    team: 'Perancis',      flag: 'fr',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/692984.png', goals: 4 },
+                  // R32 vs Sweden: 2 | R16 vs Paraguay: 0 | QF vs Maroko: 1 | SF: 0 | Bronze vs ENG: 1
+
+                { name: 'Harry Kane',         team: 'Inggris',       flag: 'gb-eng',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/194165.png', goals: 4 },
+                  // R32 vs DR Congo: 2 | R16 vs Mexico: 1 | QF vs Norwegia: 0 | SF: 0 | Bronze vs FRA: 1
 
                 { name: 'Erling Haaland',     team: 'Norwegia',      flag: 'no',
                   img: 'https://images.fotmob.com/image_resources/playerimages/737066.png', goals: 4 },
-                  // R32 vs Ivory Coast: 1 | R16 vs Brazil: 2 | QF vs England: 1
+                  // R32 vs Pantai Gading: 1 | R16 vs Brasil: 2 | QF vs Inggris: 1
 
-                { name: 'Harry Kane',         team: 'Inggris',       flag: 'gb-eng',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/194165.png', goals: 3 },
-                  // R32 vs DR Congo: 2 | R16 vs Mexico: 1 | QF vs Norway: 0
-
-                { name: 'Ousmane Dembélé',    team: 'Perancis',      flag: 'fr',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/692984.png', goals: 3 },
-                  // R32 vs Sweden: 2 | R16 vs Paraguay: 0 | QF vs Morocco: 1
+                { name: 'Lionel Messi',       team: 'Argentina',     flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/30981.png', goals: 3 },
+                  // R32 vs Tanjung Verde: 1 | R16 vs Mesir: 1 | QF vs Swiss: 0 | SF vs Inggris: 1 | Final: 0
 
                 { name: 'Mikel Oyarzabal',    team: 'Spanyol',       flag: 'es',
                   img: 'https://images.fotmob.com/image_resources/playerimages/678234.png', goals: 3 },
-                  // R32 vs Austria: 2 | R16 vs Portugal: 0 | QF vs Belgium: 0 | SF vs France: 1
+                  // R32 vs Austria: 2 | R16 vs Portugal: 0 | QF vs Belgia: 0 | SF vs Prancis: 1 | Final: 0
 
-                { name: 'Lionel Messi',       team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/30981.png', goals: 2 },
-                  // R32 vs Cape Verde: 1 | R16 vs Egypt: 1 | QF vs Swiss: 0
+                { name: 'Azzedine Ounahi',    team: 'Maroko',        flag: 'ma',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1073143.png', goals: 3 },
+                  // R32 vs Kanada: 1 | R16 vs Kanada: 2 | QF vs Prancis: 0
+
+                { name: 'Enzo Fernández',     team: 'Argentina',     flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1000420.png', goals: 2 },
+                  // R16 vs Mesir: 1 | SF vs Inggris: 1
+
+                { name: 'Lautaro Martínez',   team: 'Argentina',     flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/841231.png', goals: 2 },
+                  // QF vs Swiss (AET): 2
 
                 { name: 'Mikel Merino',       team: 'Spanyol',       flag: 'es',
                   img: 'https://images.fotmob.com/image_resources/playerimages/574645.png', goals: 2 },
-                  // R32 vs Austria: 0 | R16 vs Portugal: 1 | QF vs Belgium: 1
+                  // R16 vs Portugal: 1 | QF vs Belgia: 1
 
-                // === 1 gol di knockout (masih aktif / baru QF) ===
-                { name: 'Alexis Mac Allister', team: 'Argentina',    flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/865547.png', goals: 1 },
-                  // QF vs Swiss: 1 (mnt 10)
-                { name: 'Julián Álvarez',     team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1047374.png', goals: 1 },
-                  // QF vs Swiss ET: 1 (mnt 112)
-                { name: 'Lautaro Martínez',   team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/841231.png', goals: 2 },
-                  // QF vs Swiss ET: 1 (mnt 120+1)
                 { name: 'Fabian Ruiz',        team: 'Spanyol',       flag: 'es',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/747986.png', goals: 1 },
-                  // QF vs Belgium: 1 (mnt 30)
-                { name: 'Pedro Porro',        team: 'Spanyol',       flag: 'es',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/920748.png', goals: 1 },
-                  // SF vs France: 1
+                  img: 'https://images.fotmob.com/image_resources/playerimages/747986.png', goals: 2 },
+                  // QF vs Belgia: 1 | SF vs Prancis: 1
 
-                // === Sudah tersingkir — punya gol knockout ===
-                { name: 'Anthony Gordon',     team: 'Inggris',       flag: 'gb-eng',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/965065.png', goals: 1 },
-                  // SF vs Argentina: 1 (mnt 55)
-                { name: 'Azzedine Ounahi',    team: 'Maroko',        flag: 'ma',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1073143.png', goals: 3 },
-                  // R16 vs Canada: 2 | QF vs France: 0 | (+1 R32 vs Brazil? confirm)
+                { name: 'Pedro Porro',        team: 'Spanyol',       flag: 'es',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/920748.png', goals: 2 },
+
                 { name: 'Raúl Jiménez',       team: 'Meksiko',       flag: 'mx',
                   img: 'https://images.fotmob.com/image_resources/playerimages/292313.png', goals: 2 },
-                  // R32 vs Ecuador: 1 | R16 vs England: 1
+                  // R32 vs Ekuador: 1 | R16 vs Inggris: 1
+
                 { name: 'Julián Quiñones',    team: 'Meksiko',       flag: 'mx',
                   img: 'https://images.fotmob.com/image_resources/playerimages/720560.png', goals: 2 },
-                  // R32 vs Ecuador: 1 | R16 vs England: 1
+                  // R32 vs Ekuador: 1 | R16 vs Inggris: 1
+
                 { name: 'Antonio Nusa',       team: 'Norwegia',      flag: 'no',
                   img: 'https://images.fotmob.com/image_resources/playerimages/1248482.png', goals: 2 },
-                  // R32 vs Ivory Coast: 1 | R16 vs Brazil: 1
+                  // R32 vs Pantai Gading: 1 | R16 vs Brasil: 1
+
                 { name: 'Gonçalo Ramos',      team: 'Portugal',      flag: 'pt',
                   img: 'https://images.fotmob.com/image_resources/playerimages/940087.png', goals: 2 },
-                  // R32 vs Croatia: 1 | R16 vs Spain: 1 (? — perlu verifikasi)
-                { name: 'Dan Ndoye',          team: 'Swiss',         flag: 'ch',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1022649.png', goals: 1 },
-                  // QF vs Argentina: 1
-                { name: 'Breel Embolo',       team: 'Swiss',         flag: 'ch',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/527103.png', goals: 1 },
-                  // R16 vs Colombia: 1
-                { name: 'Neymar',             team: 'Brasil',        flag: 'br',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/19533.png', goals: 1 },
-                  // R16 vs Norway: 1 (penalty 90+10)
-                { name: 'Amad Diallo',        team: 'Pantai Gading', flag: 'ci',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1070052.png', goals: 1 },
-                  // R32 vs Norway: 1
-                { name: 'Brian Cipenga',      team: 'RD Kongo',      flag: 'cd',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1302121.png', goals: 1 },
-                  // R32 vs England: 1
+                  // R32 vs Kroasia: 1 | R16 vs Spanyol: 1
+
+                { name: 'Ferran Torres',      team: 'Spanyol',       flag: 'es',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/839847.png', goals: 1 },
+                  // Final vs Argentina: 1 (AET 106')
+
+                { name: 'Alexis Mac Allister', team: 'Argentina',    flag: 'ar',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/865547.png', goals: 1 },
+
+                { name: 'Anthony Gordon',     team: 'Inggris',       flag: 'gb-eng',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/965065.png', goals: 1 },
+
                 { name: 'Romelu Lukaku',      team: 'Belgia',        flag: 'be',
                   img: 'https://images.fotmob.com/image_resources/playerimages/181276.png', goals: 1 },
-                  // R16 vs USA: 1
-                { name: 'Enzo Fernández',     team: 'Argentina',     flag: 'ar',
-                  img: 'https://images.fotmob.com/image_resources/playerimages/1000420.png', goals: 2 },
-                  // R16 vs Egypt: 1 (winner 90+3) | SF vs Inggris: 1 (header 85')
+
+                { name: 'Breel Embolo',       team: 'Swiss',         flag: 'ch',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/527103.png', goals: 1 },
+
+                { name: 'Dan Ndoye',          team: 'Swiss',         flag: 'ch',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1022649.png', goals: 1 },
+
+                { name: 'Neymar',             team: 'Brasil',        flag: 'br',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/19533.png', goals: 1 },
+
+                { name: 'Amad Diallo',        team: 'Pantai Gading', flag: 'ci',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1070052.png', goals: 1 },
+
+                { name: 'Brian Cipenga',      team: 'RD Kongo',      flag: 'cd',
+                  img: 'https://images.fotmob.com/image_resources/playerimages/1302121.png', goals: 1 },
+
                 { name: 'Emam Ashour',        team: 'Mesir',         flag: 'eg',
                   img: 'https://images.fotmob.com/image_resources/playerimages/979376.png', goals: 1 },
-                  // R32 vs Australia (pen) or R16 vs Argentina
+
                 { name: 'Issa Diop',          team: 'Maroko',        flag: 'ma',
                   img: 'https://images.fotmob.com/image_resources/playerimages/696443.png', goals: 1 },
-                  // R16 vs Canada: 1
+
                 { name: 'Soufiane Rahimi',    team: 'Maroko',        flag: 'ma',
                   img: 'https://images.fotmob.com/image_resources/playerimages/988749.png', goals: 1 },
-                  // R16 vs Canada: 1
+
                 { name: 'Sidny Lopes Cabral', team: 'Tanjung Verde', flag: 'cv',
                   img: 'https://images.fotmob.com/image_resources/playerimages/1441786.png', goals: 1 },
-                  // R32 vs Argentina: 1
+
                 { name: 'Deroy Duarte',       team: 'Tanjung Verde', flag: 'cv',
                   img: 'https://images.fotmob.com/image_resources/playerimages/798069.png', goals: 1 },
-                  // R32 vs Argentina: 1
+
                 { name: 'Jhon Arias',         team: 'Kolombia',      flag: 'co',
                   img: 'https://images.fotmob.com/image_resources/playerimages/1023030.png', goals: 1 },
-                  // R32 vs Ghana: 1
             ]
         };
 
-        function computeRankTiers(players) {
+                function computeRankTiers(players) {
             const sorted = [...players].sort((a, b) => b.goals - a.goals);
             const tiers = [];
             sorted.forEach(p => {
@@ -2899,8 +2911,9 @@
             // Filter top scorer: keluarkan tim yang benar-benar sudah tidak punya laga lagi.
             // Tim yang kalah di SF (Inggris, Prancis) masih bisa cetak gol di perebutan juara 3,
             // sehingga TIDAK dimasukkan ke doneTeams.
+            // Tournament complete — no teams still playing
             const eliminatedTeams = getEliminatedTeams();
-            const stillPlayingTeams = new Set(['Spanyol', 'Argentina', 'Inggris', 'Perancis', 'Prancis']);
+            const stillPlayingTeams = new Set([]);
             const activePlayers = topScorerLive.players.filter(p => {
                 if (stillPlayingTeams.has(p.team)) return true;  // pasti masih ada laga
                 return !eliminatedTeams.has(p.team);             // lainnya cek eliminated
@@ -3498,13 +3511,13 @@
                 round: '3rd', roundPoints: 4,
                 team1: 'Prancis', flag1: 'fr',
                 team2: 'Inggris', flag2: 'gb-eng',
-                actual: null,
+                actual: [4, 6],  // FT: Inggris menang 6-4
                 predictions: {
-                    'Ekont':   null,
-                    'Gaylang': null,
-                    'Jopai':   null,
-                    'Khuang':  null,
-                    'KingJul': null,
+                    'Ekont':   [1, 2],
+                    'Gaylang': [2, 1],
+                    'Jopai':   [2, 1],
+                    'Khuang':  [2, 1],
+                    'KingJul': [3, 1],
                     'Tafuck':  null,
                 }
             },
@@ -3513,13 +3526,13 @@
                 round: 'Final', roundPoints: 5,
                 team1: 'Spanyol', flag1: 'es',
                 team2: 'Argentina', flag2: 'ar',
-                actual: null,
+                actual: [0, 0],  // FT 90 menit: 0-0, lanjut AET Spanyol menang 1-0 (Ferran Torres 106')
                 predictions: {
-                    'Ekont':   null,
-                    'Gaylang': null,
-                    'Jopai':   null,
-                    'Khuang':  null,
-                    'KingJul': null,
+                    'Ekont':   [2, 1],
+                    'Gaylang': [1, 1],
+                    'Jopai':   [1, 1],
+                    'Khuang':  [2, 2],
+                    'KingJul': [2, 0],
                     'Tafuck':  null,
                 }
             },
@@ -3560,25 +3573,26 @@
 
         // Hasil aktual side quest — update saat final selesai
         const sideQuestActual = {
-            champion:    null,   // e.g. 'Prancis' — isi setelah Final
-            runnerup:    null,   // e.g. 'Argentina'
-            third:       null,   // e.g. 'Spanyol'
-            goldenGlove: null,   // e.g. 'Mike Maignan' — isi setelah FIFA announce
-            // goldenBoot dihitung otomatis dari topScorerLive (gol KO terbanyak, tim masih aktif)
+            champion:    'Spanyol',         // Final: Spanyol 1-0 Argentina (AET)
+            runnerup:    'Argentina',        // Runner-up: Argentina
+            third:       'Inggris',          // 3rd Place: Inggris 6-4 Prancis
+            goldenGlove: 'Unai Simon',       // Golden Glove: Unai Simon (Spanyol)
+            // goldenBoot dihitung otomatis dari topScorerLive (gol KO terbanyak)
             // totalGoal  dihitung otomatis dari getCurrentTotalGoals()
         };
 
         function getGoldenBootWinner() {
-            // Ambil pemain dengan gol KO terbanyak dari topScorerLive
-            // Filter: hanya pemain dari tim yang TIDAK tereliminasi
             const eliminated = getEliminatedTeams();
-            const active = topScorerLive.players.filter(p => !eliminated.has(p.team));
-            if (active.length === 0) return null;
-            const maxGoals = Math.max(...active.map(p => p.goals));
-            const leaders = active.filter(p => p.goals === maxGoals);
-            // Jika masih bertanding, belum bisa ditentukan pemenang tunggal
-            // Return null jika masih ada >1 kandidat dari tim berbeda yang masih aktif
-            // (bisa dioverride dengan sideQuestActual.goldenBoot manual jika perlu)
+            // Jika tournament selesai (Champion & Runner-up sudah ada), gunakan semua pemain
+            const tournamentDone = !!sideQuestActual.champion && !!sideQuestActual.runnerup;
+            const pool = tournamentDone
+                ? topScorerLive.players
+                : topScorerLive.players.filter(p => !eliminated.has(p.team));
+            if (pool.length === 0) return null;
+            const maxGoals = Math.max(...pool.map(p => p.goals));
+            if (maxGoals === 0) return null;
+            const leaders = pool.filter(p => p.goals === maxGoals);
+            // Jika masih >1 kandidat dari tim berbeda yang masih aktif, belum bisa ditentukan
             return leaders.length === 1 ? leaders[0].name : null;
         }
 
@@ -3615,11 +3629,12 @@
                 const player = goldenGloveData.find(g => g.name === sideQuestActual.goldenGlove);
                 if (player) player.supporters.forEach(p => { if (bonus[p] !== undefined) bonus[p] += 5; });
             }
-            // 6. Total Goal (+5) — tepat sama persis
+            // 6. Total Goal (+5) — prediksi terdekat menang (jika seri, keduanya dapat)
             const actualGoal = getCurrentTotalGoals();
             if (actualGoal > 0) {
+                const minDiff = Math.min(...totalGoalData.map(d => Math.abs(d.goal - actualGoal)));
                 totalGoalData.forEach(d => {
-                    if (d.goal === actualGoal && bonus[d.name] !== undefined) {
+                    if (Math.abs(d.goal - actualGoal) === minDiff && bonus[d.name] !== undefined) {
                         bonus[d.name] += 5;
                     }
                 });
@@ -3713,14 +3728,23 @@
                     pending: false,
                     pendingLabel: null,
                     getSupporters: (winner) => {
-                        const d = totalGoalData.find(x => String(x.goal) === String(winner));
-                        return d ? [d.name] : [];
+                        // winner = actual goal string; find nearest predictor(s)
+                        const actual = parseInt(winner);
+                        if (isNaN(actual)) return [];
+                        const minDiff = Math.min(...totalGoalData.map(d => Math.abs(d.goal - actual)));
+                        return totalGoalData.filter(d => Math.abs(d.goal - actual) === minDiff).map(d => d.name);
                     },
-                    allCandidates: totalGoalData.map(d => ({
-                        team: String(d.goal) + ' gol', flag: null,
-                        supporters: [d.name], alive: true, isGoalTarget: true,
-                        exact: String(d.goal) === String(actualGoal)
-                    }))
+                    allCandidates: (() => {
+                        const minDiff = actualGoal > 0
+                            ? Math.min(...totalGoalData.map(d => Math.abs(d.goal - actualGoal)))
+                            : Infinity;
+                        return totalGoalData.map(d => ({
+                            team: String(d.goal) + ' gol', flag: null,
+                            supporters: [d.name], alive: true, isGoalTarget: true,
+                            exact: actualGoal > 0 && Math.abs(d.goal - actualGoal) === minDiff,
+                            diff: actualGoal > 0 ? Math.abs(d.goal - actualGoal) : null
+                        }));
+                    })()
                 },
             ];
         }
